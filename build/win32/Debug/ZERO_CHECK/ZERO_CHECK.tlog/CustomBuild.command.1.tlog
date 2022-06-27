@@ -1,0 +1,10 @@
+^C:\USERS\YYCAB\DESKTOP\DATABASE\C++\CST\BUILD\CMAKEFILES\F649914F44CEC37695A40D933408CFC9\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/yycab/Desktop/database/c++/CST -BC:/Users/yycab/Desktop/database/c++/CST/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/yycab/Desktop/database/c++/CST/build/CST.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
