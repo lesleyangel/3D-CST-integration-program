@@ -794,10 +794,10 @@ int main(int argc, char* argv[])
 		return -1;
 	}
 	
-	
+
 	cout << "$----------------------------------------$\n";
 	cout << "$       3D-CST integration program       $\n";
-	cout << "$                 v 4.0.0                $\n";
+	cout << "$                 v 4.0.1                $\n";
 	cout << "$----------------------------------------$\n";
 	cout << std::flush;
 
