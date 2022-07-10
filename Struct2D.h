@@ -6,7 +6,6 @@
 #include"myNastran.h"
 using namespace std;
 using namespace arma;
-using namespace arith;
 
 //-----全壳单元结构模型构建
 //单个部件2d结构类

@@ -1,6 +1,5 @@
 #pragma once
 #include "Bone.h"
-using namespace arith;
 class myNastran
 {
 public:

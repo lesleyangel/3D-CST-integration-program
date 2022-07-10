@@ -1,7 +1,6 @@
 #include "factorial.h"
 #include <iomanip>
-using namespace arith;
-int arith::factorial(int a)
+int factorial(int a)
 {
 	if (a < 0)
 	{
@@ -20,7 +19,7 @@ int arith::factorial(int a)
 	return b;
 }
 
-void arith::toTecplot(mat node, mat elem, ofstream& ofs, string partname)
+void toTecplot(mat node, mat elem, ofstream& ofs, string partname)
 {
 	ofs << "Title = \""<< partname <<"\"" << endl;
 	ofs << "variables = \"x\"" << endl;
@@ -43,7 +42,7 @@ void arith::toTecplot(mat node, mat elem, ofstream& ofs, string partname)
 	ofs << elem << endl;
 }
 
-vector<string> arith::split(string str, char pattern)
+vector<string> split(string str, char pattern)
 {
 	vector<string> res;//存储结果
 	stringstream ss(str);//通过字符串str初始化ss
@@ -59,7 +58,7 @@ vector<string> arith::split(string str, char pattern)
 	return res;
 }
 
-vector<Field<double>> arith::getPlistFromfile(string filepath)
+vector<Field<double>> getPlistFromfile(string filepath)
 {
 	ifstream ifs(filepath);
 	if (ifs.fail())
@@ -83,7 +82,7 @@ vector<Field<double>> arith::getPlistFromfile(string filepath)
 }
 
 //打印表面节点P
-void arith::PointSet::printP()
+void PointSet::printP()
 {
 	cout << "thia is print P" << endl;
 	cout << "X = " << endl;
@@ -99,7 +98,7 @@ void arith::PointSet::printP()
 
 
 //template<class T>
-//Point<T> arith::cross(const Point<T>& a, const Point<T>& b)
+//Point<T> cross(const Point<T>& a, const Point<T>& b)
 //{
 //
 //}

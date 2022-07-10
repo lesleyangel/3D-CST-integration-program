@@ -77,7 +77,7 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=/debug /INCREMENTAL
 CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE
 
 //Install path prefix, prepended onto install directories.
-CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/TestProj
+CMAKE_INSTALL_PREFIX:PATH=C:/Program Files (x86)/CST
 
 //Path to a program.
 CMAKE_LINKER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/bin/Hostx86/x86/link.exe
@@ -193,15 +193,6 @@ CST_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 CST_SOURCE_DIR:STATIC=C:/Users/yycab/Desktop/database/c++/CST
-
-//Value Computed by CMake
-TestProj_BINARY_DIR:STATIC=C:/Users/yycab/Desktop/database/c++/CST/build
-
-//Value Computed by CMake
-TestProj_IS_TOP_LEVEL:STATIC=ON
-
-//Value Computed by CMake
-TestProj_SOURCE_DIR:STATIC=C:/Users/yycab/Desktop/database/c++/CST
 
 
 ########################

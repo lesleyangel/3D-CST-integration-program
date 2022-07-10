@@ -1,5 +1,6 @@
 #include"CST_Instantiation.h"
 #include"Aircraft.h"
+#include"Curve.h"
 #include <sstream> 
 using namespace arma;
 using namespace std;
@@ -75,8 +76,10 @@ void testAircraft()
 	mb1.NEta = 20;
 	mb1.N2 = { 0.1,0.1,0.5,0.5 };
 	mb1.N1 = { 3.0,3.0,0.1,0.1 };
-	mb1.N2 = { 0.5,1.0,0.5,1.0 };
-	mb1.N1 = { 0.5,1.0,0.5,1.0 };
+	// mb1.N2 = { 0.1,0.1,0.5,0.5 };
+	// mb1.N1 = { 0.1,0.1,0.5,0.5 };
+	// mb1.N2 = { 0.5,1.0,0.5,1.0 };
+	// mb1.N1 = { 0.5,1.0,0.5,1.0 };
 	//mb1.Length = {15000, 4000, 4000, 8000};
 	mb1.Length = { 150, 40, 40, 80 };
 	mb1.M1 = { 0.0,0,0.0,0 };
@@ -174,10 +177,10 @@ void testAircraft()
 	
 	
 	A.CalculateAircraft();					//生成飞行器网格
-	A.SaveTecPlotAll("AircraftData/A.dat");		//生成可视化软件可读文本文件
+	A.SaveTecPlotAll("C:/Users/yycab/Desktop/database/c++/CST/example/A.dat");		//生成可视化软件可读文本文件
 	//A.calcAeroForce();						//调用aero_calc计算气动力
 	//A.CalcStruct1D();							//生成梁壳结合结构网格
-	A.CalcStruct2D();							//生成壳单元结构网格
+	//A.CalcStruct2D();							//生成壳单元结构网格
 	////A.GetBone();							//生成骨架梁模型
 	//
 	//A.strct1d.SaveAsAbaqus("test.inp");
@@ -748,25 +751,40 @@ void testXfoil(string path)
 	xsolver.solve();
 }
 
-int main1()
+void test_curve()
+{
+	CST_info cst_info;
+	cst_info.N1 = 0.5;
+	cst_info.N2 = 0.5;
+	Curve* cv = new Curve_cst(cst_info);
+	vector<double> list = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
+	vector<double> res = cv->get(list,false);
+	vector<double> res1 = cv->get(list,true);
+
+	auto funcc = [](double x)
+	{ return x * x*4-100; };
+	Curve *ccv = new Curve_func(funcc);
+	auto res2 = ccv->get(list, true);
+
+	GuideFunc gf;
+	gf.pt1 = shared_ptr<Curve>(new Curve_func([](double x){ return 0; }));
+	gf.pt2 = shared_ptr<Curve>(new Curve_func([](double x){ return 0; }));
+	gf.pt3 = shared_ptr<Curve>(new Curve_func([](double x){ return 0; }));
+	gf.theta1 = shared_ptr<Curve>(new Curve_func([](double x){ return 90 * x; }));
+	gf.theta2 = shared_ptr<Curve>(new Curve_func([](double x){ return 90 * x; }));
+	gf.theta3 = shared_ptr<Curve>(new Curve_func([](double x){ return 0; }));
+
+	Point res_p = gf.update_point(Point(0, 1, 0), 0.5);
+}
+
+int main()
 {
 	testAircraft();
-	//ShapeX34();
-	//ShapeX37();
-	//testUnique();
-	//testInterp();
-	//testIfstream("C:/Users/yycab/source/repos/test001/test001/AircraftData/inputFile.txt");
-	//string datpath1 = "C:/Users/yycab/source/repos/test001/test001/AircraftData/inputFile.txt";
-	//string datpath2 = "C:/Users/yycab/source/repos/test001/test001/AircraftData/inputX34.cst";
-	//WorkFromFile(datpath2);
-	//testfind();
 
-	//CA<double>::f();
-	std::system("pause");
 	return 0;
 }
 
-int main(int argc, char* argv[])
+int main1(int argc, char* argv[])
 {
 	string exefilepath = argv[0];
 	string exePath = exefilepath.substr(0, exefilepath.find_last_of("/"));//获取exe所在文件夹路径
@@ -787,7 +805,7 @@ int main(int argc, char* argv[])
 		datpath = argv[1];//这里的路径必须是反斜杠才可以正确生成输出文件
 		break;
 	case 1:
-		//string datpath = "E:\\Matlab-Xfoil\\cst\\inpSW.cst";
+		datpath = "E:\\Matlab-Xfoil\\cst\\inpSW.cst";//
 		break;
 	default:
 		cout << "错误的输入参数个数" << endl;
@@ -797,7 +815,7 @@ int main(int argc, char* argv[])
 
 	cout << "$----------------------------------------$\n";
 	cout << "$       3D-CST integration program       $\n";
-	cout << "$                 v 4.0.1                $\n";
+	cout << "$                 v 5.0.0                $\n";
 	cout << "$----------------------------------------$\n";
 	cout << std::flush;
 

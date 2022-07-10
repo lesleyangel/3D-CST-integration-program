@@ -36,7 +36,7 @@ public:
 	std::stringstream ssMesh;
 	std::stringstream ssProperty;
 	//几何模型
-	void addGRID(C_INT CID, C_INT CP, const arith::Point& pt);//添加节点卡片
+	void addGRID(C_INT CID, C_INT CP, const Point& pt);//添加节点卡片
 	void addCMASS2(C_INT EID, C_DOUBEL M, C_INT G1, C_INT C1);//添加集中质量点 零维单元
 	void addCBAR(C_INT EID, C_INT PID, C_INT GA, C_INT GB, C_DOUBEL X1, C_DOUBEL X2, C_DOUBEL X3);//添加杆单元 一维单元
 	void addCTRIA3(C_INT EID, C_INT PID, C_INT G1, C_INT G2, C_INT G3);//添加三角形单元 二维单元
@@ -45,7 +45,7 @@ public:
 	//约束和载荷
 	void addPLOAD(C_INT SID, C_DOUBEL P, C_INT G1, C_INT G2, C_INT G3, C_INT G4 = -1);//添加压力
 	void addFORCE(C_INT SID, C_INT G, C_INT CID, C_DOUBEL F, C_DOUBEL N1, C_DOUBEL N2, C_DOUBEL N3);//添加节点集中力
-	void addFORCE(C_INT SID, C_INT G, C_INT CID, C_DOUBEL F, const arith::Point& pt);//添加节点集中力
+	void addFORCE(C_INT SID, C_INT G, C_INT CID, C_DOUBEL F, const Point& pt);//添加节点集中力
 	void addGRAV(C_INT SID, C_INT CID, C_DOUBEL A, C_DOUBEL N1, C_DOUBEL N2, C_DOUBEL N3);//添加惯性载荷
 	void addLOAD(C_INT SID, C_DOUBEL S, C_VECTOR(DoubleIntPair) LOADi);//添加静态组合载荷
 	//材料及属性

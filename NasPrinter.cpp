@@ -178,7 +178,7 @@ string NasPrinter::double2str(const double& db, int size)
 	return ss.str();
 }
 
-void NasPrinter::addGRID(C_INT CID, C_INT CP, const arith::Point & pt)
+void NasPrinter::addGRID(C_INT CID, C_INT CP, const Point & pt)
 {
 	AddCardLong(ssMesh, {
 		"GRID",						//¿¨Æ¬Ãû
@@ -286,7 +286,7 @@ void NasPrinter::addFORCE(C_INT SID, C_INT G, C_INT CID, C_DOUBEL F, C_DOUBEL N1
 	});
 }
 
-void NasPrinter::addFORCE(C_INT SID, C_INT G, C_INT CID, C_DOUBEL F, const arith::Point & pt)
+void NasPrinter::addFORCE(C_INT SID, C_INT G, C_INT CID, C_DOUBEL F, const Point & pt)
 {
 	addFORCE(SID, G, CID, F, pt.getX(), pt.getY(), pt.getZ());
 }

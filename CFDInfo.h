@@ -6,7 +6,6 @@ using namespace std;
 //#include"CSTsurface.h"
 #include<string>
 //using namespace arma;
-using namespace arith;
 
 //面元法输入信息参数
 class AeroInfo

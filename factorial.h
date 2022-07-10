@@ -7,7 +7,7 @@ using namespace std;
 #define TIMES_FORCE 10000 //ÔØºÉ·Å´ó±¶Êý
 #pragma once
 
-namespace arith {
+
 
 //#include"factorial.h"
 
@@ -38,7 +38,7 @@ namespace arith {
 		Point() { x = 0; y = 0; z = 0;  }
 		Point(double x, double y = 0, double z = 0) { SetSite(x, y, z); }
 		
-		Point(mat point);
+		Point(const mat& point);
 		void SetSite(double x, double y = 0, double z = 0) { this->x = x; this->y = y; this->z = z; }
 		void setX(double x) { this->x = x; }
 		void setY(double y) { this->y = y; }
@@ -47,7 +47,9 @@ namespace arith {
 		double getX() const { return x; }
 		double getY() const { return y; }
 		double getZ() const { return z; }
-		
+		tuple<double, double, double> to_tuple() { return tuple<double, double, double>(x, y, z); }
+		vec to_vec() { vec res = {x, y, z}; return res;	}
+
 		double Norm1() const { return abs(x) + abs(y) + abs(z); }
 		double Norm2() const { return sqrt(x * x + y * y + z * z); }
 		double Normi(int i) const { return pow(pow(abs(x), i) + pow(abs(y), i) + pow(abs(z), i), 1.0 / (double)i); }
@@ -74,16 +76,12 @@ namespace arith {
 		return p1.getX() < p2.getX();
 	}
 	
-	inline Point::Point(mat point)
+	inline Point::Point(const mat& point)
 	{
 		if (point.n_rows == 1 && point.n_cols > 2)
-		{
 			SetSite(point(0), point(1), point(2));
-		}
 		else if (point.n_cols == 1 && point.n_rows > 2)
-		{
 			SetSite(point(0), point(1), point(2));
-		}
 		else
 			SetSite(0, 0, 0);
 	}
@@ -178,4 +176,3 @@ namespace arith {
 
 
 
-}

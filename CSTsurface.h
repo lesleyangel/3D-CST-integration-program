@@ -1,10 +1,29 @@
 #pragma once
-#include<iostream>
-#include"include/armadillo"
-#include"Bone.h"
+#include <iostream>
+#include "include/armadillo"
+#include "Bone.h"
+#include "Curve.h"
 //using namespace arma;
 //using namespace std;
 //using namespace arith;
+
+
+
+//网格划分的设定
+class MeshDefine
+{
+public:
+	enum Style
+	{
+		normal,	 //正规的
+		oblique, //倾斜的
+	};
+	int NFaiU;				//上表面横向网格数
+	int NFaiL;				//下表面横向网格数
+	int NEta;				//轴向网格数
+	int NHeight;			//高度方向网格数
+	mat MeshRefineRatio;	//网格密度修正因子
+};
 
 //单个cst曲面类
 class CSTsurface
@@ -16,6 +35,8 @@ public:
 	mat Slope;				//倾斜因子（X正向，Y正向，Z正向）
 	mat Scale;				//缩放因子(X比例,YUPP比例,YLOW比例,Z比例)
 	mat Length;				//缩放因子(X比例,YUPP比例,YLOW比例,Z比例)
+	ClassFunc class_upp;
+	ClassFunc class_low;
 	mat NS;					//头部截面形状因子（上表面N1/N2,下表面N1/N2）
 	mat NE;					//尾部截面形状因子（上表面N1/N2,下表面N1/N2）
 	mat M;					//侧面导引形状因子（左导引M1/M2,右导引M1/M2）
@@ -84,8 +105,9 @@ private:
 	
 	void MeshNumCorrection();//网格数修正
 	mat MakeS(int PriFuncType, int K, mat B, mat fai, mat eta);//生成形状函数S
-	PointSet SketchCST(mat fai, mat eta, double N1, double N2, double N3, double N4,
-		double M1, double M2, double T1, double T2, mat B, mat D, double Ratio,mat&N1m,mat&N2m);//CST基本数学模型	
+	PointSet SketchCST(mat fai, mat eta,ClassFunc shape_func, mat B, mat D, double Ratio,mat&N1m,mat&N2m);//CST基本数学模型
+	PointSet SketchCST2(mat fai, mat eta, double N1, double N2, double N3, double N4,
+		double M1, double M2, double T1, double T2, mat B, mat D, double Ratio,mat&N1m,mat&N2m);//CST基本数学模型
 	void EvalGrid();		//评估网格信息 计算得出曲面面积等信息	
 	void GetNet(bool ifrefresh = false);			//生成默认网格节点列表：FaiU、FaiL、Eta	
 	//void MeshPlane() {}	//调用GMesh生成前后面网格

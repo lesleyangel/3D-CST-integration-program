@@ -6,7 +6,6 @@
 #include"myNastran.h"
 using namespace std;
 using namespace arma;
-using namespace arith;
 
 //单个梁结构
 class SingleBone

@@ -365,6 +365,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\CST_Instantiation.h" />
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\CSTsurface.cpp" />
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\CSTsurface.h" />
+    <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\Curve.cpp" />
+    <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\Curve.h" />
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\Interpolation.cpp" />
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\Interpolation.h" />
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\MakeS.cpp" />

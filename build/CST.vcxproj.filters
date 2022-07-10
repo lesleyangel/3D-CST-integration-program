@@ -19,6 +19,9 @@
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\CSTsurface.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\Curve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\Interpolation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -61,6 +64,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\CSTsurface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\Curve.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\Interpolation.h">
