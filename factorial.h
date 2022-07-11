@@ -26,6 +26,7 @@ using namespace std;
 		mat X;	mat Y;	mat Z;
 		mat ifuse;//目前仅在2D壳结构模型时候使用，默认不使用该节点（等于1代表使用节点）
 		void printP();			//打印表面节点P****4.12更新加入
+		void clear(size_t i, size_t j);//清除矩阵数值，并且指定矩阵大小
 		//mat getPoint(int i, int j);
 	};
 

@@ -98,6 +98,15 @@ void AbstructShape::NotGridRefine()
 	for (size_t iPart = 0; iPart < PartNum; iPart++)
 	{
 		//CSTsf[iPart].IsEvalCurvature = 0;
+		if (iPart != 0)
+		{
+			CSTsf[iPart].class_upp.guide.coordinate_position = CSTsf[iPart-1].class_upp.guide.coordinate_end_position;
+			CSTsf[iPart].class_upp.guide.coordinate_angle = CSTsf[iPart-1].class_upp.guide.coordinate_end_angle;
+			CSTsf[iPart].class_low.guide.coordinate_position = CSTsf[iPart-1].class_low.guide.coordinate_end_position;
+			CSTsf[iPart].class_low.guide.coordinate_angle = CSTsf[iPart-1].class_low.guide.coordinate_end_angle;
+		}
+		
+		
 		CSTsf[iPart].CST3D();
 		//CSTsf[iPart].RefineMesh(2, true);//
 		CSTsf[iPart].RefineMesh(2, false);//

@@ -95,7 +95,12 @@ void PointSet::printP()
 	cout << ifuse << endl;
 	cout << "- - - - - - - - -" << endl;
 }
-
+void PointSet::clear(size_t i, size_t j)
+{
+	X = arma::zeros(i, j);
+	Y = arma::zeros(i, j);
+	Z = arma::zeros(i, j);
+}
 
 //template<class T>
 //Point<T> cross(const Point<T>& a, const Point<T>& b)

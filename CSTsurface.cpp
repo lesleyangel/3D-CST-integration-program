@@ -8,7 +8,7 @@ using namespace std;
 
 #define pi 3.1415926
 
-//?????????????
+//网格其他信息类
 MeshInfo::MeshInfo()
 {
 	SurfaceAera = 0;
@@ -16,8 +16,8 @@ MeshInfo::MeshInfo()
 	planforarea = 0;
 }
 
-//????cst??????
-//?????????
+//单个cst曲面类
+//初始化参数
 CSTsurface::CSTsurface()
 {
 	Origin = zeros(1, 3);
@@ -85,10 +85,10 @@ CSTsurface::CSTsurface()
 	BonePoint.clear();
 }
 
-//????????CST???????????
+//计算生成CST曲面网格信息
 void CSTsurface::CST3D()
 {
-	//????????
+	//参数传入
 	double OriginX = Origin(0);
 	double OriginY = Origin(1);
 	double OriginZ = Origin(2);
@@ -111,13 +111,13 @@ void CSTsurface::CST3D()
 	double ScaleYLOW = Scale(2);
 	double ScaleZ = Scale(3);
 
-	//????????????
+	//类别函数控制参数
 	double N1s = NS(0);	double N2s = NS(1);	double N3s = NS(2);	double N4s = NS(3);	//????
 	double N1e = NE(0);	double N2e = NE(1);	double N3e = NE(2);	double N4e = NE(3);	//????
 	double M1 = M(0);	double M2 = M(1);	double M3 = M(2);	double M4 = M(3);	//????
 	double T1 = T(0);	double T2 = T(1);	double T3 = T(2);	double T4 = T(3);	//????
 
-	//?????????б???FaiU??FaiL??Eta
+	//生成网格列表：FaiU、FaiL、Eta
 	GetNet();
 	//????????????????????????????????????
 	N1mUPP = zeros(1, EtaU.n_cols);
@@ -125,37 +125,69 @@ void CSTsurface::CST3D()
 	N1mLOW = zeros(1, EtaU.n_cols);
 	N2mLOW = zeros(1, EtaU.n_cols);
 	//CST3D
-	class_upp.lateral = ptr_Curve(new Curve_cst(CST_info(T1, T2)));
-	class_upp.front = ptr_Curve(new Curve_cst(CST_info(N1s, N2s)));
-	class_upp.back = ptr_Curve(new Curve_cst(CST_info(N1e, N2e)));
-	class_upp.ridge = ptr_Curve(new Curve_cst(CST_info(M1, M2)));
-	// class_upp.guide.theta1 = ptr_Curve(new Curve_func([](double x)
-	// 												  { return x * 20; }));
-	// class_upp.guide.theta3 = ptr_Curve(new Curve_func([](double x)
-	// 												  { return x * 20; }));
-	class_low.lateral = ptr_Curve(new Curve_cst(CST_info(T3, T4)));
-	class_low.front = ptr_Curve(new Curve_cst(CST_info(N3s, N4s)));
-	class_low.back = ptr_Curve(new Curve_cst(CST_info(N3e, N4e)));
-	class_low.ridge = ptr_Curve(new Curve_cst(CST_info(M3, M4)));
-	// class_low.guide.theta1 = ptr_Curve(new Curve_func([](double x)
-	// 												  { return x * -20; }));
-	// class_low.guide.theta3 = ptr_Curve(new Curve_func([](double x)
-	// 												  { return x * -20; }));
-	PUPP = SketchCST2(FaiU, EtaU, N1s, N2s, N1e, N2e, M1, M2, T1, T2, BUPP, DUPP, Ratio, N1mUPP, N2mUPP);
-	PLOW = SketchCST2(FaiL, EtaL, N3s, N4s, N3e, N4e, M3, M4, T3, T4, BLOW, DLOW, Ratio, N1mLOW, N2mLOW);
-	PointSet PUPP_new = SketchCST(FaiU, EtaU, class_upp, BUPP, DUPP, Ratio, N1mUPP, N2mUPP);
-	PointSet PLOW_new = SketchCST(FaiL, EtaL, class_low, BLOW, DLOW, Ratio, N1mLOW, N2mLOW);
-	cout << "------------------------" << endl;
-	cout << PUPP.X - PUPP_new.X << endl;
-	cout << PUPP.Y - PUPP_new.Y << endl;
-	cout << PUPP.Z - PUPP_new.Z << endl;
-	cout << "------------------------" << endl;
+	auto guide_p2_func = [&Xlength](double x)
+	{ return x * Xlength; };//{ return x*x * Xlength * 0.31; };
+
+	class_upp.lateral = Curve2D(ptr_Curve(new Curve_cst(CST_info(T1, T2, ScaleZ))), Curve2D::cartesian);
+	class_upp.front = Curve2D(ptr_Curve(new Curve_cst(CST_info(N1s, N2s))), Curve2D::cartesian);
+	class_upp.back = Curve2D(ptr_Curve(new Curve_cst(CST_info(N1e, N2e))), Curve2D::cartesian);
+	class_upp.ridge = Curve2D(ptr_Curve(new Curve_cst(CST_info(M1, M2, ScaleYUPP))), Curve2D::cartesian);
+	class_upp.guide.pt1 = ptr_Curve(new Curve_func([&Xlength](double x)
+												   { return x * Xlength; }));
+	class_upp.guide.pt2 = ptr_Curve(new Curve_func([&guide_p2_func](double x)
+												   { return guide_p2_func(x) - guide_p2_func(0); }));
+	class_upp.guide.pt3 = ptr_Curve(new Curve_func([&SlopeZ, Xlength](double x)
+												   { return x * Xlength * tan(SlopeZ); }));
+	class_upp.guide.theta1 = ptr_Curve(new Curve_func([=](double x)
+													  { return -atan(class_upp.guide.pt2->get_diff(x) / class_upp.guide.pt1->get_diff(x)); }));
+	class_upp.guide.theta2 = ptr_Curve(new Curve_func([](double x)
+													  { return x * pi/2.0; }));
+	class_low.lateral = Curve2D(ptr_Curve(new Curve_cst(CST_info(T3, T4, ScaleZ))), Curve2D::cartesian);
+	class_low.front = Curve2D(ptr_Curve(new Curve_cst(CST_info(N3s, N4s))), Curve2D::cartesian);
+	class_low.back = Curve2D(ptr_Curve(new Curve_cst(CST_info(N3e, N4e))), Curve2D::cartesian);
+	class_low.ridge = Curve2D(ptr_Curve(new Curve_cst(CST_info(M3, M4, ScaleYLOW))), Curve2D::cartesian);
+	class_low.guide.pt1 = ptr_Curve(new Curve_func([&Xlength](double x)
+												   { return x * Xlength; }));
+	class_low.guide.pt2 = ptr_Curve(new Curve_func([&guide_p2_func](double x)
+												   { return -(guide_p2_func(x) - guide_p2_func(0)); }));
+	class_low.guide.pt3 = ptr_Curve(new Curve_func([&SlopeZ, Xlength](double x)
+												   { return x * Xlength * tan(SlopeZ); }));
+	class_low.guide.theta1 = ptr_Curve(new Curve_func([=](double x)
+													  { return -atan(class_low.guide.pt2->get_diff(x) / class_low.guide.pt1->get_diff(x)); }));
+	class_low.guide.theta2 = ptr_Curve(new Curve_func([](double x)
+													  { return x * pi/2.0; }));
+	// PUPP = SketchCST2(FaiU, EtaU, N1s, N2s, N1e, N2e, M1, M2, T1, T2, BUPP, DUPP, Ratio, N1mUPP, N2mUPP);
+	// PLOW = SketchCST2(FaiL, EtaL, N3s, N4s, N3e, N4e, M3, M4, T3, T4, BLOW, DLOW, Ratio, N1mLOW, N2mLOW);
+
+	//还原为标准尺寸 normal (0)
+	class_upp.lateral.set_size(Zlength / 2.0);//侧向
+	class_low.lateral.set_size(Zlength / 2.0);
+	class_upp.ridge.set_size(Ylength_upp);
+	class_low.ridge.set_size(Ylength_low);
+	//还原比例刻度 （用于翼的跟梢比）scale (1)
+
+	//现在这个继承 并没有给到函数表达式里面去，所以出现这个情况。非常的失败
+	// 这里注意！！ 引导线t=0时位置和角度参数必须全是0，这样才能对齐参数
+	class_upp.guide.coordinate_end_position.SetSite(0, 0, 0);
+	class_upp.guide.translate(class_upp.guide.coordinate_end_position, 1);
+	// class_upp.guide.coordinate_end_position.setX(0);
+
+	class_upp.guide.coordinate_end_angle = class_upp.guide.get_theta(1);
+
+	class_low.guide.coordinate_end_position.SetSite(0, 0, 0);
+	class_low.guide.translate(class_low.guide.coordinate_end_position, 1);
+	// class_low.guide.coordinate_end_position.setX(0);
+
+	class_low.guide.coordinate_end_angle = class_low.guide.get_theta(1);
+
+	PUPP = SketchCST(FaiU, EtaU, class_upp, BUPP, DUPP, Ratio, N1mUPP, N2mUPP);
+	PLOW = SketchCST(FaiL, EtaL, class_low, BLOW, DLOW, Ratio, N1mLOW, N2mLOW);
 
 	//????????
 	//GridRefine();
 
 	//Scale X Y Z
-	//?????????? normal (0)
+	//还原为标准尺寸 normal (0)
 	// PUPP.X = PUPP.X * Xlength;
 	// PUPP.Y = PUPP.Y * Ylength_upp;
 	// PUPP.Z = PUPP.Z * Zlength / 2.0;
@@ -163,13 +195,13 @@ void CSTsurface::CST3D()
 	// PLOW.Y = PLOW.Y * Ylength_low;
 	// PLOW.Z = PLOW.Z * Zlength / 2.0;
 	
-	// //?????????? ???????????????scale (1)
+	//还原比例刻度 （用于翼的跟梢比）scale (1)
 	// Eta = trans(linspace(0, 1, NEta));
 	// for (int j = 0; j < NEta; j++)
 	// {
 	// 	for (int i = 0; i < NFaiU; i++)
 	// 	{
-	// 		PUPP.X(i, j) = PUPP.X(i, j) * ((ScaleX - 1) * EtaU(i, j) + 1);
+	// 		PUPP.X(i, j) = PUPP.X(i, j) * ((ScaleX - 1) * EtaU(i, j) + 1); //!! 没搞明白这个是啥意思 所以还没有实现
 	// 		PUPP.Y(i, j) = PUPP.Y(i, j) * ((ScaleYUPP - 1) * EtaU(i, j) + 1);
 	// 		PUPP.Z(i, j) = PUPP.Z(i, j) * ((ScaleZ - 1) * EtaU(i, j) + 1);
 	// 	}
@@ -178,7 +210,7 @@ void CSTsurface::CST3D()
 	// 	//PUPP.Z.col(i) = PUPP.Z.col(i) * ((ScaleZ    - 1) * Eta(i) + 1);
 	// 	for (int i = 0; i < NFaiL; i++)
 	// 	{
-	// 		PLOW.X(i, j) = PLOW.X(i, j) * ((ScaleX - 1) * EtaL(i, j) + 1);
+	// 		PLOW.X(i, j) = PLOW.X(i, j) * ((ScaleX - 1) * EtaL(i, j) + 1); //!! 没搞明白这个是啥意思
 	// 		PLOW.Y(i, j) = PLOW.Y(i, j) * ((ScaleYLOW - 1) * EtaL(i, j) + 1);
 	// 		PLOW.Z(i, j) = PLOW.Z(i, j) * ((ScaleZ - 1) * EtaL(i, j) + 1);
 	// 	}
@@ -187,7 +219,7 @@ void CSTsurface::CST3D()
 	// 	//PLOW.Z.col(j) = PLOW.Z.col(j) * ((ScaleZ    - 1) * Eta(j) + 1);
 	// }
 	
-	// //??????б???????????? slope (2)
+	//还原图形斜率（用于后掠角） slope (2)
 	// if (SlopeY != 0)
 	// {
 	// 	for (size_t i = 0; i < PUPP.Y.n_rows; i++)
@@ -226,10 +258,10 @@ void CSTsurface::CST3D()
 	// 	}
 	// }
 
-	//???????????
+	//评估网格信息
 	EvalGrid();
 
-	//??????????????
+	//参数点数据设置
 	mat Coord1 = join_rows(reshape(trans(PUPP.X), NFaiU * NEta, 1), reshape(trans(PUPP.Y), NFaiU * NEta, 1));
 	Coord1 = join_rows(Coord1, reshape(trans(PUPP.Z), NFaiU * NEta, 1));
 	mat Coord2 = join_rows(reshape(trans(PLOW.X), NFaiL * NEta, 1), reshape(trans(PLOW.Y), NFaiL * NEta, 1));
@@ -245,14 +277,14 @@ void CSTsurface::CST3D()
 	RCoord1.col(1) = RCoord1.col(1) + OriginY;
 	RCoord1.col(2) = RCoord1.col(2) + OriginZ;
 
-	Coord2.col(1) = -Coord2.col(1);//???????->??????
+	Coord2.col(1) = -Coord2.col(1);//下侧加负号->反方向
 	mat RCoord2 = Coord2 * Lrotation;
 	RCoord2.col(0) = RCoord2.col(0) + OriginX;
 	RCoord2.col(1) = RCoord2.col(1) + OriginY;
 	RCoord2.col(2) = RCoord2.col(2) + OriginZ;
 
-	//???????????????
-	//???????P?????E
+	//计算返回节点和单元参数
+	//上表面节点P、单元E
 	GridUpp.P = RCoord1;
 	GridUpp.E = zeros((NFaiU - 1) * (NEta - 1), 4);
 	int id = 0;
@@ -267,7 +299,7 @@ void CSTsurface::CST3D()
 			id++;
 		}
 	}
-	//?±?????P?????E
+	//下表面节点P、单元E
 	GridLow.P = RCoord2;
 	GridLow.E = zeros((NFaiL - 1) * (NEta - 1), 4);
 	id = 0;
@@ -284,7 +316,7 @@ void CSTsurface::CST3D()
 	}
 }
 
-//???????????????? ??????????????????????
+//计算整体正则坐标 参数代表调用修正算法次数
 void CSTsurface::RefineMesh(const int refinetime, bool i_x_free/* = false*/)
 {
 	if (refinetime < 1)//???????????????????С??1 ???????????ú???
@@ -344,10 +376,9 @@ void CSTsurface::RefineMesh(const int refinetime, bool i_x_free/* = false*/)
 			}
 		}
 	}
-
 }
 
-//????????????
+//计算正则坐标
 void CSTsurface::GetLengthMesh(string uporlow, bool ifpow, bool ifrefine)
 {
 	//PUPP.printP();
@@ -524,7 +555,7 @@ void CSTsurface::GetLengthMesh(string uporlow, bool ifpow, bool ifrefine)
 		this->EtaL = EtaU_new;
 	}
 }
-//????????????
+//计算正则坐标
 void CSTsurface::GetLengthMesh_z(string uporlow, bool ifpow)
 {
 	//PUPP.printP();
@@ -894,7 +925,7 @@ void CSTsurface::GetLengthMash_x(bool ifpow)
 	
 }
 
-//??????????
+//网格数修正
 void CSTsurface::MeshNumCorrection()
 {
 	if (NFaiU % 2 == 0)
@@ -914,7 +945,7 @@ void CSTsurface::MeshNumCorrection()
 	Eta = linspace(0, 1, NEta);
 }
 
-//???????????S
+//生成形状函数S
 mat CSTsurface::MakeS(int PriFuncType, int K, mat B, mat fai, mat eta)
 {
 	int fainums = fai.n_rows;//????fai?????????
@@ -1043,7 +1074,7 @@ mat CSTsurface::MakeS(int PriFuncType, int K, mat B, mat fai, mat eta)
 	return S;
 }
 
-//CST??????????
+//CST基本数学模型
 PointSet CSTsurface::SketchCST2(mat fai, mat eta, double N1, double N2, double N3, double N4,
 	double M1, double M2, double T1, double T2, mat B, mat D, double Ratio, mat&N1m,mat&N2m)//Ratio(int2double)
 {
@@ -1218,35 +1249,42 @@ PointSet CSTsurface::SketchCST(mat fai, mat eta,ClassFunc class_func, mat B, mat
 
 
 
-	p.X = zeros(fainums, etanums); // eta; // repmat(eta, fainums, 1);
-	p.Y = zeros(fainums, etanums);
-	p.Z = zeros(fainums, etanums);
-
+	// p.X = zeros(fainums, etanums); // eta; // repmat(eta, fainums, 1);
+	// p.Y = zeros(fainums, etanums);
+	// p.Z = zeros(fainums, etanums);
+	p.clear(fainums, etanums);
 	for (int i = 0; i < fainums; i++)
 	{
 		for (int j = 0; j < etanums; j++)
 		{
+			// class function
 			Point res = class_func.get(eta(i, j), fai(i, j));
+			// shape function
+			res.setX(res.getX());
+			res.setY(res.getY() * S(i, j));
+			res.setZ(res.getZ() * St(i, j));
+			// size function
+			res = class_func.guide.update_point(res, eta(i, j));
 			p.X(i, j) = res.getX();
-			p.Z(i, j) = res.getZ() * St(i, j);
-			p.Y(i, j) = res.getY() * S(i, j);
+			p.Y(i, j) = res.getY();
+			p.Z(i, j) = res.getZ();
 		}
 	}
 	
-	double N1 = class_func.front->vec_info[0];
-	double N2 = class_func.front->vec_info[1];
-	double N3 = class_func.back->vec_info[0];
-	double N4 = class_func.back->vec_info[1];
+	double N1 = class_func.front.pt2->vec_info[0];
+	double N2 = class_func.front.pt2->vec_info[1];
+	double N3 = class_func.back.pt2->vec_info[0];
+	double N4 = class_func.back.pt2->vec_info[1];
 
 	for (int j = 0; j < etanums; j++)
 	{
-		N1m(j) = N1 + pow((double)j / ((double)etanums - 1), Ratio) * (N3 - N1);
-		N2m(j) = N2 + pow((double)j / ((double)etanums - 1), Ratio) * (N4 - N2);
+		N1m(j) = N1 + pow(eta(0,j), Ratio) * (N3 - N1);
+		N2m(j) = N2 + pow(eta(0,j), Ratio) * (N4 - N2);
 	}
 	return p;
 }
 
-//???????? ????ó??????????->Info
+//曲率评估 计算得出曲面曲率值->Info
 void CSTsurface::EvalCurvature()
 {
 	
@@ -1394,7 +1432,7 @@ void CSTsurface::EvalCurvature()
 
 }
 
-//??????????????????????????
+//网格修正（根据曲率修正网格）
 void CSTsurface::GridRefine()
 {
 	Eta = zeros(1, Info.CURyx.n_elem + 1);
@@ -1438,7 +1476,7 @@ void CSTsurface::GridRefine()
 	}
 }
 
-//??????????? ????ó?????????????->Info
+//评估网格信息 计算得出曲面面积等信息->Info
 void CSTsurface::EvalGrid()
 {
 	double VolumeBody = 0;//???
@@ -1473,7 +1511,7 @@ void CSTsurface::EvalGrid()
 	
 }
 
-//??????????????б???FaiU??FaiL??Eta
+//生成默认网格节点列表：FaiU、FaiL、Eta
 void CSTsurface::GetNet(bool ifrefresh)
 {
 	if (ifrefresh)//??????
@@ -1535,12 +1573,12 @@ void CSTsurface::GetNet(bool ifrefresh)
 	}
 }
 
-//????GMesh?????????????
+//调用GMesh生成前后面网格
 //void CSTsurface::MeshPlane() {}
 
 
 
-//????????????????*****4.12????
+//生成该曲面的梁结构点*****4.12更新
 mat CSTsurface::MakeBone(double bias1,double bias2)//(?????bias? - 1to1)
 {
 	if (bias1 < -1 || bias1 > 1)
@@ -1658,7 +1696,7 @@ mat CSTsurface::MakeBone(double bias1,double bias2)//(?????bias? - 1to1)
 	return BonePoint;
 }
 
-//??????????????????????
+//计算骨架梁节点上的力和力矩
 mat CSTsurface::ClacBonePForce()
 {
 	

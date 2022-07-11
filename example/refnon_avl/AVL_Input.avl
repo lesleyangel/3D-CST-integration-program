@@ -1,0 +1,135 @@
+testPart
+0.76             Mach           
+0       0       0        iYsym  iZsym  Zsym
+231.75  15      1        Sref   Cref   Bref
+0       0       0        Xref   Yref   Zref
+0.00                   CDp 
+SURFACE
+WING-body
+20      1.0     30      0       
+SCALE
+1               1               1               
+TRANSLATE
+0               0               0               
+ANGLE
+4
+SECTION
+-5.15           -1.37994e-07    0               10.3            0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S0.dat
+SECTION
+-4.81352        1.08698         -0.0118151      10.1134         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S1.dat
+SECTION
+-4.47716        2.17359         -0.0472448      9.92687         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S2.dat
+SECTION
+-4.14105        3.25938         -0.106235       9.74047         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S3.dat
+SECTION
+-3.80534        4.34388         -0.188693       9.5543          0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S4.dat
+SECTION
+-3.47017        5.42665         -0.294485       9.36842         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S5.dat
+SECTION
+-3.13567        6.50725         -0.423442       9.18292         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S6.dat
+SECTION
+-2.80198        7.58523         -0.575357       8.99787         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S7.dat
+SECTION
+-2.46922        8.6602          -0.74999        8.81333         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S8.dat
+SECTION
+-2.13752        9.73174         -0.947067       8.62938         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S9.dat
+SECTION
+-1.80701        10.7995         -1.16628        8.44609         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S10.dat
+SECTION
+-1.47778        11.863          -1.40731        8.26351         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S11.dat
+SECTION
+-1.14996        12.9221         -1.6698         8.08171         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S12.dat
+SECTION
+-0.823631       13.9762         -1.95335        7.90075         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S13.dat
+SECTION
+-0.498902       15.0253         -2.25759        7.72066         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S14.dat
+SECTION
+-0.175855       16.0689         -2.58208        7.54151         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S15.dat
+SECTION
+0.145426        17.1068         -2.92641        7.36334         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S16.dat
+SECTION
+0.46487         18.1387         -3.29013        7.18619         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S17.dat
+SECTION
+0.782407        19.1645         -3.67278        7.01009         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S18.dat
+SECTION
+1.09798         20.184          -4.07392        6.83509         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S19.dat
+SECTION
+1.41153         21.1969         -4.49307        6.6612          0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S20.dat
+SECTION
+1.723           22.2031         -4.92977        6.48847         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S21.dat
+SECTION
+2.03237         23.2025         -5.38356        6.31691         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S22.dat
+SECTION
+2.33959         24.195          -5.85396        6.14653         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S23.dat
+SECTION
+2.64463         25.1804         -6.34051        5.97737         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S24.dat
+SECTION
+2.94746         26.1587         -6.84276        5.80943         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S25.dat
+SECTION
+3.24807         27.1298         -7.36025        5.64272         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S26.dat
+SECTION
+3.54643         28.0936         -7.89253        5.47726         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S27.dat
+SECTION
+3.84255         29.0502         -8.43916        5.31304         0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S28.dat
+SECTION
+4.13655         30              -9              5.15            0               
+AFIL
+C:\Users\yycab\Desktop\database\c++\CST\example/refnon_avl/S29.dat

@@ -1,0 +1,164 @@
+MSC Nastran V2020 (AMD Windows 10 Home China 6.2 9200) Control File: 
+----------------------------------------------------------------- 
+$ sysfield=SCR*(RAW=YES,BUFFIO=YES,wnum=16,wsize=16mb) $(e:/nastran2020/conf/nast20200.rcf[2])
+$ sysfield=DBALL(RAW=YES,BUFFIO=YES,wnum=16,wsize=16mb) $(e:/nastran2020/conf/nast20200.rcf[3])
+Nastran BUFFSIZE=32769 $(e:/nastran2020/conf/nast20200.rcf[6])
+JID='c:/users/yycab/desktop/database/c++/cst/example/refnon_0_header.bdf'
+OUT='c:/users/yycab/desktop/database/c++/cst/example/refnon_0_header'
+MEM=7894MB      $ 
+MACH='AMD'
+OPER='Windows 10 Home China'
+OSV='6.2 9200'
+MODEL='AMD Ryzen 7 4800HS with Radeon (fe80::ccb7:219e:a59a:c0b7%12)'
+NPROC='16'
+CONFIG=15
+NPROC=16
+symbol=DELDIR='e:/nastran2020/msc20200/nast/del' $(program default)
+symbol=DEMODIR='e:/nastran2020/msc20200/nast/demo' $(program default)
+symbol=LM_NO_SNMP=1 $(e:/nastran2020/conf/nast20200.rcf[11])
+symbol=MKL_INTERFACE_LAYER=ILP64 $(e:/nastran2020/conf/nast20200.rcf[1])
+symbol=SSSALTERDIR='e:/nastran2020/msc20200/nast/sssalter' $(program default)
+symbol=TPLDIR='e:/nastran2020/msc20200/nast/tpl' $(program default)
+SDIR='c:/scratch/refnon_0_header.T22316_37'
+DBS='c:/scratch/refnon_0_header.T22316_37'
+SCR='yes'
+SMEM=100
+BPOOL=7298.2MB
+DMPMEM=estimate
+NEWDEL='e:/nastran2020/msc20200/win64i8/sss'
+DEL='MSCDEF'
+DML=MSCDEF
+SDL=MSCDEF
+AUTH='27500@LAPTOP-1G3FKP51'
+AUTHQUE=20
+MSGCAT='e:/nastran2020/msc20200/win64i8/analysis.msg'
+MSGDEST='f06'
+NEWS='e:/nastran2020/msc20200/nast/news.txt'
+----------------------------------------------------------------- 
+MSC_ISHELLPATH=E:\Nastran2020\msc20200\actran\win64\Actran_2021.b.130490\bin;E:\Nastran2020\msc20200\nast; 
+MSC_JIDPATH= 
+PATH=e:\nastran2020\msc20200\win64i8;e:\nastran2020\msc20200\win64i8\nCode\bin;e:\nastran2020\msc20200\win64i8\nvidia;e:\nastran2020\msc20200\win64i8\lib;e:\nastran2020\msc20200\win64i8;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\\Extensions\Microsoft\IntelliCode\CLI;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\HostX86\x86;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\VCPackages;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Current\bin\Roslyn;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Team Tools\Performance Tools;C:\Program Files (x86)\Microsoft Visual Studio\Shared\Common\VSPerfCollectionTools\vs2019\;C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\devinit;C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x86;C:\Program Files (x86)\Windows Kits\10\bin\x86;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\\MSBuild\Current\Bin;C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\Tools\;C:\Qt\Qt5.6.3\5.6.3\msvc2015\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\system32\wbem;C:/Users/yycab/Desktop/database/HypersonicAircraftCommon/bin;C:\Program Files\dotnet\;C:\Qt\Qt5.9.9\5.9.9\msvc2015\bin;C:\Qt\Qt5.9.7\Tools\mingw530_32\bin;C:\Program Files\CMake\bin;C:\Program Files (x86)\Prince\engine\bin;C:\Users\yycab\anaconda3\envs\torch;C:\Program Files\Git\cmd;C:\Users\yycab\.cargo\bin;C:\Users\yycab\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\yycab\.dotnet\tools;C:\Qt\Qt5.9.7\Tools\mingw530_32\bin;C:\Program Files (x86)\Prince\engine\bin;C:\Users\yycab\anaconda3\envs\torch;C:\Users\yycab\anaconda3;C:\Users\yycab\anaconda3\Library\bin;C:\Users\yycab\anaconda3\Library\mingw-w64;C:\Users\yycab\anaconda3\Scripts;;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\Ninja;C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\VC\Linux\bin\ConnectionManagerExe 
+SCA_SERVICE_CATALOG=e:\nastran2020\msc20200\res\SCAServiceCatalog.xml 
+SCA_RESOURCE_DIR=e:\nastran2020\msc20200\res 
+Cmd Line:    E:\Nastran2020\msc20200\win64i8\nastran.exe C:\Users\yycab\Desktop\database\c++\CST\example/refnon_0_Header.bdf out=C:\Users\yycab\Desktop\database\c++\CST\example 
+Current Dir: C:\Users\yycab\Desktop\database\c++\CST\build\Debug 
+Time Cmd:    e:\nastran2020\msc20200\win64i8\msctime 
+Executable:  e:\nastran2020\msc20200\win64i8\analysis.exe 
+Arch= Kywd:  [Not specified]  
+MSC_MSG:     stderr  
+FPE:         yes  
+----------------------------------------------------------------- 
+Current resource limits:
+ Physical memory:                    15789 MB
+ Physical memory available:           5275 MB
+ Paging file size:                   29613 MB
+ Paging file size available:         12050 MB
+ Virtual memory:                 134217727 MB
+ Virtual memory available:       134213509 MB
+----------------------------------------------------------------- 
+System configuration:
+ Hostname:         fe80::ccb7:219e:a59a:c0b7%12
+ Architecture:     win64i8
+ Platform:         AMD Windows 10 Home China 6.2 9200 (Windows Compute Cluster)
+ Model:            AMD Ryzen 7 4800HS with Radeon
+ Clock freq.:      19020 MHz
+ Number of CPUs:   16
+ Executable:       standard
+ Raw model ID:     15
+ Config number:    15
+ Physical memory:  15789 MB
+ Virtual memory:   29613 MB
+ Numeric format:   64-bit little-endian IEEE.
+ Bytes per word:   8
+ Disk block size:  512 bytes (64 words)
+ Remote shell cmd: "e:/nastran2020/msc20200/win64i8/mscrmtcmd.exe" (Windows non-CCS nodes, UNIX)
+                   <ccs_cmd> (Windows CCS nodes)
+----------------------------------------------------------------- 
+MSC Nastran started  Sun Jul 10 20:27:37 ?D1迆㊣那℅?那㊣?? 2022 
+ 20:27:38  Beginning Analysis
+SCA Kernel 24.7.714370 successfully initialized
+BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\libimalloc.dll" has been loaded.
+BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\mkl_core.dll" has been loaded.
+BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\mkl_intel_thread.dll" has been loaded.
+BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\mkl_rt.dll" has been loaded.
+BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\MSCblas.dll" has been loaded.
+
+ 20:27:38  MSC Authorization Information - System Attributes (1004, 0)
+ 20:27:38  -----------------------------------------------------------
+  Date:          Sun Jul 10 20:27:38 2022
+  MSC Id:        00ff7a38d3d1 (ethernet) (Intel)
+  Hostname:      LAPTOP-1G3FKP51 (user yycab, display LAPTOP-1G3FKP51)
+  License files: 27500@LAPTOP-1G3FKP51
+  CEID:          D879AC1A-497FEF66
+  User:          yycab
+  Display:       LAPTOP-1G3FKP51
+  LAPI Version:  LAPI 10.6.4 (CL 714361) (FLEXlm 11.16.3.0)
+
+  * * * * * * * * * * * * * * * * * * * *
+  * * * * * * * * * * * * * * * * * * * *
+  * *                                 * *
+  * *   MSC Customer Entitlement ID   * *
+  * *        D879AC1A-497FEF66        * *
+  * *                                 * *
+  * * * * * * * * * * * * * * * * * * * *
+  * * * * * * * * * * * * * * * * * * * *
+
+ 20:27:38  MSC Authorization Information - Checkout Successful (1016, 0)
+ 20:27:38  -------------------------------------------------------------
+ 20:27:38  Acquired 1 license for MSC Nastran from license server on host LAPTOP-1G3FKP51
+
+
+Beginning bulk data processing using the IFPStar component.
+For more information on IFPStar, please see KB article KB8019200
+on our support pages, at http://simcompanion.mscsoftware.com.
+
+ 20:27:38  Reading INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_mesh.bdf"
+ 20:27:38  5524 records read from INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_mesh.bdf"
+ 20:27:38  Reading INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_property.bdf"
+ 20:27:38  18 records read from INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_property.bdf"
+ 20:27:38  Reading INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_force.bdf"
+ 20:27:38  1685 records read from INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_force.bdf"
+ 20:27:38  20 records read from JID file "c:/users/yycab/desktop/database/c++/cst/example/refnon_0_header.bdf"
+ 20:27:38  A total of 7247 records were read from 4 files.
+
+Processing of bulk data entries is complete.
+
+ 20:27:39  Analysis started.
+ 20:27:39  Geometry access/verification to CAD part initiated (if needed).
+ 20:27:39  Geometry access/verification to CAD part successfully completed (if needed).
+ 20:27:39  Finite element model generation started.
+ 20:27:39  Finite element model generated 10080 degrees of freedom.
+ 20:27:39  Finite element model generation successfully completed.
+ 20:27:39  Application of Loads and Boundary Conditions to the finite element model started.
+ 20:27:39  Application of Loads and Boundary Conditions to the finite element model successfully completed.
+ 20:27:39  Solution of the system equations for linear statics started.
+ 20:27:39  Solution of the system equations for linear statics successfully completed.
+ 20:27:39  Linear static analysis completed.
+ 20:27:39  14 records read from JID file "c:/users/yycab/desktop/database/c++/cst/example/refnon_0_header.bdf"
+ 20:27:39  NSEXIT: EXIT(0)
+ 20:27:39  Analysis complete  0
+Real:        1.891 seconds ( 0:00:01.891)
+User:        0.984 seconds ( 0:00:00.984)
+Sys:         0.828 seconds ( 0:00:00.828)
+ ==================================================
+ OS:                           6.2
+ OEM ID:                       9
+ Model:                        AMD Ryzen 7 4800HS with Radeon Graphics  
+ Number of processors:         16
+ Page size:                    4096
+ Processor type:               8664
+ Minimum application address:  10000
+ Maximum application address:  fffeffff
+ Active processor mask:        65535
+ Nsocket:                      1
+ Ncore:                        8  ( 1 X 8 )
+ HyperThreading:               On
+ Ram:                          15789 Mb
+ ==================================================
+ Time Summary                 CPU       Wall   ( Time in Seconds )
+ Consider using SOLVE=AUTO if you have not.
+ =====================================================
+ Detailed performance information can be found in the 
+ "MSC Nastran High Performance Computing User's Guide"
+ =====================================================
+MSC Nastran finished Sun Jul 10 20:27:40 ?D1迆㊣那℅?那㊣?? 2022 

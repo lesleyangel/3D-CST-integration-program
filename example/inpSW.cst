@@ -1,0 +1,70 @@
+$----------------------------------------$
+$                                        $
+$      三维CST气动结构一体化生成程序     $
+$         Design by YANG yucheng         $
+$                                        $
+$----------------------------------------$
+
+$压心在质心后面就是稳定的飞行器结构
+
+BEGIN INPUT
+ NAME,refnon
+ TecPlotFile,on
+ AeroForce,fon
+ LiftDragRatio,fon
+ Volume,fon
+ StructInp,fon
+ BoneInp,fon
+ BoneTec,fon
+ StructBDF,fon
+ Struct2D_FixedMass,fon
+ Struct2D_Tec, fon
+ Struct2D_AeroStruct,on
+ Struct2D_LDratio,fon
+ Struct2D_TotalMass,fon
+ Struct2D_Nas,fon
+
+END INPUT
+
+
+
+$添加一个机翼
+*ShapeWing1
+ $Origin,          12.741,            -0.579,                       1.178
+ Origin,           0,                 0,                            0
+ Ninner,           0.479532381099099, 2.02510994463271,0.553581827623962, 0.526283583338776,            
+ Nouter,           0.479532381099099, 2.02510994463271,0.553581827623962, 0.526283583338776,       
+$ Ninner,           0.5, 0.5, 0.5, 0.5,            
+$ Nouter,           0.5, 0.5, 0.5, 0.5,      
+ Ratio1,           1        
+ SpanL,            30
+ RootChordL,       10.3
+ TipRootRatio,     0.5
+ SweepBackAngle,   17.2
+ Thickness,        5.3
+ NFaiU,            15
+ NFaiL,            15
+ NEta,             30
+ NHeight,          5
+ BLOW,             0.296125327936364; 0.152261346975261; 0.199474092611929; 0.159920899106979; 0.150599577548070; 0.141841811723393; 0.155909894933452; 0.118224386070716; 0.0956252106969699; 0.0454031408150760;
+ BUPP,             0.157975102978019; 0.143022249322143; 0.181493822537429; 0.244414366208326; 0.305750351027568; 0.164326972778428; 0.681037242259306; 0.364134185717018; 0.102897639010954; 0.246939304818005;
+ DUPP,             1;
+ DLOW,             1;
+ GridRefineType,   -1
+ ifUseMid,         0
+ Struct2dXnum,     20
+ Struct2dZnum,     2
+*End
+
+*Property
+PSHELL,         1,      1,       0.003
+PSHELL,         2,      1,       0.003
+PSHELL,         3,      2,       0.003
+PSHELL,         4,      2,       0.003
+PSHELL,         5,      2,       0.003
+PSHELL,         6,      2,       0.003
+PSHELL,         7,      2,       0.051
+PSHELL,         8,      2,       0.053
+MAT1,          1,       7.31e10,     0.33,      2780
+MAT1,          2,       7.31e10,     0.33,      2780
+*End

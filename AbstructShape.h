@@ -8,6 +8,8 @@
 using namespace arma;
 using namespace std;
 
+
+
 class GridStruct
 {
 public:

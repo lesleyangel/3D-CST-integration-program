@@ -65,7 +65,7 @@ public:
 	mat N2mLOW;//过渡截面参数 下表面右
 	mat FaiU;	mat FaiL;		mat EtaU;	mat EtaL;mat Eta;
 	//------------------网格生成--------------------
-	CSTsurface();			//初始化参数	
+	CSTsurface();			//初始化参数
 	void CST3D();			//计算生成CST曲面网格信息	
 	void EvalCurvature();	//曲率评估 计算得出曲面曲率值	
 	void GridRefine();		//网格修正（根据曲率修正网格）

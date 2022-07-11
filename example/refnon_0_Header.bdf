@@ -1,0 +1,20 @@
+SOL 101
+CEND
+TITLE = MSC.Nastran job for Single StructPart
+ECHO = NONE
+SUBCASE 1
+   SUBTITLE=Default
+   LOAD = 1
+   SPC  = 2
+   STRESS(SORT1,PUNCH,REAL,VONMISES,BILIN)=ALL
+   DISPLACEMENT(SORT1,PUNCH,REAL)=ALL
+$$------------------------------------------------------------------------------$
+$$                                Bulk Data Cards                               $
+$$------------------------------------------------------------------------------$
+BEGIN BULK
+PARAM   POST     0
+PARAM   PRTMAXIM YES
+include 'refnon_0_mesh.bdf'
+include 'refnon_0_property.bdf'
+include 'refnon_0_force.bdf'
+ENDDATA

@@ -1,0 +1,17 @@
+
+ ---------------------------------------------
+ Run case  1:  -CPPTEAST- 
+ alpha        ->  alpha       =   0.5
+ beta         ->  beta        =   0.00000    
+ 
+ alpha =                                                   0.5
+ beta = 0.00000     deg                                    
+ CL = 1                                                    
+ CDo = 10.00000                                            
+ bank = 0.00000     deg                                    
+ elevation = 0.00000     deg                               
+ heading = 0.00000     deg                                 
+ Mach = 0.76
+ velocity  =   300     m/s                                 
+ density   =   10000
+ grav.acc. =   9.81000     m/s^2                           

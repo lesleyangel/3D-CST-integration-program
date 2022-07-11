@@ -535,7 +535,7 @@ void ShapeMainBody3::BuildShape()
 	(*Head).Is_MeshBack = 0;
 
 	(*Body).Origin = m_Body3.Origin;
-	(*Body).Origin(0) += m_Body3.Length[0];
+	//(*Body).Origin(0) += m_Body3.Length[0];
 	(*Body).Rotation = m_Body3.Rotation;
 	(*Body).Slope = { 0,0,0 };
 	(*Body).Scale = { 1,1,1,1 };
@@ -557,7 +557,7 @@ void ShapeMainBody3::BuildShape()
 	(*Body).Is_MeshBack = 0;
 
 	(*Tail).Origin = m_Body3.Origin;
-	(*Tail).Origin(0) += m_Body3.Length[0]+ m_Body3.Length[1];
+	//(*Tail).Origin(0) += m_Body3.Length[0]+ m_Body3.Length[1];
 	(*Tail).Rotation = m_Body3.Rotation;
 	(*Tail).Slope = { 0,0,0 };
 	(*Tail).Scale = { 1,1,1,1 };

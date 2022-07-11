@@ -1,0 +1,437 @@
+1
+ 
+ 
+ 
+ 
+                      Warning: This computer program is protected by copyright law and international treaties.       
+                  Unauthorized use, reproduction or distribution of this computer program, or any portion of it, may 
+                                          result in severe civil and criminal penalties.                             
+                         Copyright (C) 2020 MSC Software Corporation and its licensors. All rights reserved.         
+ 
+ 
+                                              * * * * * * * * * * * * * * * * * * * *
+                                              * * * * * * * * * * * * * * * * * * * *
+                                              * *                                 * *
+                                              * *           MSC Software          * *
+                                              * *               CORP              * *
+                                              * *                                 * *
+                                              * *      M S C   N a s t r a n      * *
+                                              * *                                 * *
+                                              * *                                 * *
+                                              * *                                 * *
+                                              * *      Version 2020-CL726340      * *
+                                              * *                                 * *
+                                              * *                                 * *
+                                              * *                                 * *
+                                              * *          MAY  1, 2020           * *
+                                              * *                                 * *
+                                              * *               AMD               * *
+                                              * *MODEL AMD Ryzen 7 4800HS with Ra * *
+                                              * * Windows 10 Home China 6.2 9200  * *
+                                              * * Compiled for 8664 (SINGLE Mode) * *
+                                              * *                                 * *
+                                              * * * * * * * * * * * * * * * * * * * *
+                                              * * * * * * * * * * * * * * * * * * * *
+1News file - (March 30, 2020)
+  
+               Welcome to MSC Nastran 2020
+  
+  
+   MSC Nastran brings powerful new features and enhancements for engineering
+   solutions.
+  
+     MSC Nastran 2020 Features and Enhancements
+  
+     Dynamics
+     - Data recovery of Poroelastic material (PEM) trim parts interior grids.
+     - New PLTSURF entry introduced for easier PEM parts coupling surface
+       defintions.
+     - Restart support for models with invariant PEM components.
+     - Temperature dependency added for frequency dependent materials.
+     - SOL 108 (direct frequency response) support added for models with PEM
+       parts.
+  
+     Rotordynamics
+     - New 2D Bush (CBUSH2DA) and Squeeze File Damper (NLRSFDA) user-defined
+       subroutines enabled to include inertia & acceleration terms respectively.
+     - Integration of user-defined squeeze file damper libraries.
+     - Cross-coupling inertia terms specification for 2D Bush (CBUSH2D) element.
+     - Frequency dependent 2D Bush (PBSH2DT) property with tabular input.
+  
+     Composites
+     - Layered Solid and Solid-Shell elements available in linear solutions.
+  
+     Fatigue
+     - Control of the number of angles to be analyzed when using critical plane
+       analysis.
+     - New stress/strain output requests via FATIGUE case control.
+     - More control over the amound of results data returned at critical
+       locations.
+     - Significant performance improvement of SOL 112 duty cycle jobs.
+     - Direct access to dynamic load data in multi-channel time histroy files via
+       new TABLRPC entry.
+  
+     Topology Optimization
+     - Anisotropic materials support added.
+     - Over-hang constraints for additive manufacturing.
+     - New DRESP2 response types: Magnigtude of Displacement and
+       maximization of stiffness and frequency.
+  
+     Nonlinear
+     - Nonlinear Buckling available in SOL 400
+     - Allow represtentation of imperfect structural geometry through
+       use modification of grid coordinates based on displacements or
+       modes from a previous run.
+1    - MATVE limitation of five scale factor/time constraint data pairs
+       removed.
+  
+     HPC
+     - CASI (Iterative) Solver support available for inertia relief analysis.
+     - Faster Global Transformation Matrix for ACMS to speed up Nastran
+       interface to MSC Adams and AVL EXCITE.
+     - Improved GPU acceleration for FASTFR (Fast Frequency Response) and
+       MPYAD for large models.
+  
+     Nastran HDF5
+     - Support NLLOAD outputs in HDF5
+     - Add KHH/MHH/BHH matrix output control
+     - Support nonlinear buckling and imperfection outputs
+     - Support layered solid and solid shell composite elements
+  
+  
+     Documentation
+     The complete documentation set is provided in a separate installer and
+     when installed is available at: MSC_DOC_DIR/doc/pdf_nastran directory.
+     Where MSC_DOC_DIR is the directory where documentation was installed
+     This help set has cross references between documents, links to how-to
+     videos, and example files.
+  
+     Individual MSC Nastran documents are available for download from the
+       Simcompanion Website at:
+       http://simcompanion.mscsoftware.com/
+  
+     These documents were updated for the MSC Nastran 2020 Release
+  
+         1.  MSC Nastran 2020 Installation and Operations Guide
+         2.  MSC Nastran 2020 Quick Reference Guide
+         3.  MSC Nastran 2020 Release Guide
+         4.  MSC Nastran 2020 Linear Statics Analysis User's Guide
+         5.  MSC Nastran 2020 Dynamic Analysis User's Guide
+         6.  MSC Nastran 2020 Superelements User's Guide
+         7.  MSC Nastran 2020 Rotordynamics User's Guide
+         8.  MSC Nastran 2020 Demonstration Problems Manual
+         9.  MSC Nastran 2020 Nastran Embedded Fatigue User's Guide
+        10.  MSC Nastran 2020 Design Sensitivity and Optimization
+        11.  MSC Nastran 2020 Nonlinear User's Guide SOL 400
+        12.  MSC Nastran 2020 DMAP Programmer's Guide
+        13.  MSC Nastran 2020 High Performance Computing User's Guide
+        14.  MSC Nastran 2020 DEMATD Guide
+        15.  MSC Nastran 2020 Explicit Nonlinear (SOL 700) User's Guide
+  
+   Please refer to  MSC_DOC_DIR/doc/pdf_nastran/nastran_library.pdf
+   for the complete document set:
+  
+  
+1  Feature Deprecation List
+   To streamline the MSC Nastran program and simplify ongoing maintenance
+   activiy, some obsolete capabilities have been identified and tagged for
+   removal from a future release of the program in late 2020. Please review
+   the list of features marked for deprecation below to ensure that there
+   will be no disruption to your use of MSC Nastran. If you see a feature
+   that you currently use and do not wish to lose, contact MSC Technical
+   Support to report it.
+  
+     Features tagged for removal:
+     - P-elements
+     - SOL 600 nonlinear solution sequence
+     - Unstructured one- and two-digit solution sequences (e.g. SOL 3, SOL 24)
+     - SOL 190 (DBTRANS)
+     - TAUCS solver
+     - MSGMESH
+     - Obsolete DMAP modules
+     - SSSALTERS
+  
+     Refer to the MSC Nastran 2020 Release Guide for more details.
+  
+  
+   Additional information about the release can be found at the MSC Nastran
+   Product Support page: http://simcompanion.mscsoftware.com
+  
+   The support page provides links to these valuable information:
+      * A searchable Knowledge Base containing examples and answers to thousands
+        of frequently asked questions written by MSC Software subject-matter
+        experts.
+      * Peer-to-peer Discussion Forums enabling you to post questions for your
+        MSC Software products and receive answers from other users worldwide.
+      * A list of known issues with the product and any workarounds.
+      * Instructions on how to contact technical support
+      * A mechanism for sending us product feedback or enhancement requests.
+      * Hardware and software requirements.
+      * Examples and Tutorials
+      * and much more.
+  
+   For information on training, please visit our Training web site
+  
+      http://www.mscsoftware.com/Contents/Services/Training/
+  
+1                                                                              JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE     1
+                                                                                                                                    
+0        N A S T R A N    F I L E    A N D    S Y S T E M    P A R A M E T E R    E C H O                                           
+0                                                                                                                                   
+                                                                                                                                    
+                                                                                                                                    
+     $ SYSFIELD=SCR*(RAW=YES,BUFFIO=YES,WNUM=16,WSIZE=16MB) $(E:/NASTRAN2020/CONF/NAS
+     $ SYSFIELD=DBALL(RAW=YES,BUFFIO=YES,WNUM=16,WSIZE=16MB) $(E:/NASTRAN2020/CONF/NA
+     NASTRAN BUFFSIZE=32769 $(E:/NASTRAN2020/CONF/NAST20200.RCF[6])                  
+1                                                                              JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE     2
+                                                                                                                                    
+0        N A S T R A N    E X E C U T I V E    C O N T R O L    E C H O                                                             
+0                                                                                                                                   
+                                                                                                                                    
+                                                                                                                                    
+     SOL 101                                                                                 
+     CEND                                                                                    
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE     3
+                                                                                                                                    
+0                                                                                                                                   
+0                                        C A S E    C O N T R O L    E C H O                                                        
+                 COMMAND                                                                                                            
+                 COUNT                                                                                                              
+                  1      TITLE = MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                           
+                  2      ECHO = NONE                                                                             
+                  3      SUBCASE 1                                                                               
+                  4         SUBTITLE=DEFAULT                                                                     
+                  5         LOAD = 1                                                                             
+                  6         SPC  = 2                                                                             
+                  7         STRESS(SORT1,PUNCH,REAL,VONMISES,BILIN)=ALL                                          
+                  8         DISPLACEMENT(SORT1,PUNCH,REAL)=ALL                                                   
+                  9      $$----------------------------------------------------------------------        --------
+                 10      $$                                BULK DATA CARDS                                       
+                 11      $$----------------------------------------------------------------------        --------
+                 12      BEGIN BULK                                                                              
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE     4
+                                                                                                                                    
+0                                                                                                                                   
+                                              I N P U T   B U L K   D A T A   E C H O                                               
+                 ENTRY                                                                                                              
+                 COUNT        .   1  ..   2  ..   3  ..   4  ..   5  ..   6  ..   7  ..   8  ..   9  ..  10  .                      
+                              $INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_mesh.bdf"
+                              $END OF INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_mesh.bdf"
+                              $INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_property.bdf"
+                              $END OF INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_property.bdf"
+                              $INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_force.bdf"
+                              $END OF INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_force.bdf"
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE     5
+                                                                                                                                    
+0                                                                                                                                   
+                                        M O D E L   S U M M A R Y          BULK = 0
+                                   ENTRY NAME        NUMBER OF ENTRIES
+                                   ----------        -----------------
+                                       CQUAD4                     2004
+                                       CTRIA3                      160
+                                        FORCE                      840
+                                         GRID                     1680
+                                         MAT1                        2
+                                        PARAM                        2
+                                       PSHELL                        8
+                                         SPC1                        1
+
+ ^^^     
+ ^^^ >>> IFP OPERATIONS COMPLETE <<< 
+ ^^^     
+ *** USER INFORMATION MESSAGE 7555 (GMTSTS)
+     FINITE ELEMENT GEOMETRY CHECK RESULTS EXCEED TOLERANCE LEVELS FOR THE FOLLOWING ELEMENTS.  METRIC VALUES THAT EXCEED
+     TEST TOLERANCE LIMITS ARE IDENTIFIED BY ONE OF THE FOLLOWING FLAGS PLACED TO THE RIGHT OF THE METRIC VALUE.
+        "++++" FOR TEST RESULTS EXCEEDING TOLERANCES.  INFORMATIONAL ONLY.  PROBLEM SOLUTION CONTINUES.  (DEFAULT FLAG)
+        "IGNR" FOR TEST RESULTS EXCEEDING TOLERANCES.  INFORMATIONAL ONLY.  PROBLEM SOLUTION CONTINUES.
+        "WARN" FOR TEST RESULTS EXCEEDING TOLERANCES.  INFORMATIONAL ONLY.  PROBLEM SOLUTION CONTINUES.
+        "FAIL" FOR TEST RESULTS EXCEEDING TOLERANCES.  SEVERE ERROR.        PROBLEM SOLUTION TERMINATES.
+     USER ACTION: USE THE GEOMCHECK (EXECUTIVE CONTROL STATEMENT) KEYWORD=VALUE TO CHANGE TOLERANCE VALUES IF DESIRED.
+     A MAXIMUM OF        100 SKEW ANGLE (SA)       TOLERANCE LIMIT VIOLATIONS WILL BE IDENTIFIED BY THE FLAG "++++"
+                             PLACED AFTER THE VALUE METRIC FOR THE TEST.
+     A MAXIMUM OF        100 MAX INT. ANGLE (IA)   TOLERANCE LIMIT VIOLATIONS WILL BE IDENTIFIED BY THE FLAG "++++"
+                             PLACED AFTER THE VALUE METRIC FOR THE TEST.
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE     6
+                                                                                                                                    
+0                                                                                                                                   
+     TOLERANCE LIMITS ARE:     SKEW  =  10.00, IA(MAX) = 160.00 (++++ = LIMIT VIOLATED)
+ ELEMENT TYPE    ID          SKEW ANGLE      MAX INT. ANGLE 
+    TRIA3         865         2.09 ++++        90.50     
+    TRIA3         866         2.09 ++++        89.50     
+    TRIA3         867         2.09 ++++        91.59     
+    TRIA3         868         2.08 ++++        93.68     
+    TRIA3         921         2.09 ++++        90.50     
+    TRIA3         922         2.09 ++++        89.50     
+    TRIA3         923         2.09 ++++        91.59     
+    TRIA3         924         2.08 ++++        93.68     
+    TRIA3         977         2.09 ++++        90.50     
+    TRIA3         978         2.09 ++++        89.50     
+    TRIA3         979         2.09 ++++        91.59     
+    TRIA3         980         2.08 ++++        93.68     
+    TRIA3        1033         2.09 ++++        90.50     
+    TRIA3        1034         2.09 ++++        89.50     
+    TRIA3        1035         2.09 ++++        91.59     
+    TRIA3        1036         2.08 ++++        93.68     
+    TRIA3        1089         2.09 ++++        90.50     
+    TRIA3        1090         2.09 ++++        89.50     
+    TRIA3        1091         2.09 ++++        91.59     
+    TRIA3        1092         2.08 ++++        93.68     
+    TRIA3        1145         2.09 ++++        90.50     
+    TRIA3        1146         2.09 ++++        89.50     
+    TRIA3        1147         2.09 ++++        91.59     
+    TRIA3        1148         2.08 ++++        93.68     
+    TRIA3        1201         2.09 ++++        90.50     
+    TRIA3        1202         2.09 ++++        89.50     
+    TRIA3        1203         2.09 ++++        91.59     
+    TRIA3        1204         2.08 ++++        93.68     
+    TRIA3        1257         2.09 ++++        90.50     
+    TRIA3        1258         2.09 ++++        89.50     
+    TRIA3        1259         2.09 ++++        91.59     
+    TRIA3        1260         2.08 ++++        93.68     
+    TRIA3        1313         2.09 ++++        90.50     
+    TRIA3        1314         2.09 ++++        89.50     
+    TRIA3        1315         2.09 ++++        91.59     
+    TRIA3        1316         2.08 ++++        93.68     
+    TRIA3        1369         2.09 ++++        90.50     
+    TRIA3        1370         2.09 ++++        89.50     
+    TRIA3        1371         2.09 ++++        91.59     
+    TRIA3        1372         2.08 ++++        93.68     
+    TRIA3        1425         2.09 ++++        90.50     
+    TRIA3        1426         2.09 ++++        89.50     
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE     7
+                                                                                                                                    
+0                                                                                                                                   
+     TOLERANCE LIMITS ARE:     SKEW  =  10.00, IA(MAX) = 160.00 (++++ = LIMIT VIOLATED)
+ ELEMENT TYPE    ID          SKEW ANGLE      MAX INT. ANGLE 
+    TRIA3        1427         2.09 ++++        91.59     
+    TRIA3        1428         2.08 ++++        93.68     
+    TRIA3        1481         2.09 ++++        90.50     
+    TRIA3        1482         2.09 ++++        89.50     
+    TRIA3        1483         2.09 ++++        91.59     
+    TRIA3        1484         2.08 ++++        93.68     
+    TRIA3        1537         2.09 ++++        90.50     
+    TRIA3        1538         2.09 ++++        89.50     
+    TRIA3        1539         2.09 ++++        91.59     
+    TRIA3        1540         2.08 ++++        93.68     
+    TRIA3        1593         2.09 ++++        90.50     
+    TRIA3        1594         2.09 ++++        89.50     
+    TRIA3        1595         2.09 ++++        91.59     
+    TRIA3        1596         2.08 ++++        93.68     
+    TRIA3        1649         2.09 ++++        90.50     
+    TRIA3        1650         2.09 ++++        89.50     
+    TRIA3        1651         2.09 ++++        91.59     
+    TRIA3        1652         2.08 ++++        93.68     
+    TRIA3        1705         2.09 ++++        90.50     
+    TRIA3        1706         2.09 ++++        89.50     
+    TRIA3        1707         2.09 ++++        91.59     
+    TRIA3        1708         2.08 ++++        93.68     
+    TRIA3        1761         2.09 ++++        90.50     
+    TRIA3        1762         2.09 ++++        89.50     
+    TRIA3        1763         2.09 ++++        91.59     
+    TRIA3        1764         2.08 ++++        93.68     
+    TRIA3        1817         2.09 ++++        90.50     
+    TRIA3        1818         2.09 ++++        89.50     
+    TRIA3        1819         2.09 ++++        91.59     
+    TRIA3        1820         2.08 ++++        93.68     
+    TRIA3        1873         2.09 ++++        90.50     
+    TRIA3        1874         2.09 ++++        89.50     
+    TRIA3        1875         2.09 ++++        91.59     
+    TRIA3        1876         2.08 ++++        93.68     
+    TRIA3        1929         2.09 ++++        90.50     
+    TRIA3        1930         2.09 ++++        89.50     
+    TRIA3        1931         2.09 ++++        91.59     
+    TRIA3        1932         2.08 ++++        93.68     
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE     8
+                                                                                                                                    
+0                                                                                                                                   
+
+
+                            E L E M E N T   G E O M E T R Y   T E S T   R E S U L T S   S U M M A R Y
+                                        TOTAL NUMBER OF TIMES TOLERANCES WERE EXCEEDED
+  ELEMENT        SKEW       ASPECT/     MINIMUM      MAXIMUM    SURFACE/FACE    OFFSET     EDGE POINT   EDGE POINT    JACOBIAN  
+    TYPE       ANGLE      TAPER RATIO INTER. ANGLE INTER. ANGLE  WARP FACTOR    RATIO     LENGTH RATIO ANGLE LIMIT  DETERMINANT 
+   QUAD4           0            0            0            0            0          N/A          N/A          N/A          N/A        
+   TRIA3          80          N/A          N/A            0          N/A          N/A          N/A          N/A          N/A        
+
+         N/A IN THE ABOVE TABLE INDICATES TESTS THAT ARE NOT APPLICABLE TO THE ELEMENT TYPE AND WERE NOT PERFORMED.
+         FOR ALL ELEMENTS WHERE GEOMETRY TEST RESULTS HAVE EXCEEDED TOLERANCES,
+
+         TRIA3    ELEMENT ID     1204 PRODUCED SMALLEST SKEW ANGLE       OF       2.08 (TOLERANCE =       10.00).
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE     9
+                                                                                                                                    
+0                                                                                                                                   
+ *** USER INFORMATION MESSAGE 7310 (VECPRN)
+     ORIGIN OF SUPERELEMENT OR MODULE BASIC COORDINATE SYSTEM WILL BE USED AS REFERENCE LOCATION.
+     RESULTANTS ABOUT ORIGIN OF SUPERELEMENT OR MODULE BASIC COORDINATE SYSTEM IN SUPERELEMENT OR MODULE
+     BASIC SYSTEM COORDINATES.
+0                                                  OLOAD    RESULTANT       
+  SUBCASE/    LOAD
+  DAREA ID    TYPE       T1            T2            T3            R1            R2            R3
+0        1     FX   -9.363092E+03     ----          ----          ----      -1.338636E+05 -2.763217E+04                             
+               FY       ----       5.422630E+05     ----      -7.944860E+06     ----       1.030241E+06                             
+               FZ       ----          ----       0.000000E+00  0.000000E+00  0.000000E+00     ----                                  
+               MX       ----          ----          ----       0.000000E+00     ----          ----                                  
+               MY       ----          ----          ----          ----       0.000000E+00     ----                                  
+               MZ       ----          ----          ----          ----          ----       0.000000E+00                             
+             TOTALS -9.363092E+03  5.422630E+05  0.000000E+00 -7.944860E+06 -1.338636E+05  1.002609E+06
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE    10
+                                                                                                                                    
+0                                                                                                            SUBCASE 1              
+  
+ *** SYSTEM INFORMATION MESSAGE 4159 (DFMSA)
+     THE DECOMPOSITION OF KLL      YIELDS A MAXIMUM MATRIX-TO-FACTOR-DIAGONAL RATIO OF    6.954328E+03
+ *** USER INFORMATION MESSAGE 5293 (SSG3A)
+    FOR DATA BLOCK KLL     
+    LOAD SEQ. NO.             EPSILON              EXTERNAL WORK      EPSILONS LARGER THAN 0.001 ARE FLAGGED WITH ASTERISKS
+                1         -2.2467894E-09          2.7717127E+05
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE    11
+                                                                                                                                    
+0                                                                                                                                   
+0                                                  MAXIMUM  DISPLACEMENTS   
+  SUBCASE/
+  DAREA ID        T1             T2             T3             R1             R2             R3
+0        1   8.4154466E-02  3.0803670E+00  1.1531071E+00  2.5294439E-01  1.6909412E-01  2.7467522E-01
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE    12
+                                                                                                                                    
+0                                                                                                                                   
+0                                                  MAXIMUM  APPLIED LOADS   
+  SUBCASE/
+  DAREA ID        T1             T2             T3             R1             R2             R3
+0        1   3.6468728E+02  2.8969240E+03  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  10, 2022  MSC Nastran  5/ 1/20   PAGE    13
+                                                                                                                                    
+0                                                                                                                                   
+ * * * *  D B D I C T   P R I N T  * * * *      SUBDMAP = PRTSUM  ,  DMAP STATEMENT NO.     71
+
+
+
+0                                   * * * *  A N A L Y S I S  S U M M A R Y  T A B L E  * * * *
+0 SEID  PEID PROJ VERS APRCH      SEMG SEMR SEKR SELG SELR MODES DYNRED SOLLIN PVALID SOLNL LOOPID DESIGN CYCLE SENSITIVITY
+ --------------------------------------------------------------------------------------------------------------------------
+     0     0    1    1 '        '    T    T    T    T    T     F      F      T      0     F     -1            0           F
+0SEID = SUPERELEMENT ID.
+ PEID = PRIMARY SUPERELEMENT ID OF IMAGE SUPERELEMENT.
+ PROJ = PROJECT ID NUMBER.
+ VERS = VERSION ID.
+ APRCH = BLANK FOR STRUCTURAL ANALYSIS.  HEAT FOR HEAT TRANSFER ANALYSIS.
+ SEMG = STIFFNESS AND MASS MATRIX GENERATION STEP.
+ SEMR = MASS MATRIX REDUCTION STEP (INCLUDES EIGENVALUE SOLUTION FOR MODES).
+ SEKR = STIFFNESS MATRIX REDUCTION STEP.
+ SELG = LOAD MATRIX GENERATION STEP.
+ SELR = LOAD MATRIX REDUCTION STEP. 
+ MODES = T (TRUE) IF NORMAL MODES OR BUCKLING MODES CALCULATED.
+ DYNRED = T (TRUE) MEANS GENERALIZED DYNAMIC AND/OR COMPONENT MODE REDUCTION PERFORMED.
+ SOLLIN = T (TRUE) IF LINEAR SOLUTION EXISTS IN DATABASE.
+ PVALID = P-DISTRIBUTION ID OF P-VALUE FOR P-ELEMENTS
+ LOOPID = THE LAST LOOPID VALUE USED IN THE NONLINEAR ANALYSIS.  USEFUL FOR RESTARTS.
+ SOLNL = T (TRUE) IF NONLINEAR SOLUTION EXISTS IN DATABASE.
+ DESIGN CYCLE = THE LAST DESIGN CYCLE (ONLY VALID IN OPTIMIZATION).
+ SENSITIVITY = SENSITIVITY MATRIX GENERATION FLAG.
+ 
+ No PARAM values were set in the Control File.
+ 
+1                                        * * * END OF JOB * * *
+ 
+ 
+ No Symbolic Replacement variables or values were specified.
+

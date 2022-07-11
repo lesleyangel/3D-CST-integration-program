@@ -295,11 +295,12 @@ void ShapeX37()
 	Aircraft A;								//实例化一个部件
 	A.AddShape(new ShapeMainBody3(sm3));
 	A.AddShape(new ShapeWing2(sw2));
-	A.AddShape(new ShapeTail2(st2));		//将双垂尾部件加入飞行器
+	A.AddShape(new ShapeTail2(st2));		//将双垂尾部件加入飞行器  tps
 
 	A.CalculateAircraft();					//生成飞行器网格
 	A.getVol("AircraftData/" + name + "_Vol.txt");
 	A.SaveTecPlotAll("AircraftData/"+name+".dat");	//生成可视化软件可读文本文件
+	A.SaveTecPlotAll("C:\\Users\\yycab\\Desktop\\database\\c++\\CST\\example\\x37.dat");
 	A.calcAeroForce("C:\\Users\\yycab\\source\\repos\\test001\\test001\\mesh");	//调用aero_calc计算气动力
 	A.getVol();
 	A.GetBone();
@@ -777,15 +778,16 @@ void test_curve()
 	Point res_p = gf.update_point(Point(0, 1, 0), 0.5);
 }
 
-int main()
+int main1()
 {
 	testAircraft();
 
 	return 0;
 }
 
-int main1(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
+	ShapeX37();
 	string exefilepath = argv[0];
 	string exePath = exefilepath.substr(0, exefilepath.find_last_of("/"));//获取exe所在文件夹路径
 	if (exePath == exefilepath)//相对路径
@@ -805,7 +807,7 @@ int main1(int argc, char* argv[])
 		datpath = argv[1];//这里的路径必须是反斜杠才可以正确生成输出文件
 		break;
 	case 1:
-		datpath = "E:\\Matlab-Xfoil\\cst\\inpSW.cst";//
+		datpath = "C:\\Users\\yycab\\Desktop\\database\\c++\\CST\\example\\inpSW.cst";//
 		break;
 	default:
 		cout << "错误的输入参数个数" << endl;
@@ -815,7 +817,7 @@ int main1(int argc, char* argv[])
 
 	cout << "$----------------------------------------$\n";
 	cout << "$       3D-CST integration program       $\n";
-	cout << "$                 v 5.0.0                $\n";
+	cout << "$                 v5.0.1                 $\n";
 	cout << "$----------------------------------------$\n";
 	cout << std::flush;
 
