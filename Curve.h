@@ -151,11 +151,12 @@ public:
             cst_info.N1 = front.pt2->vec_info[0] + (back.pt2->vec_info[0] - front.pt2->vec_info[0]) * eta;
             cst_info.N2 = front.pt2->vec_info[1] + (back.pt2->vec_info[1] - front.pt2->vec_info[1]) * eta;
             Curve2D middle_eta(ptr_Curve(new Curve_cst(cst_info)), Curve2D::cartesian);
-
+            
             res.setX(0);
             res.setY(0 + ridge.pt2->get_normal(eta) * middle_eta.pt2->get_normal(psi));
             res.setZ(0 + middle_eta.pt1->get(psi) * lateral.pt2->get_normal(eta));
             // res = guide.update_point(res, eta);
+
         }
         else
         {

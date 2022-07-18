@@ -43,6 +43,9 @@
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\meshing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\myNastran.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -70,6 +73,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\Interpolation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\Meshing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\NasPrinter.h">

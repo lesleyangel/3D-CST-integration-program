@@ -1,17 +1,17 @@
-#include"CST_Instantiation.h"
-#include"Aircraft.h"
-#include"Curve.h"
-#include <sstream> 
+#include "CST_Instantiation.h"
+#include "Aircraft.h"
+#include "Curve.h"
+#include "Meshing.h"
+#include <sstream>
 using namespace arma;
 using namespace std;
 
 #define pi 3.1415926
 
-
 mat copyMall(vector<vector<double>> &v)
 {
 	vector<vector<double>>::iterator s = v.begin();
-	mat m = zeros(v.size(),(*s).size());
+	mat m = zeros(v.size(), (*s).size());
 	int i = 0;
 	//int j = 0;
 	for (vector<vector<double>>::iterator it = v.begin(); it != v.end(); it++)
@@ -32,11 +32,11 @@ mat copyMall(vector<vector<double>> &v)
 //test CopyMall
 void test05()
 {
-	vector<vector<double>>v;
+	vector<vector<double>> v;
 
-	vector<double>v1;
-	vector<double>v2;
-	vector<double>v3;
+	vector<double> v1;
+	vector<double> v2;
+	vector<double> v3;
 	for (int i = 0; i < 1; i++)
 	{
 		v1.push_back((double)i);
@@ -50,11 +50,11 @@ void test05()
 	cout << "v1.size:" << v1.size() << endl;
 	vector<vector<double>>::iterator ss = v.begin();
 	cout << v.size() << " " << (*ss).size() << endl;
-	
+
 	mat AA = copyMall(v);
 	cout << AA << endl;
 
-	vector<vector<double>>BUPP;
+	vector<vector<double>> BUPP;
 	vector<double> va;
 	//va.resize(1);
 	va.push_back(1);
@@ -74,35 +74,36 @@ void testAircraft()
 	SMB1 mb1;
 	mb1.NFaiL = mb1.NFaiU = mb1.NEta = mb1.NHeight = 40;
 	mb1.NEta = 20;
-	mb1.N2 = { 0.1,0.1,0.5,0.5 };
-	mb1.N1 = { 3.0,3.0,0.1,0.1 };
+	mb1.N2 = {0.1, 0.1, 0.5, 0.5};
+	mb1.N1 = {3.0, 3.0, 0.1, 0.1};
 	// mb1.N2 = { 0.1,0.1,0.5,0.5 };
 	// mb1.N1 = { 0.1,0.1,0.5,0.5 };
 	// mb1.N2 = { 0.5,1.0,0.5,1.0 };
 	// mb1.N1 = { 0.5,1.0,0.5,1.0 };
 	//mb1.Length = {15000, 4000, 4000, 8000};
-	mb1.Length = { 150, 40, 40, 80 };
-	mb1.M1 = { 0.0,0,0.0,0 };
-	mb1.T1 = { 0.0,0,0.0,0 };
+	mb1.Length = {150, 40, 40, 80};
+	mb1.M1 = {0.0, 0, 0.0, 0};
+	mb1.T1 = {0.0, 0, 0.0, 0};
 	//mb1.M1 = { 0.0,0.1,0.0,0.1 };
 	//mb1.T1 = { 0.0,0.1,0.0,0.1 };
 	//mb1.M1 = { 0.5,0.0,0.5,0.0 };
 	//mb1.T1 = { 0.5,0.0,0.5,0.0 };
 	mb1.GridRefineType = -1;
 	SMB2 mb2;
-	mb2.NFaiL = mb2.NFaiU = 40;  mb2.NHeight = 4;
-	mb2.N1 = { 0.2,0.2,0.1,0.1 };
-	mb2.N2 = { 0.4,0.4,0.1,0.1 };
-	mb2.N3 = { 0.1,0.1,0.1,0.1 };
+	mb2.NFaiL = mb2.NFaiU = 40;
+	mb2.NHeight = 4;
+	mb2.N1 = {0.2, 0.2, 0.1, 0.1};
+	mb2.N2 = {0.4, 0.4, 0.1, 0.1};
+	mb2.N3 = {0.1, 0.1, 0.1, 0.1};
 	mb2.LHead[0] += 1000;
 	mb2.LBody[0] -= 1000;
 	mb2.LHead[0] *= 1.2;
 	mb2.LBody[0] *= 1.2;
 	mb2.LHead[3] = mb2.LBody[3] = 3500;
 	mb2.LBody[1] = mb2.LHead[1] = 2300;
-	
+
 	//mb2.BUPP1 = { { 10,1,10,1,10 },
-	//			{ 10,1,10,1,10 }, 
+	//			{ 10,1,10,1,10 },
 	//			{ 10,1,10,1,10 },
 	//			{ 10,1,10,1,10 },
 	//			{ 10,1,10,1,10 },
@@ -114,7 +115,7 @@ void testAircraft()
 	//			{ 1.5,.5,1.5,9,1,1 } ,
 	//			{ 1.5,.5,1.5,9,1,1 } };
 	//mb2.DUPP1 = { {1,2,1,2,1} };
-	
+
 	//mb2.NFaiL =  mb2.NFaiU = mb2.NEta = mb2.NHeight = 2;
 	SMB3 mb3;
 	//变形1
@@ -127,20 +128,20 @@ void testAircraft()
 	//mb3.BUPP2 = { {2,2,1,2,1,2,2} };
 	//mb3.BUPP3 = { {2,2,1,2,1} };
 	//变形3
-	mb3.DUPP1 = mb3.DLOW1 = { {1.2,.7,1.2,.7,.7} } ;
-	mb3.DUPP2 = mb3.DLOW2 = { {.7,.7,1.2,.7,1.2,.7,.7} };
-	mb3.DUPP3 = mb3.DLOW3 = { {.7,.7,1.2,.7,1.2} };
+	mb3.DUPP1 = mb3.DLOW1 = {{1.2, .7, 1.2, .7, .7}};
+	mb3.DUPP2 = mb3.DLOW2 = {{.7, .7, 1.2, .7, 1.2, .7, .7}};
+	mb3.DUPP3 = mb3.DLOW3 = {{.7, .7, 1.2, .7, 1.2}};
 
-	SW1 sw1; 
-	sw1.Origin = { 16500*1.2,-900,1830 };
-	sw1.SpanL = 5020*1.2;
-	sw1.RootChordL = 6500*1.2;
+	SW1 sw1;
+	sw1.Origin = {16500 * 1.2, -900, 1830};
+	sw1.SpanL = 5020 * 1.2;
+	sw1.RootChordL = 6500 * 1.2;
 	sw1.TipRootRatio = 0.268;
 	sw1.Thickness = 600;
 	sw1.NFaiL = sw1.NFaiU = sw1.NEta = 40;
 	sw1.NHeight = 4;
 	sw1.ifUseMid = false;
-	
+
 	SW2 sw2;
 	sw2.NFaiL = sw2.NFaiU = 30;
 	sw2.NEta_inn = sw2.NEta_out = 30;
@@ -148,63 +149,66 @@ void testAircraft()
 	sw2.SpanL_inn = 3000;
 	sw2.SweepBackAngle_inn = 65;
 	sw2.ifUseMid = false;
-	
+
 	ST1 st1;
-	st1.Origin = { 24000,2330,0 };
-	st1.NFaiL = st1.NFaiU = st1.NEta = 40; st1.NHeight = 3;
+	st1.Origin = {24000, 2330, 0};
+	st1.NFaiL = st1.NFaiU = st1.NEta = 40;
+	st1.NHeight = 3;
 	st1.RootChordL = 3500;
 	st1.SpanL = 3500;
 	st1.SweepBackAngle = 30;
-	
+
 	ST2 st2;
-	st2.NFaiL = st2.NFaiU = st2.NEta = 10; st2.NHeight = 3;
-	
-	Aircraft A;								//实例化一个部件
+	st2.NFaiL = st2.NFaiU = st2.NEta = 10;
+	st2.NHeight = 3;
+
+	Aircraft A; //实例化一个部件
 	//使用AddShape函数将部件加入飞行器A
 	A.AddShape(new ShapeMainBody1(mb1));
 	//A.AddShape(new ShapeMainBody2(mb2));	//将头身组合体部件加入飞行器
 	//A.AddShape(new ShapeMainBody2);		//将头身组合体部件加入飞行器
 	//A.AddShape(new ShapeMainBody3(mb3));
-	
+
 	//A.AddShape(new ShapeWing1(sw1));
 	//A.AddShape(new ShapeWing2);			//将机翼部件加入飞行器
 	//A.AddShape(new ShapeWing2(sw2));
-	
+
 	//A.AddShape(new ShapeTail1);			//将单垂尾部件加入飞行器
 	//A.AddShape(new ShapeTail1(st1));
 	//A.AddShape(new ShapeTail2);
 	//A.AddShape(new ShapeTail2(st2));		//将双垂尾部件加入飞行器
-	
-	
-	A.CalculateAircraft();					//生成飞行器网格
-	A.SaveTecPlotAll("C:/Users/yycab/Desktop/database/c++/CST/example/A.dat");		//生成可视化软件可读文本文件
-	//A.calcAeroForce();						//调用aero_calc计算气动力
-	//A.CalcStruct1D();							//生成梁壳结合结构网格
-	//A.CalcStruct2D();							//生成壳单元结构网格
-	////A.GetBone();							//生成骨架梁模型
-	//
-	//A.strct1d.SaveAsAbaqus("test.inp");
-	//A.strct1d.SaveAsTecplt("dwadw");
-	//A.bone.SaveAsTcp("bone.dat");			//存储
-	//A.bone.SaveAsAbaqus("bone_abaqus.inp");
 
+	A.CalculateAircraft();													   //生成飞行器网格
+	A.SaveTecPlotAll("C:/Users/yycab/Desktop/database/c++/CST/example/A.dat"); //生成可视化软件可读文本文件
+																			   //A.calcAeroForce();						//调用aero_calc计算气动力
+																			   //A.CalcStruct1D();							//生成梁壳结合结构网格
+																			   //A.CalcStruct2D();							//生成壳单元结构网格
+																			   ////A.GetBone();							//生成骨架梁模型
+																			   //
+																			   //A.strct1d.SaveAsAbaqus("test.inp");
+																			   //A.strct1d.SaveAsTecplt("dwadw");
+																			   //A.bone.SaveAsTcp("bone.dat");			//存储
+																			   //A.bone.SaveAsAbaqus("bone_abaqus.inp");
 }
 
 void ShapeX34()
 {
 	//X34
 	SMB2 X34mb2;
-	X34mb2.NFaiL = X34mb2.NFaiU = 40;  X34mb2.NHeight = 4;
-	X34mb2.N1 = { 0.2,0.2,0.1,0.1 };
-	X34mb2.N2 = { 0.4,0.4,0.1,0.1 };
-	X34mb2.N3 = { 0.1,0.1,0.1,0.1 };
-	X34mb2.LHead[0] += 1000;	X34mb2.LBody[0] -= 1000;
-	X34mb2.LHead[0] *= 1.2;	X34mb2.LBody[0] *= 1.2;
+	X34mb2.NFaiL = X34mb2.NFaiU = 40;
+	X34mb2.NHeight = 4;
+	X34mb2.N1 = {0.2, 0.2, 0.1, 0.1};
+	X34mb2.N2 = {0.4, 0.4, 0.1, 0.1};
+	X34mb2.N3 = {0.1, 0.1, 0.1, 0.1};
+	X34mb2.LHead[0] += 1000;
+	X34mb2.LBody[0] -= 1000;
+	X34mb2.LHead[0] *= 1.2;
+	X34mb2.LBody[0] *= 1.2;
 	X34mb2.LHead[3] = X34mb2.LBody[3] = 3500;
 	X34mb2.LBody[1] = X34mb2.LHead[1] = 2300;
 
 	SW1 X34sw1;
-	X34sw1.Origin = { 16500 * 1.2,-900,1830 };
+	X34sw1.Origin = {16500 * 1.2, -900, 1830};
 	X34sw1.SpanL = 5020 * 1.2;
 	X34sw1.RootChordL = 6500 * 1.2;
 	X34sw1.TipRootRatio = 0.268;
@@ -214,26 +218,26 @@ void ShapeX34()
 	X34sw1.ifUseMid = false;
 
 	ST1 X34st1;
-	X34st1.Origin = { 24000,2330,0 };
-	X34st1.NFaiL = X34st1.NFaiU = X34st1.NEta = 40; X34st1.NHeight = 3;
+	X34st1.Origin = {24000, 2330, 0};
+	X34st1.NFaiL = X34st1.NFaiU = X34st1.NEta = 40;
+	X34st1.NHeight = 3;
 	X34st1.RootChordL = 3500;
 	X34st1.SpanL = 3500;
 	X34st1.SweepBackAngle = 30;
 
+	Aircraft X34;							  //实例化一个部件
+	X34.AddShape(new ShapeMainBody2(X34mb2)); //将头身组合体部件加入飞行器
+	X34.AddShape(new ShapeWing1(X34sw1));	  //将机翼部件加入飞行器
+	X34.AddShape(new ShapeTail1(X34st1));	  //将单垂尾部件加入飞行器
 
-	Aircraft X34;								//实例化一个部件
-	X34.AddShape(new ShapeMainBody2(X34mb2));	//将头身组合体部件加入飞行器
-	X34.AddShape(new ShapeWing1(X34sw1));		//将机翼部件加入飞行器
-	X34.AddShape(new ShapeTail1(X34st1));		//将单垂尾部件加入飞行器
-
-	X34.CalculateAircraft();					//生成飞行器网格
-	X34.SaveTecPlotAll("AircraftData/X34.dat");	//生成可视化软件可读文本文件
-	X34.calcAeroForce("C:\\Users\\yycab\\source\\repos\\test001\\test001\\mesh");//调用aero_calc计算气动力
-	X34.CalcStruct1D();								//生成梁壳结合结构网格
+	X34.CalculateAircraft();													  //生成飞行器网格
+	X34.SaveTecPlotAll("AircraftData/X34.dat");									  //生成可视化软件可读文本文件
+	X34.calcAeroForce("C:\\Users\\yycab\\source\\repos\\test001\\test001\\mesh"); //调用aero_calc计算气动力
+	X34.CalcStruct1D();															  //生成梁壳结合结构网格
 
 	X34.struct1d.SaveAsAbaqus("AircraftData/X34.inp");
 	X34.struct1d.SaveAsTecplt("AircraftData/X34");
-	X34.bone.SaveAsTcp("AircraftData/X34-bone.dat");			//存储
+	X34.bone.SaveAsTcp("AircraftData/X34-bone.dat"); //存储
 	X34.bone.SaveAsAbaqus("AircraftData/X34-bone.inp");
 }
 
@@ -242,7 +246,7 @@ void ShapeX37()
 	string name = "X100";
 
 	SMB3 sm3;
-	sm3.N4 = { 0.4,0.4,0.1,0.1 };
+	sm3.N4 = {0.4, 0.4, 0.1, 0.1};
 	sm3.Ratio3 = 4;
 	sm3.NEta = sm3.NFaiL = sm3.NFaiU = 30;
 	sm3.GridRefineType = -1;
@@ -262,7 +266,7 @@ void ShapeX37()
 	//	{1,2,3,1,2,3},
 	//	{1,2,3,1,2,3} };
 	SW1 sw1;
-	sw1.Origin = { 5000 ,-900,1830 };
+	sw1.Origin = {5000, -900, 1830};
 	sw1.SpanL = 3020;
 	sw1.RootChordL = 4500;
 	sw1.TipRootRatio = 0.268;
@@ -282,36 +286,38 @@ void ShapeX37()
 	sw2.SweepBackAngle_out = 30;
 	sw2.SpanL_out = 3300;
 	sw2.TipRootRatio_inn = 1.0 / 2.5;
-	sw2.TipRootRatio_out = 0.65*0.7;
+	sw2.TipRootRatio_out = 0.65 * 0.7;
 	sw2.ifUseMid = false;
 
 	ST2 st2;
-	st2.NFaiL = st2.NFaiU = st2.NEta = 30; st2.NHeight = 3;
-	st2.Origin = { 16000,1200,1800 };
+	st2.NFaiL = st2.NFaiU = st2.NEta = 30;
+	st2.NHeight = 3;
+	st2.Origin = {16000, 1200, 1800};
 	st2.SpanL = 5000;
 	st2.RootChordL = 3000;
 	st2.SideAngle = 45;
 
-	Aircraft A;								//实例化一个部件
+	Aircraft A; //实例化一个部件
 	A.AddShape(new ShapeMainBody3(sm3));
 	A.AddShape(new ShapeWing2(sw2));
-	A.AddShape(new ShapeTail2(st2));		//将双垂尾部件加入飞行器  tps
+	A.AddShape(new ShapeTail2(st2)); //将双垂尾部件加入飞行器  tps
 
-	A.CalculateAircraft();					//生成飞行器网格
+	A.CalculateAircraft(); //生成飞行器网格
 	A.getVol("AircraftData/" + name + "_Vol.txt");
-	A.SaveTecPlotAll("AircraftData/"+name+".dat");	//生成可视化软件可读文本文件
+	A.SaveTecPlotAll("AircraftData/" + name + ".dat"); //生成可视化软件可读文本文件
 	A.SaveTecPlotAll("C:\\Users\\yycab\\Desktop\\database\\c++\\CST\\example\\x37.dat");
-	A.calcAeroForce("C:\\Users\\yycab\\source\\repos\\test001\\test001\\mesh");	//调用aero_calc计算气动力
+	return;
+	A.calcAeroForce("C:\\Users\\yycab\\source\\repos\\test001\\test001\\mesh"); //调用aero_calc计算气动力
+
 	A.getVol();
 	A.GetBone();
-	A.CalcStruct1D();								//生成梁壳结合结构网格
-	A.CalcStruct2D();							//生成壳单元结构网格
+	A.CalcStruct1D(); //生成梁壳结合结构网格
+	A.CalcStruct2D(); //生成壳单元结构网格
 	//A.strct1d.SaveAsAbaqus("AircraftData/" + name + ".inp");
 	A.struct1d.SaveAsTecplt("AircraftData/" + name + "");
 	//A.strct1d.SaveAsNastran("C:/Users/yycab/Desktop/bdf/X37/" + name);
-	A.bone.SaveAsTcp("AircraftData/" + name + "-bone.dat");			//存储
-	//A.bone.SaveAsAbaqus("AircraftData/" + name + "-bone.inp");
-	
+	A.bone.SaveAsTcp("AircraftData/" + name + "-bone.dat"); //存储
+															//A.bone.SaveAsAbaqus("AircraftData/" + name + "-bone.inp");
 }
 
 void testInterp()
@@ -322,14 +328,14 @@ void testInterp()
 		X.col(i) = X.col(i) * i;
 	}
 	mat Y = X;
-	mat Z = { {0,2,44,6} };
+	mat Z = {{0, 2, 44, 6}};
 	cout << X << endl;
 	cout << Z << endl;
-	mat X1 = { {0.2,0.3} }, Y1;
+	mat X1 = {{0.2, 0.3}}, Y1;
 	interp1(X, trans(Z), trans(X1), Y1);
 	cout << Y1 << endl;
 
-	mat Z2d = { {1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16} };
+	mat Z2d = {{1, 2, 3, 4}, {5, 6, 7, 8}, {9, 10, 11, 12}, {13, 14, 15, 16}};
 	mat Z1;
 	interp2(X, Y, Z2d, X1, Y1, Z1);
 	cout << Z1 << endl;
@@ -757,63 +763,88 @@ void test_curve()
 	CST_info cst_info;
 	cst_info.N1 = 0.5;
 	cst_info.N2 = 0.5;
-	Curve* cv = new Curve_cst(cst_info);
+	Curve *cv = new Curve_cst(cst_info);
 	vector<double> list = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
-	vector<double> res = cv->get(list,false);
-	vector<double> res1 = cv->get(list,true);
+	vector<double> res = cv->get(list, false);
+	vector<double> res1 = cv->get(list, true);
 
 	auto funcc = [](double x)
-	{ return x * x*4-100; };
+	{ return x * x * 4 - 100; };
 	Curve *ccv = new Curve_func(funcc);
 	auto res2 = ccv->get(list, true);
 
 	GuideFunc gf;
-	gf.pt1 = shared_ptr<Curve>(new Curve_func([](double x){ return 0; }));
-	gf.pt2 = shared_ptr<Curve>(new Curve_func([](double x){ return 0; }));
-	gf.pt3 = shared_ptr<Curve>(new Curve_func([](double x){ return 0; }));
-	gf.theta1 = shared_ptr<Curve>(new Curve_func([](double x){ return 90 * x; }));
-	gf.theta2 = shared_ptr<Curve>(new Curve_func([](double x){ return 90 * x; }));
-	gf.theta3 = shared_ptr<Curve>(new Curve_func([](double x){ return 0; }));
+	gf.pt1 = shared_ptr<Curve>(new Curve_func([](double x)
+											  { return 0; }));
+	gf.pt2 = shared_ptr<Curve>(new Curve_func([](double x)
+											  { return 0; }));
+	gf.pt3 = shared_ptr<Curve>(new Curve_func([](double x)
+											  { return 0; }));
+	gf.theta1 = shared_ptr<Curve>(new Curve_func([](double x)
+												 { return 90 * x; }));
+	gf.theta2 = shared_ptr<Curve>(new Curve_func([](double x)
+												 { return 90 * x; }));
+	gf.theta3 = shared_ptr<Curve>(new Curve_func([](double x)
+												 { return 0; }));
 
 	Point res_p = gf.update_point(Point(0, 1, 0), 0.5);
+}
+// extern "C" {
+//      uint32_t addition(uint32_t, uint32_t);
+// }
+extern "C" {
+	void *creat(double);
+	double add1(void *);
+	void delete_ptr (void *);
 }
 
 int main1()
 {
-	testAircraft();
+	// void *ptr = creat(3.14);
+	// double ress = add1(ptr);
+
+	// double x_1 = add1(ptr);
+	// double x_2 = add1(ptr);
+	// delete_ptr(move(ptr));
+	// // delete_ptr(ptr);
+	// double x_3 = add1(ptr);
+
+	Meshing ms;
+	int state = ms.calc_mesh(CBlockInfo());
+	// cout << ms.fai_mesh << endl;
+	// cout << ms.eta_mesh << endl;
+	// testAircraft();
 
 	return 0;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-	ShapeX37();
 	string exefilepath = argv[0];
-	string exePath = exefilepath.substr(0, exefilepath.find_last_of("/"));//获取exe所在文件夹路径
-	if (exePath == exefilepath)//相对路径
+	string exePath = exefilepath.substr(0, exefilepath.find_last_of("/")); //获取exe所在文件夹路径
+	if (exePath == exefilepath)											   //相对路径
 	{
-		exePath = exefilepath.substr(0, exefilepath.find_last_of("\\"));//获取文件夹路径
-		if (exePath == exefilepath)//相对路径
+		exePath = exefilepath.substr(0, exefilepath.find_last_of("\\")); //获取文件夹路径
+		if (exePath == exefilepath)										 //相对路径
 		{
 			exePath = "";
 		}
-	//docPath = "";
+		//docPath = "";
 	}
 	//计算输入文件路径
 	string datpath = "";
 	switch (argc)
 	{
 	case 2:
-		datpath = argv[1];//这里的路径必须是反斜杠才可以正确生成输出文件
+		datpath = argv[1]; //这里的路径必须是反斜杠才可以正确生成输出文件
 		break;
 	case 1:
-		datpath = "C:\\Users\\yycab\\Desktop\\database\\c++\\CST\\example\\inpSW.cst";//
+		datpath = "C:\\Users\\yycab\\Desktop\\database\\c++\\CST\\example\\inpSW.cst"; //
 		break;
 	default:
 		cout << "错误的输入参数个数" << endl;
 		return -1;
 	}
-	
 
 	cout << "$----------------------------------------$\n";
 	cout << "$       3D-CST integration program       $\n";
@@ -822,7 +853,7 @@ int main(int argc, char* argv[])
 	cout << std::flush;
 
 	Aircraft A;
-	
+
 	A.setEXEworkPath(exePath);
 	int state = A.RunFromFile(datpath);
 	//system("pause");

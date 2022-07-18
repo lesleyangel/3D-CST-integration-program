@@ -3,27 +3,7 @@
 #include "include/armadillo"
 #include "Bone.h"
 #include "Curve.h"
-//using namespace arma;
-//using namespace std;
-//using namespace arith;
-
-
-
-//网格划分的设定
-class MeshDefine
-{
-public:
-	enum Style
-	{
-		normal,	 //正规的
-		oblique, //倾斜的
-	};
-	int NFaiU;				//上表面横向网格数
-	int NFaiL;				//下表面横向网格数
-	int NEta;				//轴向网格数
-	int NHeight;			//高度方向网格数
-	mat MeshRefineRatio;	//网格密度修正因子
-};
+#include "Meshing.h"
 
 //单个cst曲面类
 class CSTsurface
@@ -43,10 +23,16 @@ public:
 	mat T;					//中面导引形状因子（上导引T1/T2,下导引T1/T2）
 	double Ratio;			//形状因子过渡系数
 	//------------------网格参数--------------------
-	int NFaiU;				//上表面横向网格数
-	int NFaiL;				//下表面横向网格数
-	int NEta;				//轴向网格数
-	int NHeight;			//高度方向网格数
+	size_t n_fai_u{10};				// 输入的上表面横向网格数
+	double fai_u_block_size{0.200};	// 上表面网格块数量
+	size_t n_fai_l{10};				// 输入的上表面横向网格数
+	double fai_l_block_size{0.200};	// 下表面网格块数量
+	size_t n_eta{13};				// 输入的上表面横向网格数
+	double eta_block_size{0.25000001};	// 轴向网格块数量
+	size_t NFaiU;				// 上表面横向网格数
+	size_t NFaiL;				// 下表面横向网格数
+	size_t NEta;				// 轴向网格数
+	size_t NHeight;				//高度方向网格数
 
 	bool Is_MeshFront;		//是否缝合头部
 	bool Is_MeshBack;		//是否缝合尾部

@@ -299,28 +299,59 @@ double Aircraft::getVol(string savepath/* = "none"*/)
 void Aircraft::CalcStruct2D()
 {
 	Struct2D s2d;
-	for (vector<AbstructShape*>::iterator it = CSTall.begin(); it != CSTall.end(); it++)
+	for (size_t n = 0; n < CSTall.size(); n++)
 	{
-		for (size_t i = 0; i < (*it)->CSTsf.size(); i++)
+		for (size_t i = 0; i < CSTall[n]->CSTsf.size(); i++)
 		{
-			//(*it)->CSTsf[i].MakeStruct2D(X,Z);
-			(*it)->CSTsf[i].MakeStruct2D_byNum();
+			CSTsurface &sf = CSTall[n]->CSTsf[i];
+			sf.MakeStruct2D_byNum();
 			//
-			int Xnum = (*it)->CSTsf[i].NEta;
-			int Znum = (*it)->CSTsf[i].NFaiL;
-			int XSnum = (*it)->CSTsf[i].Struct2dXnum;
-			int ZSnum = (*it)->CSTsf[i].Struct2dZnum + 2;
-			int Xdelta = Xnum / (XSnum - 1);
-			int Zdelta = Znum / (ZSnum - 1);
-			mat Xsite = linspace(0, (double)Xdelta * ((double)XSnum - 1), XSnum);
-			mat Zsite = linspace(Zdelta, (double)Zdelta * ((double)ZSnum - 2), ZSnum - 2);
+			// int Xnum = sf.NEta;
+			// int Znum = sf.NFaiL;
+			// int XSnum = sf.Struct2dXnum;
+			// int ZSnum = sf.Struct2dZnum + 2;
+			// int Xdelta = Xnum / (XSnum - 1);
+			// int Zdelta = Znum / (ZSnum - 1);
+			// mat Xsite = linspace(0, (double)Xdelta * ((double)XSnum - 1), XSnum);
+			// mat Zsite = linspace(Zdelta, (double)Zdelta * ((double)ZSnum - 2), ZSnum - 2);
 			//
-			StructPart SP((*it)->CSTsf[i].node_2D);
-			SP.setProperty(m_property);
-			SP.setIsFixedMass(this->isStruct2D_FixedMass);
-			SP.setSite(Xsite, Zsite);
-			SP.calcStructPart((*it)->CSTsf[i].Origin, (*it)->CSTsf[i].Rotation);
+
 			
+			const double eta_block = 1.0 / sf.eta_block_size;
+			const int eta_struct_num = eta_block - (int)eta_block < 1e-5 ? (int)eta_block +1: (int)eta_block + 2;
+			const double eta_T_ratio = (1.0 - (eta_struct_num - 2.0) * sf.eta_block_size) / (1.0 / (eta_struct_num - 1));
+
+			const double fai_block = 1.0 / sf.fai_l_block_size;
+			const int fai_struct_num = fai_block - (int)fai_block < 1e-5 ? (int)fai_block -1: (int)fai_block;
+			const double fai_T_ratio = (1.0 - fai_struct_num * sf.fai_l_block_size) / (1.0 / (fai_struct_num + 1));
+
+			if (eta_struct_num < 2)
+			{
+				cout << "错误的翼肋数量！" << endl;
+			}
+			if (fai_struct_num < 0)
+			{
+				cout << "错误的翼梁数量！" << endl;
+			}
+			
+			vec x_site = zeros(eta_struct_num);
+			for (int id = 0; id < eta_struct_num - 1; id++)
+			{
+				x_site(id) = id * sf.n_eta;
+			}
+			x_site(eta_struct_num - 1) = sf.NEta - 1;
+			vec z_site = zeros(fai_struct_num);
+			for (int id = 0; id < fai_struct_num; id++)
+			{
+				z_site(id) = (id+1) * sf.n_fai_l;
+			}
+			//
+			StructPart SP(sf.node_2D);//传入网格信息
+			SP.setProperty(m_property);//设置材料属性
+			SP.setIsFixedMass(this->isStruct2D_FixedMass);//设置是否固定质量
+			SP.setSite(x_site, z_site);//设置eta/fai方向网格序列
+			SP.calcStructPart(sf.Origin, sf.Rotation);//设置网格平移和旋转
+
 			s2d.PartList.push_back(SP);
 		}
 	}

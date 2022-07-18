@@ -124,7 +124,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\libdll\blas_win32_MTd.lib;..\libdll\lapack_win32_MTd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\libdll\blas_win32_MTd.lib;..\libdll\lapack_win32_MTd.lib;..\libdll\meshing.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -177,7 +177,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\libdll\blas_win32_MTd.lib;..\libdll\lapack_win32_MTd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\libdll\blas_win32_MTd.lib;..\libdll\lapack_win32_MTd.lib;..\libdll\meshing.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -230,7 +230,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\libdll\blas_win32_MTd.lib;..\libdll\lapack_win32_MTd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\libdll\blas_win32_MTd.lib;..\libdll\lapack_win32_MTd.lib;..\libdll\meshing.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -282,7 +282,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>..\libdll\blas_win32_MTd.lib;..\libdll\lapack_win32_MTd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>..\libdll\blas_win32_MTd.lib;..\libdll\lapack_win32_MTd.lib;..\libdll\meshing.dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -370,6 +370,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\Interpolation.cpp" />
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\Interpolation.h" />
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\MakeS.cpp" />
+    <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\Meshing.h" />
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\NasPrinter.cpp" />
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\NasPrinter.h" />
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\Struct2D.cpp" />
@@ -379,6 +380,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\main.cpp" />
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\material.cpp" />
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\material.h" />
+    <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\meshing.cpp" />
     <ClCompile Include="C:\Users\yycab\Desktop\database\c++\CST\myNastran.cpp" />
     <ClInclude Include="C:\Users\yycab\Desktop\database\c++\CST\myNastran.h" />
   </ItemGroup>

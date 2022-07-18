@@ -1,10 +1,7 @@
 #include "CST_Instantiation.h"
 #include <fstream>
 #include <iomanip>
-// #include<boost/assign.hpp>
-// #include<boost/foreach.hpp>
-#include<direct.h>
-// using namespace boost::assign;
+#include <direct.h>
 
 //将vector<double>参数转换到mat
 void AbstructShape::copyM(vector<vector<double>>& v, mat& m)
@@ -84,6 +81,7 @@ void AbstructShape::BacsShapeCSTs()
 		cout << "正在运行：完全修正计算。。。" << endl;
 		AllGridRefine();
 	}
+	
 	else//采用部分修正
 	{
 		cout << "正在运行：部分修正计算。。。" << endl;
@@ -108,8 +106,8 @@ void AbstructShape::NotGridRefine()
 		
 		
 		CSTsf[iPart].CST3D();
-		//CSTsf[iPart].RefineMesh(2, true);//
-		CSTsf[iPart].RefineMesh(2, false);//
+		////CSTsf[iPart].RefineMesh(2, true);//
+		// CSTsf[iPart].RefineMesh(2, false);//
 		GridStruct temp;
 		temp.GridUpp = CSTsf[iPart].GridUpp;
 		temp.GridLow = CSTsf[iPart].GridLow;

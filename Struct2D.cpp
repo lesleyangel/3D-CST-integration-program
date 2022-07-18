@@ -5,10 +5,10 @@
 #include "interpolation.h"
 #define pi 3.1415926
 
-StructPart::StructPart(vector<PointSet> node_2D)
+StructPart::StructPart(const vector<PointSet>& node_2d):node_2D(node_2d)
 {
 	this->isFixedMass = false;
-	this->node_2D = node_2D;
+	// this->node_2D = node_2D;
 	this->name = "testpart";
 	numi = node_2D[0].X.n_rows;
 	numj = node_2D[0].X.n_cols;

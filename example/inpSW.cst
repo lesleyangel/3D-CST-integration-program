@@ -19,10 +19,10 @@ BEGIN INPUT
  StructBDF,fon
  Struct2D_FixedMass,fon
  Struct2D_Tec, fon
- Struct2D_AeroStruct,on
+ Struct2D_AeroStruct,fon
  Struct2D_LDratio,fon
  Struct2D_TotalMass,fon
- Struct2D_Nas,fon
+ Struct2D_Nas,on
 
 END INPUT
 

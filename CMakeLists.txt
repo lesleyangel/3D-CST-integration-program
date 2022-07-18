@@ -7,7 +7,9 @@ file(GLOB SRC_FILES                                # 将需要编译的文件弄
 add_executable(${CMAKE_PROJECT_NAME} ${SRC_FILES}) # 可执行文件包含的文件
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/libdll/blas_win32_MTd.lib")      # 添加lib
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/libdll/lapack_win32_MTd.lib")    # 添加lib
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/libdll/lapack_win32_MTd.lib")    # 添加lib 
+# target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/libdll/foobar.dll.lib")    # 添加lib
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE "${PROJECT_SOURCE_DIR}/libdll/meshing.dll.lib")    # 添加lib
 target_compile_features(${CMAKE_PROJECT_NAME} PRIVATE cxx_std_11)   # 启用C++11
 
 add_custom_command(

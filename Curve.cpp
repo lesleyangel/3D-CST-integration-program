@@ -22,6 +22,7 @@ vector<double> Curve::get(const vector<double> &x_list, bool is_normalization)
 
 double Curve::get_normal(double x)
 {
+    double res = get(x) / abs(max_value) * func_size;
     return get(x) / abs(max_value) * func_size;
 }
 
@@ -94,7 +95,12 @@ Curve_cst::Curve_cst(CST_info &&info)
 }
 double Curve_cst::get(double x)
 {
-    return pow(x, m_info.N1) * pow(1 - x, m_info.N2) * ((m_info.Scale - 1) * x + 1);
+    double res = pow(x, m_info.N1) * pow(1 - x, m_info.N2) * ((m_info.Scale - 1) * x + 1);
+    if (isnan(res))
+    {
+        return 0;
+    }
+    return res;
 }
 void Curve_cst::clac_span()
 {
@@ -158,7 +164,7 @@ double Curve_list::get(double x)
     double y1 = m_list[0].getY();
     for (size_t i = 1; i < m_list.size(); i++)
     {
-        if (x <= m_list[i].getX())
+        if (x <= m_list[i].getX() + 1e-5) // +1e-5避免网格计算出现1.000002这样的误差
         {
             x0 = m_list[i - 1].getX();
             x1 = m_list[i].getX();
@@ -167,7 +173,12 @@ double Curve_list::get(double x)
             break;
         }
     }
-    return y0 + (y1 - y0) * (x - x0) / (x1 - x0);//??????
+    const double res = y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+    if (isnan(res))
+    {
+        cout << "Curve_list::get(double x) 返回了错误的数值！nan" << endl;
+    }
+    return res;//??????
 }
 void Curve_list::clac_span()
 {
@@ -293,4 +304,5 @@ void GuideFunc::translate(Point& p, const double eta)const
     p.setY(res_mat(1) + p.getY());
     p.setZ(res_mat(2) + p.getZ());
     p += coordinate_position;
+    
 }

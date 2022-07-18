@@ -12,7 +12,9 @@ using namespace arma;
 class StructPart
 {
 public:
-	StructPart(vector<PointSet> node_2D);
+	StructPart() = default;
+
+	StructPart(const vector<PointSet>& node_2d);
 	void setSite(mat siteX, mat siteZ) { this->siteX_2D = siteX;	this->siteZ_2D = siteZ; }
 	void setProperty(Property& p) { this->p = p; }
 	void setIsFixedMass(bool isFixedMass) { this->isFixedMass = isFixedMass; }
