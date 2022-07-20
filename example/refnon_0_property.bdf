@@ -14,5 +14,9 @@ $-- Property  --$
 PSHELL         7       2   0.051       1               1
 $-- Property  --$
 PSHELL         8       2   0.053       1               1
+$-- Property  --$
+PSHELL       100       2   0.051       1               1
+$-- Property  --$
+PSHELL       101       2   0.053       1               1
 MAT1           1 7.3e+10            0.33 2.8e+03
 MAT1           2 7.3e+10            0.33 2.8e+03

@@ -48,6 +48,9 @@ public:
 	mat elem_aero;	//气动壳单元
 	mat elem_strcX;	//结构壳单元 垂直于X方向的
 	mat elem_strcZ;	//结构壳单元 垂直于Z方向的
+
+	double x_T_ratio{1};	// 结构最后翼根梁、翼肋的参数系数
+	double z_T_ratio{1};	// 结构最后翼根梁、翼肋的参数系数
 	//
 	int getnumi() { return numi; }
 	int getnumj() { return numj; }
@@ -72,6 +75,8 @@ private:
 	int numi;
 	int numj;
 	int numk;
+
+
 };
 //整个飞行器2d结构类
 class Struct2D

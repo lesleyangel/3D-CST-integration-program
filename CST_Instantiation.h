@@ -145,7 +145,7 @@ public:
 	int NFaiU, NFaiL, NEta, NHeight;	//网格数
 	vector<vector<double>> BUPP, BLOW, DUPP, DLOW;//侧向表面控制因子
 	int GridRefineType;
-	int Struct2dXnum, Struct2dZnum;
+	double Struct2dXnum, Struct2dZnum;
 	bool ifUseMid;//是否生成中间的连接网格(默认为1存在)
 
 	SW1();

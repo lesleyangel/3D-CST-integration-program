@@ -24,11 +24,11 @@ public:
 	double Ratio;			//形状因子过渡系数
 	//------------------网格参数--------------------
 	size_t n_fai_u{10};				// 输入的上表面横向网格数
-	double fai_u_block_size{0.200};	// 上表面网格块数量
+	double fai_u_block_size{0.100500};	// 上表面网格块数量
 	size_t n_fai_l{10};				// 输入的上表面横向网格数
-	double fai_l_block_size{0.200};	// 下表面网格块数量
+	double fai_l_block_size{0.100500};	// 下表面网格块数量
 	size_t n_eta{13};				// 输入的上表面横向网格数
-	double eta_block_size{0.25000001};	// 轴向网格块数量
+	double eta_block_size{0.0499};	// 轴向网格块数量
 	size_t NFaiU;				// 上表面横向网格数
 	size_t NFaiL;				// 下表面横向网格数
 	size_t NEta;				// 轴向网格数

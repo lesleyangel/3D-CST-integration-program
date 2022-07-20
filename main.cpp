@@ -852,6 +852,15 @@ int main(int argc, char *argv[])
 	cout << "$----------------------------------------$\n";
 	cout << std::flush;
 
+
+	for (size_t i = 8; i < 9; i++)
+	{
+		const string filepath = "F:\\find_escape_lib_boom_check\\test\\inpSW" + to_string(i) + ".cst";
+		Aircraft B;
+		B.setEXEworkPath(exePath);
+		int state = B.RunFromFile(filepath);
+	}
+
 	Aircraft A;
 
 	A.setEXEworkPath(exePath);

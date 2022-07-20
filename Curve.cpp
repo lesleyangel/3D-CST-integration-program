@@ -29,9 +29,9 @@ double Curve::get_normal(double x)
 double Curve::get_diff(double x)
 {
     double dx = 0.01;
-    if (x<0 || x> 1)
+    if (x<0 || x> 1.00001)
     {
-        cout << "输入了错误的自变量参数：x = " << x << endl;
+        cout << "Curve::get_diff(double x) 输入了错误的自变量参数：x = " << x << endl;
         return -100000;
     }
     else if (x > (1-dx))

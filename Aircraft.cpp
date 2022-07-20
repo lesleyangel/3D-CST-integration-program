@@ -349,6 +349,8 @@ void Aircraft::CalcStruct2D()
 			StructPart SP(sf.node_2D);//传入网格信息
 			SP.setProperty(m_property);//设置材料属性
 			SP.setIsFixedMass(this->isStruct2D_FixedMass);//设置是否固定质量
+			SP.x_T_ratio = eta_T_ratio; // 设置末处结构梁、翼肋的参数系数
+			SP.z_T_ratio = fai_T_ratio; // 设置末处结构梁、翼肋的参数系数
 			SP.setSite(x_site, z_site);//设置eta/fai方向网格序列
 			SP.calcStructPart(sf.Origin, sf.Rotation);//设置网格平移和旋转
 

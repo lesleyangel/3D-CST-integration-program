@@ -1,0 +1,7 @@
+CLsurf     = 0.44141
+CDsurf     = 0.0157
+CL/CD      = 28.1153
+MaxStress  = 4e+08
+MaxStrain  = 0
+MaxDisp    = 0
+MaxTwisting= 10

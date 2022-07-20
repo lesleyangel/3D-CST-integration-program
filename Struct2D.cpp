@@ -127,11 +127,12 @@ void StructPart::calcElem()
 			{
 				elem_aero(elemID, 4) = j / PIDnum;//第五列代表材料属性编号PID
 			}
-			
-			mat area = cross(node.row(((size_t)elem_aero(elemID, 0))).cols(0, 2), node.row(((size_t)elem_aero(elemID, 1))).cols(0, 2))
-				+ cross(node.row(((size_t)elem_aero(elemID, 1))).cols(0, 2), node.row(((size_t)elem_aero(elemID, 2))).cols(0, 2))
-				+ cross(node.row(((size_t)elem_aero(elemID, 2))).cols(0, 2), node.row(((size_t)elem_aero(elemID, 3))).cols(0, 2))
-				+ cross(node.row(((size_t)elem_aero(elemID, 3))).cols(0, 2), node.row(((size_t)elem_aero(elemID, 0))).cols(0, 2));//在四边形四个点弯曲程度不高时可以使用此公式
+
+			mat area =
+				cross(node.row(((size_t)elem_aero(elemID, 0))).cols(0, 2), node.row(((size_t)elem_aero(elemID, 1))).cols(0, 2)) +
+				cross(node.row(((size_t)elem_aero(elemID, 1))).cols(0, 2), node.row(((size_t)elem_aero(elemID, 2))).cols(0, 2)) +
+				cross(node.row(((size_t)elem_aero(elemID, 2))).cols(0, 2), node.row(((size_t)elem_aero(elemID, 3))).cols(0, 2)) +
+				cross(node.row(((size_t)elem_aero(elemID, 3))).cols(0, 2), node.row(((size_t)elem_aero(elemID, 0))).cols(0, 2)); //在四边形四个点弯曲程度不高时可以使用此公式
 			double S = Point(area).Norm2() / 2.0;
 			elem_aero(elemID, 5) = S;//第六列代表单元面积
 			elemID++;
@@ -178,14 +179,21 @@ void StructPart::calcElem()
 	{
 		ps_list[PID + 1].T = ps_list[PID + 1].T * (double)20 / (double)siteX_2D.n_elem;
 	}
+	//
+	const int rib_end_id = 99;
+	PSHELL p_rib_end = p.getPSHELL(PID+1);
+	p_rib_end.T *= x_T_ratio;
+	p_rib_end.PID = rib_end_id + 1;
+	p.add_PSHRLL(move(p_rib_end));
 
+	
+	//
 	for (size_t jid = 0; jid < siteX_2D.n_elem; jid++)//每一根结构梁
 	{
+		PID = (jid == siteX_2D.n_elem - 2) ? rib_end_id : 6;
 		int j = (int)siteX_2D(jid);
 		if (j == numj)
-		{
 			j = numj - 1;
-		}
 		if (0 <= j && j < numj)
 		{
 			for (int i = 0; i < numi - 1; i++)
@@ -197,10 +205,11 @@ void StructPart::calcElem()
 					elem_strcX((size_t)elemID, 2) = getPointID(i + 1, j, k + 1);	node((size_t)elem_strcX(elemID, 2), 3) = 1;
 					elem_strcX((size_t)elemID, 3) = getPointID(i, j, k + 1);		node((size_t)elem_strcX(elemID, 3), 3) = 1;
 					elem_strcX((size_t)elemID, 4) = PID;//第五列代表材料属性编号
-					mat area = cross(node.row(((size_t)elem_strcX(elemID, 0))).cols(0, 2), node.row(((size_t)elem_strcX(elemID, 1))).cols(0, 2))
-						+ cross(node.row(((size_t)elem_strcX(elemID, 1))).cols(0, 2), node.row(((size_t)elem_strcX(elemID, 2))).cols(0, 2))
-						+ cross(node.row(((size_t)elem_strcX(elemID, 2))).cols(0, 2), node.row(((size_t)elem_strcX(elemID, 3))).cols(0, 2))
-						+ cross(node.row(((size_t)elem_strcX(elemID, 3))).cols(0, 2), node.row(((size_t)elem_strcX(elemID, 0))).cols(0, 2));//在四边形四个点弯曲程度不高时可以使用此公式
+					mat area =
+						cross(node.row(((size_t)elem_strcX(elemID, 0))).cols(0, 2), node.row(((size_t)elem_strcX(elemID, 1))).cols(0, 2)) +
+						cross(node.row(((size_t)elem_strcX(elemID, 1))).cols(0, 2), node.row(((size_t)elem_strcX(elemID, 2))).cols(0, 2)) +
+						cross(node.row(((size_t)elem_strcX(elemID, 2))).cols(0, 2), node.row(((size_t)elem_strcX(elemID, 3))).cols(0, 2)) +
+						cross(node.row(((size_t)elem_strcX(elemID, 3))).cols(0, 2), node.row(((size_t)elem_strcX(elemID, 0))).cols(0, 2)); //在四边形四个点弯曲程度不高时可以使用此公式
 					double S = Point(area).Norm2() / 2.0;
 					elem_strcX(elemID, 5) = S;//第六列代表单元面积
 					elemID++;
@@ -217,9 +226,14 @@ void StructPart::calcElem()
 	{
 		ps_list[PID + 1].T = ps_list[PID + 1].T * (double)2 / (double)siteZ_2D.n_elem;
 	}
+	const int spar_end_id = 100;
+	PSHELL p_spar_end = p.getPSHELL(PID+1);
+	p_spar_end.T *= z_T_ratio;
+	p_spar_end.PID = spar_end_id + 1;
+	p.add_PSHRLL(move(p_spar_end));
 	for (size_t iid = 0; iid < siteZ_2D.n_elem; iid++)//每一根结构梁
 	{
-
+		PID = (iid == siteZ_2D.n_elem - 1) ? spar_end_id : 7;
 		int i = (int)siteZ_2D(iid);
 		if (0 <= i && i <= numi)
 		{
@@ -232,10 +246,11 @@ void StructPart::calcElem()
 					elem_strcZ((size_t)elemID, 2) = getPointID(i, j + 1, k + 1);	node((size_t)elem_strcZ(elemID, 2), 3) = 1;
 					elem_strcZ((size_t)elemID, 3) = getPointID(i, j, k + 1);		node((size_t)elem_strcZ(elemID, 3), 3) = 1;
 					elem_strcZ((size_t)elemID, 4) = PID;//第五列代表材料属性编号
-					mat area = cross(node.row(((size_t)elem_strcZ(elemID, 0))).cols(0, 2), node.row(((size_t)elem_strcZ(elemID, 1))).cols(0, 2))
-						+ cross(node.row(((size_t)elem_strcZ(elemID, 1))).cols(0, 2), node.row(((size_t)elem_strcZ(elemID, 2))).cols(0, 2))
-						+ cross(node.row(((size_t)elem_strcZ(elemID, 2))).cols(0, 2), node.row(((size_t)elem_strcZ(elemID, 3))).cols(0, 2))
-						+ cross(node.row(((size_t)elem_strcZ(elemID, 3))).cols(0, 2), node.row(((size_t)elem_strcZ(elemID, 0))).cols(0, 2));//在四边形四个点弯曲程度不高时可以使用此公式
+					mat area =
+						cross(node.row(((size_t)elem_strcZ(elemID, 0))).cols(0, 2), node.row(((size_t)elem_strcZ(elemID, 1))).cols(0, 2)) +
+						cross(node.row(((size_t)elem_strcZ(elemID, 1))).cols(0, 2), node.row(((size_t)elem_strcZ(elemID, 2))).cols(0, 2)) +
+						cross(node.row(((size_t)elem_strcZ(elemID, 2))).cols(0, 2), node.row(((size_t)elem_strcZ(elemID, 3))).cols(0, 2)) +
+						cross(node.row(((size_t)elem_strcZ(elemID, 3))).cols(0, 2), node.row(((size_t)elem_strcZ(elemID, 0))).cols(0, 2)); //在四边形四个点弯曲程度不高时可以使用此公式
 					double S = Point(area).Norm2() / 2.0;
 					elem_strcZ(elemID, 5) = S;//第六列代表单元面积
 					elemID++;
@@ -432,6 +447,13 @@ int StructPart::calcAeroForce_AVL(string aeroPath, string exepath)
 	{
 		num++;
 		ai.Nspanwise++;
+		// vector<AVLInfo::AVLSectionInfo> new_section_info(ai.sectionInfo.size() / 2);
+		// for (size_t n = 0; n < ai.sectionInfo.size() / 2; n++)
+		// {
+		// 	new_section_info[n] = ai.sectionInfo[n * 2];
+		// }
+		// if((ai.sectionInfo.size() - 1) / 2 * 2 != ai.sectionInfo.size() - 1)
+		// 	new_section_info.push_back(ai.sectionInfo[ai.sectionInfo.size() - 1]);
 		as.setAVLInfo(ai);
 		as.printCommand(aeroPath);
 		as.CalcAero();
@@ -491,13 +513,13 @@ double StructPart::calcMass()
 	for (size_t i = 0; i < elem_strcX.n_rows; i++)
 	{
 		PID = (int)elem_strcX(i, 4) + 1;
-		MID = p.getPSHELL((int)elem_strcX(i, 4)).MID;
+		MID = p.getPSHELL(PID).MID;
 		MassTotal += elem_strcX(i, 5) * p.getPSHELL(PID).T * p.getMAT1(MID).RHO;
 	}
 	for (size_t i = 0; i < elem_strcZ.n_rows; i++)
 	{
 		PID = (int)elem_strcZ(i, 4) + 1;
-		MID = p.getPSHELL((int)elem_strcZ(i, 4)).MID;
+		MID = p.getPSHELL(PID).MID;
 		MassTotal += elem_strcZ(i, 5) * p.getPSHELL(PID).T * p.getMAT1(MID).RHO;
 	}
 	return MassTotal;
@@ -755,8 +777,11 @@ void StructPart::SaveAsNastran(string fileName, int SOL)
 		ID++;
 		if (node(i, 3) == 1)
 		{
-			ofs << "GRID*   " << setw(16) << ID << setw(32) << node(i, 0)
-				<< setw(16) << node(i, 1) << setw(8) << ID << endl;
+			ofs << "GRID*   "
+				<< setw(16) << ID
+				<< setw(32) << node(i, 0)
+				<< setw(16) << node(i, 1)
+				<< setw(8) << ID << endl;
 			ofs << "*" << setw(7) << ID << setw(16) << node(i, 2) << endl;
 
 			//----------------node force----------------
@@ -764,11 +789,15 @@ void StructPart::SaveAsNastran(string fileName, int SOL)
 			if (it != node_f.end() && it->second.Norm1() > 1e-4)
 			{
 				//return it->second;
-				ofs2 << "FORCE*  " << setw(16) << SID << setw(16) << ID << setw(16) << 0 << setw(16) << 1.0 << "*" << endl;
+				ofs2 << "FORCE*  "
+					 << setw(16) << SID
+					 << setw(16) << ID
+					 << setw(16) << 0
+					 << setw(16) << 1.0 << "*" << endl;
 				ofs2 << "*       "
-					<< setw(16) << it->second.getX()
-					<< setw(16) << it->second.getY()
-					<< setw(16) << it->second.getZ() << endl;
+					 << setw(16) << it->second.getX()
+					 << setw(16) << it->second.getY()
+					 << setw(16) << it->second.getZ() << endl;
 			}
 		}
 	}
@@ -808,13 +837,16 @@ void StructPart::SaveAsNastran(string fileName, int SOL)
 	{
 		//EID++;
 		PID = (int)elem_aero(i, 4) + 1;
-		ofs << "CQUAD4  " << setw(8) << ++EID << setw(8) << PID
+		ofs << "CQUAD4  "
+			<< setw(8) << ++EID
+			<< setw(8) << PID
 			<< setw(8) << (int)elem_aero(i, 0) + 1
 			<< setw(8) << (int)elem_aero(i, 1) + 1
 			<< setw(8) << (int)elem_aero(i, 2) + 1
 			<< setw(8) << (int)elem_aero(i, 3) + 1 << endl;
 	}
-	for (size_t i = 0; i < elem_strcX.n_rows; i++)//结构壳单元
+
+	for (size_t i = 0; i < elem_strcX.n_rows; i++)//结构壳单元 翼肋
 	{
 		//EID++;
 		PID = (int)elem_strcX(i, 4) + 1;
@@ -822,7 +854,9 @@ void StructPart::SaveAsNastran(string fileName, int SOL)
 		if (nodeID.n_elem == 3)
 		{
 			mat equallist = uniqueMat::isPointEqual(trans(elem_strcX.row(i).cols(0, 3)));
-			ofs << "CTRIA3  " << setw(8) << ++EID << setw(8) << PID;
+			ofs << "CTRIA3  "
+				<< setw(8) << ++EID
+				<< setw(8) << PID;
 			for (size_t id = 0; id < 4; id++)
 			{
 				if (equallist(id) == id)
@@ -834,7 +868,9 @@ void StructPart::SaveAsNastran(string fileName, int SOL)
 		}
 		else
 		{
-			ofs << "CQUAD4  " << setw(8) << ++EID << setw(8) << PID
+			ofs << "CQUAD4  "
+				<< setw(8) << ++EID
+				<< setw(8) << PID
 				<< setw(8) << (int)elem_strcX(i, 0) + 1
 				<< setw(8) << (int)elem_strcX(i, 1) + 1
 				<< setw(8) << (int)elem_strcX(i, 2) + 1
@@ -842,21 +878,16 @@ void StructPart::SaveAsNastran(string fileName, int SOL)
 		}
 
 	}
-	for (size_t i = 0; i < elem_strcZ.n_rows; i++)//结构壳单元
+	for (size_t i = 0; i < elem_strcZ.n_rows; i++)//结构壳单元 翼梁
 	{
-		//EID++;
 		PID = (int)elem_strcZ(i, 4) + 1;
-		ofs << "CQUAD4  " << setw(8) << ++EID << setw(8) << PID
+		ofs << "CQUAD4  "
+			<< setw(8) << ++EID
+			<< setw(8) << PID
 			<< setw(8) << (int)elem_strcZ(i, 0) + 1
 			<< setw(8) << (int)elem_strcZ(i, 1) + 1
 			<< setw(8) << (int)elem_strcZ(i, 2) + 1
 			<< setw(8) << (int)elem_strcZ(i, 3) + 1 << endl;
-		//cout << "CQUAD4  " << setw(8) << ++EID << setw(8) << PID
-		//	<< setw(8) << (int)elem_strcZ(i, 0) + 1
-		//	<< setw(8) << (int)elem_strcZ(i, 1) + 1
-		//	<< setw(8) << (int)elem_strcZ(i, 2) + 1
-		//	<< setw(8) << (int)elem_strcZ(i, 3) + 1 << endl;
-		//int dw = 1;
 	}
 
 	//----------------property----------------

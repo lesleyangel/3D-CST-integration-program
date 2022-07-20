@@ -1,6 +1,6 @@
 $----------------------------------------$
 $                                        $
-$      三维CST气动结构一体化生成程序     $
+$       3D CST intgration program        $
 $         Design by YANG yucheng         $
 $                                        $
 $----------------------------------------$
@@ -19,11 +19,10 @@ BEGIN INPUT
  StructBDF,fon
  Struct2D_FixedMass,fon
  Struct2D_Tec, fon
- Struct2D_AeroStruct,fon
+ Struct2D_AeroStruct,on
  Struct2D_LDratio,fon
- Struct2D_TotalMass,fon
+ Struct2D_TotalMass,on
  Struct2D_Nas,on
-
 END INPUT
 
 
@@ -42,9 +41,9 @@ $ Nouter,           0.5, 0.5, 0.5, 0.5,
  TipRootRatio,     0.5
  SweepBackAngle,   17.2
  Thickness,        5.3
- NFaiU,            15
- NFaiL,            15
- NEta,             30
+ NFaiU,            30
+ NFaiL,            30
+ NEta,             50
  NHeight,          5
  BLOW,             0.296125327936364; 0.152261346975261; 0.199474092611929; 0.159920899106979; 0.150599577548070; 0.141841811723393; 0.155909894933452; 0.118224386070716; 0.0956252106969699; 0.0454031408150760;
  BUPP,             0.157975102978019; 0.143022249322143; 0.181493822537429; 0.244414366208326; 0.305750351027568; 0.164326972778428; 0.681037242259306; 0.364134185717018; 0.102897639010954; 0.246939304818005;
@@ -52,8 +51,8 @@ $ Nouter,           0.5, 0.5, 0.5, 0.5,
  DLOW,             1;
  GridRefineType,   -1
  ifUseMid,         0
- Struct2dXnum,     20
- Struct2dZnum,     2
+ Struct2dXnum,     10
+ Struct2dZnum,     5
 *End
 
 *Property

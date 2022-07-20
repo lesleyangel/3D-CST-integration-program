@@ -92,6 +92,18 @@ void Property::SetPBARLList(map<int, PBARL> p_list)
 	this->pbarl_list = p_list;
 }
 
+int_fast16_t Property::add_PSHRLL(PSHELL&& ps)
+{
+	map<int, PSHELL>::iterator it = pshell_list.find(ps.PID);
+	if (it != pshell_list.end())
+	{
+		cout << "Property::add_PSHRLL(PSHELL&& ps) 输入的id属性已经存在！" << endl;
+		return -1;
+	}
+	pshell_list.insert(pair<int, PSHELL>(ps.PID, ps));
+	return 0;
+}
+
 void Property::readFromFile(ifstream& ifs)
 {
 	map<int, PSHELL> ps_list;
@@ -211,7 +223,7 @@ PSHELL Property::getPSHELL(int PID)
 	}
 	else
 	{
-		cout << "PSHELL已越界 已自动补齐新的PID！请检查pshell_list" << endl;
+		cout << "PSHELL已越界 已自动补齐新的PID = " << PID << "！请检查pshell_list" << endl;
 		PSHELL temp;
 		temp.PID = PID;
 		temp.MID = 1;

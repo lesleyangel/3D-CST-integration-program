@@ -88,7 +88,7 @@ CSTsurface::CSTsurface()
 	MeshNumCorrection();
 
 	//?????????งา???FaiU??FaiL??Eta
-	GetNet();
+	// GetNet();
 
 	BonePoint.clear();
 }
@@ -203,6 +203,7 @@ void CSTsurface::CST3D()
 	PUPP = SketchCST(FaiU, EtaU, class_upp, BUPP, DUPP, Ratio, N1mUPP, N2mUPP);
 	PLOW = SketchCST(FaiL, EtaL, class_low, BLOW, DLOW, Ratio, N1mLOW, N2mLOW);
 
+	
 	//????????
 	//GridRefine();
 

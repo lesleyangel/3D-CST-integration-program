@@ -53,3 +53,9 @@ add_custom_command(
 #         $<TARGET_FILE_DIR:BarcodeReader>)
 #     endif()
 # endif()
+
+# cmake --build .\Build       cmake生成文件
+# cmake --build .\Build --config Debug
+# cmake --build c:/Users/yycab/Desktop/database/c++/CST/build --config Debug --target ALL_BUILD -j 18 --
+# "C:\Program Files\CMake\bin\cmake.EXE" --build c:/Users/yycab/Desktop/database/c++/CST/build --config Debug --target ALL_BUILD -j 18 --
+# "C:\Program Files\CMake\bin\cmake.EXE" --build c:/Users/yycab/Desktop/database/c++/CST/build --config Debug --target CST -j 18 --

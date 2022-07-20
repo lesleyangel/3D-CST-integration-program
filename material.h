@@ -70,6 +70,7 @@ public:
 	void SetPSHELLList(map<int, PSHELL> pshell_list);// { this->pshell_list = pshell_list; }
 	void SetPBARLList(map<int, PBARL> pbarl_list);// { this->pbarl_list = pbarl_list; }
 	void SetMAT1List(map<int, MAT1> mat1_list);// { this->mat1_list = mat1_list; }
+	int add_PSHRLL(PSHELL &&ps);
 	map<int, PSHELL> getPSHELLlist() { return pshell_list; }
 	PSHELL getPSHELL(int PID);
 	PBARL getPBARL(int PID);
