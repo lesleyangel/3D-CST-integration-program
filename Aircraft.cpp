@@ -24,6 +24,7 @@ Aircraft::Aircraft()
 	isStruct2D_Tec = false;
 	isStruct2D_Nas = false;
 	isStruct2D_AeroStruct = false;
+	isStruct2D_Struct101 = false;
 	isStruct2D_LDratio = false;
 	isStruct2D_TotalMass = false;
 	isStruct2D_FixedMass = false;
@@ -91,8 +92,10 @@ void Aircraft::SaveTecPlotAll(string name)
 inline void Aircraft::compareKeyWords(stringstream& ss, string str, bool& keywords)
 {
 	getline(ss, str, ',');
-	if (!str.compare("on"))	keywords = true;
-	else keywords = false;
+	if (!str.compare("on"))	
+		keywords = true;
+	else 
+		keywords = false;
 }
 
 void Aircraft::SaveToClac(string path)
@@ -201,7 +204,7 @@ int Aircraft::AeroStrcStruct2D(int XSnum, int ZSnum, CSTsurface& surf, double& S
 	SP.setSite(Xsite, Zsite);
 	SP.calcStructPart(surf.Origin, surf.Rotation);
 	s2d.PartList.push_back(SP);
-	int state = s2d.AeroelasticAnalysis(docPath + Name, exePath);
+	int state = s2d.AeroelasticAnalysis(docPath + Name, exePath, 10);
 	Stress = s2d.PartList[0].MaxElemStress.second;
 	Disp = s2d.PartList[0].MaxNodeDisp.second.getY();
 	Twist = s2d.PartList[0].MaxTwisting;
@@ -582,6 +585,7 @@ int Aircraft::RunFromFile(string path)
 				else if (!str_line.compare("Struct2D_Tec"))			compareKeyWords(ss, str_tmp, isStruct2D_Tec);
 				else if (!str_line.compare("Struct2D_Nas"))			compareKeyWords(ss, str_tmp, isStruct2D_Nas);
 				else if (!str_line.compare("Struct2D_AeroStruct"))	compareKeyWords(ss, str_tmp, isStruct2D_AeroStruct);
+				else if (!str_line.compare("Struct2D_Struct101"))	compareKeyWords(ss, str_tmp, isStruct2D_Struct101);
 				else if (!str_line.compare("Struct2D_LDratio"))		compareKeyWords(ss, str_tmp, isStruct2D_LDratio);
 				else if (!str_line.compare("Struct2D_TotalMass"))	compareKeyWords(ss, str_tmp, isStruct2D_TotalMass);
 				else if (!str_line.compare("Struct2D_FixedMass"))	compareKeyWords(ss, str_tmp, isStruct2D_FixedMass);
@@ -645,7 +649,7 @@ int Aircraft::RunFromFile(string path)
 		struct1d.SaveAsAbaqus(docPath + Name + "_strc1d.inp");// + "/"
 	}
 	//-------------------------Struct2D--------------------------------
-	if (isStruct2D_Tec || isStruct2D_AeroStruct || isStruct2D_LDratio || isStruct2D_TotalMass || isStruct2D_Nas)
+	if (isStruct2D_Tec || isStruct2D_AeroStruct || isStruct2D_LDratio || isStruct2D_TotalMass || isStruct2D_Nas || isStruct2D_Struct101)
 	{
 		CalcStruct2D();
 	}
@@ -665,9 +669,13 @@ int Aircraft::RunFromFile(string path)
 	{
 		struct2d.AeroAnalysis(docPath + Name, exePath);
 	}
+	if (isStruct2D_Struct101)
+	{
+		struct2d.AeroelasticAnalysis(docPath + Name, exePath, 1);//最大循环1次
+	}
 	if (isStruct2D_AeroStruct)
 	{
-		struct2d.AeroelasticAnalysis(docPath + Name, exePath);
+		struct2d.AeroelasticAnalysis(docPath + Name, exePath, 10);//最大循环10次
 	}
 	if (isStruct2D_FixedMass)
 	{

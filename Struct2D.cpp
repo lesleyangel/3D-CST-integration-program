@@ -3,6 +3,7 @@
 #include"Struct2D.h"
 #include "myNastran.h"
 #include "interpolation.h"
+#include "NasPrinter.h"
 #define pi 3.1415926
 
 StructPart::StructPart(const vector<PointSet>& node_2d):node_2D(node_2d)
@@ -447,6 +448,7 @@ int StructPart::calcAeroForce_AVL(string aeroPath, string exepath)
 	{
 		num++;
 		ai.Nspanwise++;
+		ai.sectionInfo.erase(ai.sectionInfo.end() - 2);
 		// vector<AVLInfo::AVLSectionInfo> new_section_info(ai.sectionInfo.size() / 2);
 		// for (size_t n = 0; n < ai.sectionInfo.size() / 2; n++)
 		// {
@@ -969,6 +971,277 @@ void StructPart::SaveAsNastran(string fileName, int SOL)
 	cout << "struct-2D网格(*.BDF)导出完成！(SOL = " << SOL << ")" << endl;
 }
 
+void StructPart::SaveAsNastran1(string fileName, int SOL)
+{
+	NasPrinter np;
+
+	// ofstream ofs, ofs1, ofs2;
+	// ofs.open(fileName + "_mesh.bdf", ios::trunc);
+	// ofs1.open(fileName + "_property.bdf", ios::trunc);
+	// ofs2.open(fileName + "_force.bdf", ios::out);
+	// string names = fileName.substr(fileName.find_last_of("/") + 1);
+	// ofs << fixed << setprecision(8);//设置输出精度为8
+	// ofs1 << showpoint << setprecision(2);//强制输出小数点
+	// ofs2 << fixed << setprecision(5);//设置输出精度为5
+	int ID = 0;//节点编号
+	int EID = 0;//单元编号
+	int PID = 0;//截面or壳单元属性编号
+	int SID = 1;//载荷or约束工况编号
+
+	//-----------------------------单元节点信息----------------------------------
+	//----------------node----------------
+	for (size_t i = 0; i < node.n_rows; i++)
+	{
+		ID++;
+		if (node(i, 3) == 1)
+		{
+			// ofs << "GRID*   "
+			// 	<< setw(16) << ID
+			// 	<< setw(32) << node(i, 0)
+			// 	<< setw(16) << node(i, 1)
+			// 	<< setw(8) << ID << endl;
+			// ofs << "*" << setw(7) << ID << setw(16) << node(i, 2) << endl;
+			np.addGRID(ID, 0, {node(i, 0), node(i, 1), node(i, 2)});
+
+			//----------------node force----------------
+			map<int, Point>::iterator it = node_f.find(ID);
+			if (it != node_f.end() && it->second.Norm1() > 1e-4)
+			{
+				//return it->second;
+				// ofs2 << "FORCE*  "
+				// 	 << setw(16) << SID
+				// 	 << setw(16) << ID
+				// 	 << setw(16) << 0
+				// 	 << setw(16) << 1.0 << "*" << endl;
+				// ofs2 << "*       "
+				// 	 << setw(16) << it->second.getX()
+				// 	 << setw(16) << it->second.getY()
+				// 	 << setw(16) << it->second.getZ() << endl;
+				np.addFORCE(SID, ID, 0, 1.0, it->second);
+			}
+		}
+	}
+	int SID_F_all = 1;
+	//位移约束添加
+	int SID_SPC = 2;
+	int SPC1num = numi * 2 - 2;
+	vector<int> spc_list(0);
+	spc_list.reserve(SPC1num + siteZ_2D.n_elem * (numk - 1));
+	for (int n = 0; n < SPC1num; n++)//翼根处蒙皮的约束
+	{
+		int i, j, k;
+		if (n < numi)//shangbiaomian
+		{
+			i = n; k = 0; j = 0;
+		}
+		else
+		{
+			i = n - numi + 1; k = numk - 1; j = 0;
+		}
+		spc_list.push_back(ijk2ID(i, j, k, numi, numj, numk) + 1);
+	}
+
+	for (size_t m = 0; m < siteZ_2D.n_elem; m++)//翼梁的个数
+	{
+		int firstID = elem_strcZ.n_rows * m / siteZ_2D.n_elem;//第n根梁的第一个单元的单元id
+		for (int k = 0; k < numk - 1; k++)
+		{
+			int n = SPC1num + m * (numk - 1) + k;//书接上文循环中的n
+			spc_list.push_back((int)elem_strcZ(firstID + k, 3) + 1);
+		}
+	}
+	np.addSPC1(SID_SPC, 123456, spc_list);
+	// ofs2 << "SPC1    " << setw(8) << SID_SPC << setw(8) << "123456";
+	
+	// for (int n = 0; n < SPC1num; n++)//翼根处蒙皮的约束
+	// {
+	// 	int i, j, k;
+	// 	if (n < numi)//shangbiaomian
+	// 	{
+	// 		i = n; k = 0; j = 0;
+	// 	}
+	// 	else
+	// 	{
+	// 		i = n - numi + 1; k = numk - 1; j = 0;
+	// 	}
+	// 	ofs2 << setw(8) << ijk2ID(i, j, k, numi, numj, numk) + 1;
+	// 	if (n % 8 == 5)	ofs2 << endl << "        ";
+	// }
+
+	// for (size_t m = 0; m < siteZ_2D.n_elem; m++)//翼梁的个数
+	// {
+	// 	int firstID = elem_strcZ.n_rows * m / siteZ_2D.n_elem;//第n根梁的第一个单元的单元id
+	// 	for (int k = 0; k < numk - 1; k++)
+	// 	{
+	// 		int n = SPC1num + m * (numk - 1) + k;//书接上文循环中的n
+	// 		ofs2 << setw(8) << (int)elem_strcZ(firstID + k, 3) + 1;
+	// 		if (n % 8 == 5)	ofs2 << endl << "        ";
+	// 	}
+	// }
+
+	//----------------element----------------
+	for (size_t i = 0; i < elem_aero.n_rows; i++)//气动壳单元
+	{
+		//EID++;
+		PID = (int)elem_aero(i, 4) + 1;
+		np.addCQUAD4(
+			++EID,
+			PID,
+			(int)elem_aero(i, 0) + 1,
+			(int)elem_aero(i, 1) + 1,
+			(int)elem_aero(i, 2) + 1,
+			(int)elem_aero(i, 3) + 1);
+		// ofs << "CQUAD4  "
+		// 	<< setw(8) << ++EID
+		// 	<< setw(8) << PID
+		// 	<< setw(8) << (int)elem_aero(i, 0) + 1
+		// 	<< setw(8) << (int)elem_aero(i, 1) + 1
+		// 	<< setw(8) << (int)elem_aero(i, 2) + 1
+		// 	<< setw(8) << (int)elem_aero(i, 3) + 1 << endl;
+	}
+
+	for (size_t i = 0; i < elem_strcX.n_rows; i++)//结构壳单元 翼肋
+	{
+		//EID++;
+		PID = (int)elem_strcX(i, 4) + 1;
+		mat nodeID = unique(elem_strcX.row(i).cols(0, 3));
+		if (nodeID.n_elem == 3)
+		{
+			mat equallist = uniqueMat::isPointEqual(trans(elem_strcX.row(i).cols(0, 3)));
+			np.ssMesh << "CTRIA3  "
+				<< setw(8) << ++EID
+				<< setw(8) << PID;
+			for (size_t id = 0; id < 4; id++)
+			{
+				if (equallist(id) == id)
+				{
+					np.ssMesh << setw(8) << (int)elem_strcX(i, id) + 1;
+				}
+			}
+			np.ssMesh << endl;
+		}
+		else
+		{
+			np.addCQUAD4(
+				++EID,
+				PID,
+				(int)elem_strcX(i, 0) + 1,
+				(int)elem_strcX(i, 1) + 1,
+				(int)elem_strcX(i, 2) + 1,
+				(int)elem_strcX(i, 3) + 1);
+		}
+
+	}
+	for (size_t i = 0; i < elem_strcZ.n_rows; i++)//结构壳单元 翼梁
+	{
+		PID = (int)elem_strcZ(i, 4) + 1;
+		np.addCQUAD4(
+				++EID,
+				PID,
+				(int)elem_strcZ(i, 0) + 1,
+				(int)elem_strcZ(i, 1) + 1,
+				(int)elem_strcZ(i, 2) + 1,
+				(int)elem_strcZ(i, 3) + 1);
+		// ofs << "CQUAD4  "
+		// 	<< setw(8) << ++EID
+		// 	<< setw(8) << PID
+		// 	<< setw(8) << (int)elem_strcZ(i, 0) + 1
+		// 	<< setw(8) << (int)elem_strcZ(i, 1) + 1
+		// 	<< setw(8) << (int)elem_strcZ(i, 2) + 1
+		// 	<< setw(8) << (int)elem_strcZ(i, 3) + 1 << endl;
+	}
+
+	//----------------property----------------
+	for (auto it = p.getPSHELLlist().begin(); it != p.getPSHELLlist().end(); it++)
+	{
+		np.addPSHELL((*it).second);
+	}
+	for (auto it = p.getMAT1List().begin(); it != p.getMAT1List().end(); it++)
+	{
+		np.addMAT1((*it).second);
+	}
+	// p.printPSHELL_all(ofs1);
+	// p.printMAT1_all(ofs1);
+
+	//--------------------------------------------------
+	ofstream ofs3;
+	switch (SOL)
+	{
+	case 101:
+		// ofs3.open(fileName + "_Header.bdf", ios::trunc);
+		//执行控制部分
+		//ofs3 << "NASTRAN parallel=8" << endl;//对应组合工况的SID
+		np.ssHeader << "SOL 101" << endl;
+		//工况控制命令
+		np.ssHeader << "CEND" << endl;
+		np.ssHeader << "TITLE = MSC.Nastran job for Single StructPart" << endl;
+		np.ssHeader << "ECHO = NONE" << endl;
+		np.ssHeader << "SUBCASE 1" << endl;//第一个工况
+		np.ssHeader << "   SUBTITLE=Default" << endl;
+		np.ssHeader << "   LOAD = " << SID_F_all << endl;//对应组合工况的SID
+		np.ssHeader << "   SPC  = " << SID_SPC << endl;//对应组合工况的SID
+
+		np.ssHeader << "   STRESS(SORT1,PUNCH,REAL,VONMISES,BILIN)=ALL" << endl;//输出单元应力 ,PUNCH
+		//ofs3 << "   STRAIN(SORT1,PUNCH,REAL,VONMISES,BILIN)=ALL" << endl;//
+		np.ssHeader << "   DISPLACEMENT(SORT1,PUNCH,REAL)=ALL" << endl;//
+		 //ofs3 << "   DISPLACEMENT(SORT1,REAL)=ALL" << endl;//
+		//BEGIN BULK
+		np.ssHeader << "$$------------------------------------------------------------------------------$" << endl;
+		np.ssHeader << "$$                                Bulk Data Cards                               $" << endl;
+		np.ssHeader << "$$------------------------------------------------------------------------------$" << endl;
+		np.ssHeader << "BEGIN BULK" << endl;
+		np.ssHeader << "PARAM   POST     0" << endl;//生成'.XBD'类型可视化文件
+		np.ssHeader << "PARAM   PRTMAXIM YES" << endl;
+		//ofs3 << "PARAM,INREL,-2" << endl;//定义惯性释放
+
+		// np.ssHeader << "include '" << (names + "_mesh.bdf") << "'" << endl;//头文件内部使用相对路径
+		// np.ssHeader << "include '" << (names + "_property.bdf") << "'" << endl;//头文件内部使用相对路径
+		// np.ssHeader << "include '" << (names + "_force.bdf") << "'" << endl;//头文件内部使用相对路径
+		np.ssHeader << "ENDDATA" << endl;
+		break;
+
+	case 105://屈曲分析
+		// ofs3.open(fileName + "_Header.bdf", ios::trunc);
+		//执行控制部分
+		np.ssHeader << "SOL 105" << endl;
+		np.ssHeader << "TIME 10000" << endl;
+		//工况控制命令
+		np.ssHeader << "CEND" << endl;
+		np.ssHeader << "TITLE = MSC.Nastran job for Single StructPart" << endl;
+		np.ssHeader << "ECHO = NONE" << endl;
+		np.ssHeader << "SPC  = " << SID_SPC << endl;//对应组合工况的SID
+		np.ssHeader << "SUBCASE 1" << endl;//第一个工况
+		np.ssHeader << "   LOAD = " << SID_F_all << endl;//对应组合工况的SID
+		np.ssHeader << "SUBCASE 2" << endl;//第二个工况
+		np.ssHeader << "   METHOD = 10" << endl;
+		np.ssHeader << "$$------------------------------------------------------------------------------$" << endl;
+		np.ssHeader << "$$                                Bulk Data Cards                               $" << endl;
+		np.ssHeader << "$$------------------------------------------------------------------------------$" << endl;
+		np.ssHeader << "BEGIN BULK" << endl;
+		np.ssHeader << "PARAM   POST     0" << endl;//生成'.XBD'类型可视化文件
+		np.ssHeader << "PARAM   PRTMAXIM YES" << endl;
+		// np.ssHeader << "include '" << (names + "_mesh.bdf") << "'" << endl;//头文件内部使用相对路径
+		// np.ssHeader << "include '" << (names + "_property.bdf") << "'" << endl;//头文件内部使用相对路径
+		// np.ssHeader << "include '" << (names + "_force.bdf") << "'" << endl;//头文件内部使用相对路径
+		np.ssHeader << "EIGRL   10                      5" << endl;//模态输出控制关键字 输出前五阶模态
+		np.ssHeader << "ENDDATA" << endl;
+		break;
+
+	default:
+		cout << "当前nastran求解类型为：" << SOL << "，输入错误，位于void StructPart::SaveAsNastran(string fileName)" << endl;
+		break;
+	}
+	// ofs.close();
+	// ofs1.close();
+	// ofs2.close();
+	// ofs3.close();
+	string::size_type iPos = (fileName.find_last_of('\\') + 1) == 0 ? fileName.find_last_of('/') + 1 : fileName.find_last_of('\\') + 1;
+	const string datapath = fileName.substr(0, iPos);//获取文件路径
+	const string names = fileName.substr(iPos);
+	np.PrintBDF(datapath, names, NasPrinter::onefile);
+	cout << "struct-2D网格(*.BDF)导出完成！(SOL = " << SOL << ")" << endl;
+}
+
 int StructPart::printAeroCalcMesh(string filepath)
 {
 	ofstream ofs;
@@ -1134,9 +1407,9 @@ int Struct2D::AeroAnalysis(string fileName, string exepath)
 	return 0;
 }
 
-int Struct2D::AeroelasticAnalysis(string fileName, string exepath)
+int Struct2D::AeroelasticAnalysis(string fileName, string exepath, const int iteration_num)
 {
-	const int maxIterationNum = 10;//最大静气弹迭代次数
+	//const int maxIterationNum = iteration_num;//最大静气弹迭代次数
 	//for (int i = 0; i < 1; i++)
 	int i = 0;
 	{
@@ -1174,18 +1447,28 @@ int Struct2D::AeroelasticAnalysis(string fileName, string exepath)
 
 
 			int updatestate = PartList[i].updateDispNode(nas.GetDisplacements());
-			if (updatestate == 1)
-			{
+			bool if_convergent = false;
+			if (iteration_num == 1)
+			{// 如果最大迭代次数为1 则一步直接输出结果
+				if_convergent = true;
+			}
+			else if (updatestate == 1)
+			{// 否则判断收敛性
 				cout << "迭代未收敛；已迭代次数 = " << iterationNum << endl;
 			}
-			else if (iterationNum > maxIterationNum)
-			{
+			else if (iterationNum > iteration_num)
+			{// 若迭代次数超过最大迭代次数限制，输出假结果
 				cout << "迭代已超过最大迭代次数；已迭代次数 = " << iterationNum << endl;
 				//返回错误结果的离谱值
 				PartList[i].printAnalysisRes(fileName + "_" + to_string(i) + "_A&S_Res.txt", true);
 				break;
 			}
 			else
+			{
+				if_convergent = true;
+			}
+			// 是否输出结果并退出分析
+			if (if_convergent)
 			{
 				////多余的添加 屈曲分析
 				//PartList[i].SaveAsNastran(fileName + "_" + to_string(i) + "_105", 105);
@@ -1196,8 +1479,10 @@ int Struct2D::AeroelasticAnalysis(string fileName, string exepath)
 				//nas105.NastranCalc();
 				////return -2;//计算完成一轮之后暂时退出，不进行循环
 				////
-
-				cout << "迭代已收敛！迭代次数 = " << iterationNum << endl;
+				if (iteration_num == 1)
+					cout << "静力分析完成！ 迭代次数 = 1" << endl;
+				else
+					cout << "迭代已收敛！迭代次数 = " << iterationNum << endl;
 
 				//读取数据
 				bool isOnlyReadDisp = false;//读取节点位移、单元应变和应力数据

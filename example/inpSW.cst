@@ -27,6 +27,7 @@ END INPUT
 
 
 
+
 $添加一个机翼
 *ShapeWing1
  $Origin,          12.741,            -0.579,                       1.178
@@ -51,8 +52,8 @@ $ Nouter,           0.5, 0.5, 0.5, 0.5,
  DLOW,             1;
  GridRefineType,   -1
  ifUseMid,         0
- Struct2dXnum,     10
- Struct2dZnum,     5
+ Struct2dXnum,     20
+ Struct2dZnum,     2
 *End
 
 *Property

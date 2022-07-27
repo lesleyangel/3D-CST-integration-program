@@ -71,7 +71,8 @@ public:
 	void SetPBARLList(map<int, PBARL> pbarl_list);// { this->pbarl_list = pbarl_list; }
 	void SetMAT1List(map<int, MAT1> mat1_list);// { this->mat1_list = mat1_list; }
 	int add_PSHRLL(PSHELL &&ps);
-	map<int, PSHELL> getPSHELLlist() { return pshell_list; }
+	const map<int, PSHELL> &getPSHELLlist() { return pshell_list; }
+	const map<int, MAT1> &getMAT1List() { return mat1_list; }
 	PSHELL getPSHELL(int PID);
 	PBARL getPBARL(int PID);
 	MAT1 getMAT1(int MID);

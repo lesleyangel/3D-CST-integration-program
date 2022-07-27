@@ -27,6 +27,7 @@ public:
 	int calcAeroForce_AVL(string aeroPath, string exepath);
 	double calcMass();
 	void SaveAsNastran(string fileName, int SOL);
+	void SaveAsNastran1(string fileName, int SOL);
 	static int ijk2ID(int i, int j, int k, int numi, int numj, int numk);//用于计算三阶张量拉直后的id
 	int updateNode(const map<int, Point&> Displacements);
 	string name;	//部件结构名
@@ -88,6 +89,6 @@ public:
 	int SaveAsTecplot(string dataname);//输出Tecplot格式
 	int SaveAsNastran(string fileName, int SOL);//输出Nastran格式
 	int AeroAnalysis(string fileName, string exepath);
-	int AeroelasticAnalysis(string fileName, string exepath);//静气动弹性迭代分析计算
+	int AeroelasticAnalysis(string fileName, string exepath, const int iteration_num); //静气动弹性迭代分析计算
 	double CalcTotalMass(string outputFilePath = "");
 };

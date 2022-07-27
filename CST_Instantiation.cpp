@@ -774,8 +774,16 @@ void ShapeWing1::BuildShape()
 	(*Righ).T = { 0,0,0,0 };
 	(*Righ).Is_MeshFront = 0;
 	(*Righ).Is_MeshBack = 0;// = 1;
-	(*Righ).Struct2dXnum = m_Wing1.Struct2dXnum;
-	(*Righ).Struct2dZnum = m_Wing1.Struct2dZnum;
+	//
+	(*Righ).fai_u_block_size = 1.0 / (m_Wing1.Struct2dZnum+1);
+	(*Righ).fai_l_block_size = 1.0 / (m_Wing1.Struct2dZnum+1);
+	(*Righ).eta_block_size = 1.0 / (m_Wing1.Struct2dXnum-1);
+	(*Righ).n_fai_u = (size_t)(m_Wing1.NFaiU / m_Wing1.Struct2dZnum);
+	(*Righ).n_fai_l = (size_t)(m_Wing1.NFaiL / m_Wing1.Struct2dZnum);
+	(*Righ).n_eta = (size_t)(m_Wing1.NEta / m_Wing1.Struct2dXnum);
+	//
+	// (*Righ).Struct2dXnum = m_Wing1.Struct2dXnum;
+	// (*Righ).Struct2dZnum = m_Wing1.Struct2dZnum;
 	copyM(m_Wing1.BUPP, (*Righ).BUPP);
 	copyM(m_Wing1.BLOW, (*Righ).BLOW);
 	copyM(m_Wing1.DUPP, (*Righ).DUPP);

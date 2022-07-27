@@ -6,6 +6,7 @@ using namespace arma;
 
 struct CNomalInfo
 {
+    
     CNomalInfo() = default;
     CNomalInfo(size_t etanum, size_t fainum)
     {

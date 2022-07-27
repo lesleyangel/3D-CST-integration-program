@@ -13,14 +13,82 @@
 #define C_STR const std::string&
 #define C_VECTOR(type) const std::vector<type>&
 
-enum class OutputStyle
+
+class Printer
 {
-	onefile, multifile
+public:
+	void init(int size, int precision);
+	// template <class T>
+	// std::string to_str(const T &sth);
+	template <class T>
+	void add(const T &sth);
+	void add_usize(const int &usz);
+	template <class T>
+	void add(const std::vector<T> &vec);
+	template <class T1,class T2>
+	void add(const std::vector<pair<T1,T2>> &vec_pair);
+	static std::string double2str(const double& sth, int precision);
+	static std::string int2str(const int& n) { return std::to_string(n); }
+
+	std::vector<std::string> str_list;
+	int m_precision;
 };
+
+template <class T>
+void Printer::add(const T &chr)
+{
+	// cout << "Printer::to_str(const T &sth) 输入了错误的类型！" << endl;
+	str_list.push_back(chr);
+}
+template <>
+inline void Printer::add(const int &inn)
+{
+	str_list.push_back(std::to_string(inn));
+}
+template <>
+inline void Printer::add(const double &dou)
+{
+	str_list.push_back(double2str(dou, m_precision));
+}
+template <>
+inline void Printer::add(const std::string &str)
+{
+	str_list.push_back(str);
+}
+template <>
+inline void Printer::add(const Point &pot)
+{
+	add(pot.getX());
+	add(pot.getY());
+	add(pot.getZ());
+}
+template <class T>
+inline void Printer::add(const std::vector<T> &vec)
+{
+	for (size_t i = 0; i < vec.size(); i++)
+	{
+		add(vec[i]);
+	}
+}
+template <class T1,class T2>
+inline void Printer::add(const std::vector<pair<T1,T2>> &par)
+{
+	for (size_t i = 0; i < par.size(); i++)
+	{
+		add(par[i].first);
+		add(par[i].second);
+	}
+}
+//
 class NasPrinter
 {
 	typedef std::pair<double, int> DoubleIntPair;
 public:
+	enum OutputStyle
+	{//生成文件的style
+		onefile,   //单文件编写bdf
+		multifile, //多文件编写bdf
+	};
 	NasPrinter();
 	int PrintBDF(const std::string& path, const std::string& name, OutputStyle type = OutputStyle::onefile);
 
@@ -28,8 +96,7 @@ public:
 	void AddCardLong(std::ofstream& ofs, const std::vector<std::string>& words);
 	void AddCardShort(std::stringstream& ss, const std::vector<std::string>& words);//比直接ofstream快
 	void AddCardLong(std::stringstream& ss, const std::vector<std::string>& words);//比直接ofstream快
-	static std::string double2str(const double& db, int size);
-	static std::string int2str(const int& n) { return std::to_string(n); }
+
 	
 	std::stringstream ssHeader;
 	std::stringstream ssForce;
@@ -48,6 +115,8 @@ public:
 	void addFORCE(C_INT SID, C_INT G, C_INT CID, C_DOUBEL F, const Point& pt);//添加节点集中力
 	void addGRAV(C_INT SID, C_INT CID, C_DOUBEL A, C_DOUBEL N1, C_DOUBEL N2, C_DOUBEL N3);//添加惯性载荷
 	void addLOAD(C_INT SID, C_DOUBEL S, C_VECTOR(DoubleIntPair) LOADi);//添加静态组合载荷
+
+	void addSPC1(C_INT SID, C_INT C, C_VECTOR(int) Gi); // 添加单点约束
 	//材料及属性
 	void addPSHELL(const PSHELL& ps);
 	void addPBARL(const PBARL& pb);
@@ -71,7 +140,7 @@ private:
 	std::string m_path;
 	std::string m_Nmae;
 	std::string positiveInt2str(const int& n) { return (n < 0) ? "" : std::to_string(n); }//如果输入为负数则默认输出空
-
+	Printer m_print;
 };
 #undef C_INT
 #undef C_DOUBEL

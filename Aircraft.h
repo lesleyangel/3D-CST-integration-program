@@ -55,6 +55,7 @@ private:
 	bool isStruct2D_Tec;	//生成壳单元模型的Tecplot模型文件
 	bool isStruct2D_Nas;	//生成壳单元模型的Nastran分析文件
 	bool isStruct2D_AeroStruct;	//分析壳单元模型的静气动弹性并输出结果
+	bool isStruct2D_Struct101;	//分析壳单元模型的静力学并输出结果
 	bool isStruct2D_LDratio;	//分析壳单元模型的气动特性并输出结果
 	bool isStruct2D_TotalMass;	//分析壳单元模型的结构总质量并输出结果
 	bool isStruct2D_FixedMass;	//设置壳单元模型结构截面属性约束为质量固定

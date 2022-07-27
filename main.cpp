@@ -789,26 +789,9 @@ void test_curve()
 
 	Point res_p = gf.update_point(Point(0, 1, 0), 0.5);
 }
-// extern "C" {
-//      uint32_t addition(uint32_t, uint32_t);
-// }
-extern "C" {
-	void *creat(double);
-	double add1(void *);
-	void delete_ptr (void *);
-}
 
 int main1()
 {
-	// void *ptr = creat(3.14);
-	// double ress = add1(ptr);
-
-	// double x_1 = add1(ptr);
-	// double x_2 = add1(ptr);
-	// delete_ptr(move(ptr));
-	// // delete_ptr(ptr);
-	// double x_3 = add1(ptr);
-
 	Meshing ms;
 	int state = ms.calc_mesh(CBlockInfo());
 	// cout << ms.fai_mesh << endl;
@@ -839,7 +822,9 @@ int main(int argc, char *argv[])
 		datpath = argv[1]; //这里的路径必须是反斜杠才可以正确生成输出文件
 		break;
 	case 1:
-		datpath = "C:\\Users\\yycab\\Desktop\\database\\c++\\CST\\example\\inpSW.cst"; //
+		// datpath = "C:\\Users\\yycab\\Desktop\\database\\c++\\CST\\example\\inpSW.cst"; //
+		datpath = exePath + "/input.cst"; //
+		
 		break;
 	default:
 		cout << "错误的输入参数个数" << endl;
@@ -848,23 +833,18 @@ int main(int argc, char *argv[])
 
 	cout << "$----------------------------------------$\n";
 	cout << "$       3D-CST integration program       $\n";
-	cout << "$                 v5.0.1                 $\n";
+	cout << "$                 v5.1.1                 $\n";
 	cout << "$----------------------------------------$\n";
 	cout << std::flush;
 
-
-	for (size_t i = 8; i < 9; i++)
-	{
-		const string filepath = "F:\\find_escape_lib_boom_check\\test\\inpSW" + to_string(i) + ".cst";
-		Aircraft B;
-		B.setEXEworkPath(exePath);
-		int state = B.RunFromFile(filepath);
-	}
-
 	Aircraft A;
-
+	// datpath = "C:\\Users\\yycab\\Desktop\\database\\Isight_cst\\inputSingleWing.cst";
 	A.setEXEworkPath(exePath);
 	int state = A.RunFromFile(datpath);
-	//system("pause");
+	// if (state < 0)
+	// {
+	// 	system("pause");
+	// }
+	
 	return state;
 }
