@@ -19,8 +19,8 @@ symbol=LM_NO_SNMP=1 $(e:/nastran2020/conf/nast20200.rcf[11])
 symbol=MKL_INTERFACE_LAYER=ILP64 $(e:/nastran2020/conf/nast20200.rcf[1])
 symbol=SSSALTERDIR='e:/nastran2020/msc20200/nast/sssalter' $(program default)
 symbol=TPLDIR='e:/nastran2020/msc20200/nast/tpl' $(program default)
-SDIR='c:/scratch/refnon_0_header.T26452_53'
-DBS='c:/scratch/refnon_0_header.T26452_53'
+SDIR='c:/scratch/refnon_0_header.T5548_54'
+DBS='c:/scratch/refnon_0_header.T5548_54'
 SCR='yes'
 SMEM=100
 BPOOL=7298.2MB
@@ -50,32 +50,32 @@ FPE:         yes
 ----------------------------------------------------------------- 
 Current resource limits:
  Physical memory:                    15789 MB
- Physical memory available:           5761 MB
- Paging file size:                   29101 MB
- Paging file size available:          9359 MB
+ Physical memory available:           6484 MB
+ Paging file size:                   30125 MB
+ Paging file size available:         12081 MB
  Virtual memory:                 134217727 MB
- Virtual memory available:       134213508 MB
+ Virtual memory available:       134213509 MB
 ----------------------------------------------------------------- 
 System configuration:
  Hostname:         fe80::ccb7:219e:a59a:c0b7%12
  Architecture:     win64i8
  Platform:         AMD Windows 10 Home China 6.2 9200 (Windows Compute Cluster)
  Model:            AMD Ryzen 7 4800HS with Radeon
- Clock freq.:      18800 MHz
+ Clock freq.:      19494 MHz
  Number of CPUs:   16
  Executable:       standard
  Raw model ID:     15
  Config number:    15
  Physical memory:  15789 MB
- Virtual memory:   29101 MB
+ Virtual memory:   30125 MB
  Numeric format:   64-bit little-endian IEEE.
  Bytes per word:   8
  Disk block size:  512 bytes (64 words)
  Remote shell cmd: "e:/nastran2020/msc20200/win64i8/mscrmtcmd.exe" (Windows non-CCS nodes, UNIX)
                    <ccs_cmd> (Windows CCS nodes)
 ----------------------------------------------------------------- 
-MSC Nastran started  Wed Jul 20 21:31:54 ?D1迆㊣那℅?那㊣?? 2022 
- 21:31:54  Beginning Analysis
+MSC Nastran started  Fri Jul 29 22:43:55 ?D1迆㊣那℅?那㊣?? 2022 
+ 22:43:55  Beginning Analysis
 SCA Kernel 24.7.714370 successfully initialized
 BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\libimalloc.dll" has been loaded.
 BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\mkl_core.dll" has been loaded.
@@ -83,9 +83,9 @@ BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\mkl_intel_thread.dll" has been
 BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\mkl_rt.dll" has been loaded.
 BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\MSCblas.dll" has been loaded.
 
- 21:31:54  MSC Authorization Information - System Attributes (1004, 0)
- 21:31:54  -----------------------------------------------------------
-  Date:          Wed Jul 20 21:31:54 2022
+ 22:43:55  MSC Authorization Information - System Attributes (1004, 0)
+ 22:43:55  -----------------------------------------------------------
+  Date:          Fri Jul 29 22:43:55 2022
   MSC Id:        00ff7a38d3d1 (ethernet) (Intel)
   Hostname:      LAPTOP-1G3FKP51 (user yycab, display LAPTOP-1G3FKP51)
   License files: 27500@LAPTOP-1G3FKP51
@@ -103,43 +103,36 @@ BLAS/LAPACK .dll "e:\nastran2020\msc20200\win64i8\MSCblas.dll" has been loaded.
   * * * * * * * * * * * * * * * * * * * *
   * * * * * * * * * * * * * * * * * * * *
 
- 21:31:54  MSC Authorization Information - Checkout Successful (1016, 0)
- 21:31:54  -------------------------------------------------------------
- 21:31:54  Acquired 1 license for MSC Nastran from license server on host LAPTOP-1G3FKP51
+ 22:43:55  MSC Authorization Information - Checkout Successful (1016, 0)
+ 22:43:55  -------------------------------------------------------------
+ 22:43:55  Acquired 1 license for MSC Nastran from license server on host LAPTOP-1G3FKP51
 
 
 Beginning bulk data processing using the IFPStar component.
 For more information on IFPStar, please see KB article KB8019200
 on our support pages, at http://simcompanion.mscsoftware.com.
 
- 21:31:55  Reading INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_mesh.bdf"
- 21:31:55  15384 records read from INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_mesh.bdf"
- 21:31:55  Reading INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_property.bdf"
- 21:31:55  22 records read from INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_property.bdf"
- 21:31:55  Reading INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_force.bdf"
- 21:31:55  6636 records read from INCLUDE file "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_force.bdf"
- 21:31:55  20 records read from JID file "c:/users/yycab/desktop/database/c++/cst/example/refnon_0_header.bdf"
- 21:31:55  A total of 22062 records were read from 4 files.
+ 22:43:56  26926 records read from JID file "c:/users/yycab/desktop/database/c++/cst/example/refnon_0_header.bdf"
 
 Processing of bulk data entries is complete.
 
- 21:31:55  Analysis started.
- 21:31:55  Geometry access/verification to CAD part initiated (if needed).
- 21:31:55  Geometry access/verification to CAD part successfully completed (if needed).
- 21:31:55  Finite element model generation started.
- 21:31:55  Finite element model generated 29412 degrees of freedom.
- 21:31:55  Finite element model generation successfully completed.
- 21:31:55  Application of Loads and Boundary Conditions to the finite element model started.
- 21:31:55  Application of Loads and Boundary Conditions to the finite element model successfully completed.
- 21:31:56  Solution of the system equations for linear statics started.
- 21:31:56  Solution of the system equations for linear statics successfully completed.
- 21:31:57  Linear static analysis completed.
- 21:31:57  14 records read from JID file "c:/users/yycab/desktop/database/c++/cst/example/refnon_0_header.bdf"
- 21:31:57  NSEXIT: EXIT(0)
- 21:31:57  Analysis complete  0
-Real:        3.324 seconds ( 0:00:03.324)
-User:        2.000 seconds ( 0:00:02.000)
-Sys:         1.187 seconds ( 0:00:01.187)
+ 22:43:56  Analysis started.
+ 22:43:56  Geometry access/verification to CAD part initiated (if needed).
+ 22:43:56  Geometry access/verification to CAD part successfully completed (if needed).
+ 22:43:56  Finite element model generation started.
+ 22:43:56  Finite element model generated 37584 degrees of freedom.
+ 22:43:56  Finite element model generation successfully completed.
+ 22:43:56  Application of Loads and Boundary Conditions to the finite element model started.
+ 22:43:56  Application of Loads and Boundary Conditions to the finite element model successfully completed.
+ 22:43:57  Solution of the system equations for linear statics started.
+ 22:43:57  Solution of the system equations for linear statics successfully completed.
+ 22:43:59  Linear static analysis completed.
+ 22:43:59  14 records read from JID file "c:/users/yycab/desktop/database/c++/cst/example/refnon_0_header.bdf"
+ 22:43:59  NSEXIT: EXIT(0)
+ 22:43:59  Analysis complete  0
+Real:        4.572 seconds ( 0:00:04.572)
+User:        2.265 seconds ( 0:00:02.265)
+Sys:         1.921 seconds ( 0:00:01.921)
  ==================================================
  OS:                           6.2
  OEM ID:                       9
@@ -161,4 +154,4 @@ Sys:         1.187 seconds ( 0:00:01.187)
  Detailed performance information can be found in the 
  "MSC Nastran High Performance Computing User's Guide"
  =====================================================
-MSC Nastran finished Wed Jul 20 21:31:58 ?D1迆㊣那℅?那㊣?? 2022 
+MSC Nastran finished Fri Jul 29 22:44:00 ?D1迆㊣那℅?那㊣?? 2022 

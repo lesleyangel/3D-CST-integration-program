@@ -376,11 +376,14 @@ int StructPart::calcAeroForce(string aeroPath)
 
 int StructPart::calcAeroForce_AVL(string aeroPath, string exepath)
 {
+	
 	mat aero_node = (disp_node.n_rows == 0) ? node : disp_node;
 	//先创建截面
 	AVLInfo ai;
 	ai.sectionInfo.resize(numj);
-
+	// ofstream ofs;
+    // ofs.open("log_max_y.txt", ios::app);
+	// ofs << "---------------\n";
 	for (int j = 0; j < numj; j++)
 	{
 		AVLInfo::AVLSectionInfo &section = ai.sectionInfo[j];
@@ -416,12 +419,14 @@ int StructPart::calcAeroForce_AVL(string aeroPath, string exepath)
 			maxDanweiY = (maxDanweiY < abs(temp.getY() / section.Scale)) ? abs(temp.getY() / section.Scale) : maxDanweiY;
 			// section.pointList.push_back(temp / section.Scale);
 			section.pointList.push_back(temp);
-		}
+        }
+        // ofs << maxDanweiY << "\n";       
 		if (maxDanweiY > 0.3)
 		{
 			return -1;
 		}
-	}
+    }
+    // ofs.close();
 	//输入参数设置
 	
 	ai.Nchordwise = 20;
@@ -757,7 +762,7 @@ int StructPart::calcElemPress_AVL_refine(map<int, Point>& nf, const vector<vecto
 	return 0;
 }
 
-void StructPart::SaveAsNastran(string fileName, int SOL)
+void StructPart::SaveAsNastran1(string fileName, int SOL)
 {
 	ofstream ofs, ofs1, ofs2;
 	ofs.open(fileName + "_mesh.bdf", ios::trunc);
@@ -971,7 +976,7 @@ void StructPart::SaveAsNastran(string fileName, int SOL)
 	cout << "struct-2D网格(*.BDF)导出完成！(SOL = " << SOL << ")" << endl;
 }
 
-void StructPart::SaveAsNastran1(string fileName, int SOL)
+void StructPart::SaveAsNastran(string fileName, int SOL)
 {
 	NasPrinter np;
 
@@ -1151,10 +1156,13 @@ void StructPart::SaveAsNastran1(string fileName, int SOL)
 		// 	<< setw(8) << (int)elem_strcZ(i, 3) + 1 << endl;
 	}
 
-	//----------------property----------------
-	for (auto it = p.getPSHELLlist().begin(); it != p.getPSHELLlist().end(); it++)
+    //----------------property----------------
+    map<int,PSHELL> p_list = p.getPSHELLlist();
+	for (auto it = p_list.begin(); it != p_list.end(); it++)
 	{
-		np.addPSHELL((*it).second);
+        (*it).second.MID2 = 1; // 缺了这两行会出问题
+        (*it).second.MID3 = 1; // 之前的计算都使用了这两行 应该是添加了额外的刚度
+        np.addPSHELL((*it).second);
 	}
 	for (auto it = p.getMAT1List().begin(); it != p.getMAT1List().end(); it++)
 	{
@@ -1197,7 +1205,7 @@ void StructPart::SaveAsNastran1(string fileName, int SOL)
 		// np.ssHeader << "include '" << (names + "_mesh.bdf") << "'" << endl;//头文件内部使用相对路径
 		// np.ssHeader << "include '" << (names + "_property.bdf") << "'" << endl;//头文件内部使用相对路径
 		// np.ssHeader << "include '" << (names + "_force.bdf") << "'" << endl;//头文件内部使用相对路径
-		np.ssHeader << "ENDDATA" << endl;
+		// np.ssHeader << "ENDDATA" << endl;
 		break;
 
 	case 105://屈曲分析
@@ -1224,7 +1232,7 @@ void StructPart::SaveAsNastran1(string fileName, int SOL)
 		// np.ssHeader << "include '" << (names + "_property.bdf") << "'" << endl;//头文件内部使用相对路径
 		// np.ssHeader << "include '" << (names + "_force.bdf") << "'" << endl;//头文件内部使用相对路径
 		np.ssHeader << "EIGRL   10                      5" << endl;//模态输出控制关键字 输出前五阶模态
-		np.ssHeader << "ENDDATA" << endl;
+		// np.ssHeader << "ENDDATA" << endl;
 		break;
 
 	default:
@@ -1236,8 +1244,12 @@ void StructPart::SaveAsNastran1(string fileName, int SOL)
 	// ofs2.close();
 	// ofs3.close();
 	string::size_type iPos = (fileName.find_last_of('\\') + 1) == 0 ? fileName.find_last_of('/') + 1 : fileName.find_last_of('\\') + 1;
-	const string datapath = fileName.substr(0, iPos);//获取文件路径
-	const string names = fileName.substr(iPos);
+	string datapath = fileName.substr(0, iPos);//获取文件路径
+    string names = fileName.substr(iPos);
+    iPos = (names.find_last_of('\\') + 1) == 0 ? names.find_last_of('/') + 1
+                                               : names.find_last_of('\\') + 1;
+    datapath += names.substr(0, iPos);
+    names = names.substr(iPos);
 	np.PrintBDF(datapath, names, NasPrinter::onefile);
 	cout << "struct-2D网格(*.BDF)导出完成！(SOL = " << SOL << ")" << endl;
 }

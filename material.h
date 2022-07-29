@@ -26,6 +26,8 @@ public:
 	string name;
 	int PID;
 	int MID;//MID如果没有赋值则打印时默认输出PID;
+	int MID2{-1};
+	int MID3{-1};
 	double T;//厚度
 	void printPSHELL(ofstream& ofs);
 };

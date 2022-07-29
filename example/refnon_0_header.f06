@@ -174,7 +174,7 @@
   
       http://www.mscsoftware.com/Contents/Services/Training/
   
-1                                                                              JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE     1
+1                                                                              JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE     1
                                                                                                                                     
 0        N A S T R A N    F I L E    A N D    S Y S T E M    P A R A M E T E R    E C H O                                           
 0                                                                                                                                   
@@ -183,7 +183,7 @@
      $ SYSFIELD=SCR*(RAW=YES,BUFFIO=YES,WNUM=16,WSIZE=16MB) $(E:/NASTRAN2020/CONF/NAS
      $ SYSFIELD=DBALL(RAW=YES,BUFFIO=YES,WNUM=16,WSIZE=16MB) $(E:/NASTRAN2020/CONF/NA
      NASTRAN BUFFSIZE=32769 $(E:/NASTRAN2020/CONF/NAST20200.RCF[6])                  
-1                                                                              JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE     2
+1                                                                              JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE     2
                                                                                                                                     
 0        N A S T R A N    E X E C U T I V E    C O N T R O L    E C H O                                                             
 0                                                                                                                                   
@@ -191,7 +191,7 @@
                                                                                                                                     
      SOL 101                                                                                 
      CEND                                                                                    
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE     3
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE     3
                                                                                                                                     
 0                                                                                                                                   
 0                                        C A S E    C O N T R O L    E C H O                                                        
@@ -209,28 +209,16 @@
                  10      $$                                BULK DATA CARDS                                       
                  11      $$----------------------------------------------------------------------        --------
                  12      BEGIN BULK                                                                              
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE     4
-                                                                                                                                    
-0                                                                                                                                   
-                                              I N P U T   B U L K   D A T A   E C H O                                               
-                 ENTRY                                                                                                              
-                 COUNT        .   1  ..   2  ..   3  ..   4  ..   5  ..   6  ..   7  ..   8  ..   9  ..  10  .                      
-                              $INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_mesh.bdf"
-                              $END OF INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_mesh.bdf"
-                              $INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_property.bdf"
-                              $END OF INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_property.bdf"
-                              $INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_force.bdf"
-                              $END OF INCLUDE "c:\users\yycab\desktop\database\c++\cst\example\refnon_0_force.bdf"
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE     5
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE     4
                                                                                                                                     
 0                                                                                                                                   
                                         M O D E L   S U M M A R Y          BULK = 0
                                    ENTRY NAME        NUMBER OF ENTRIES
                                    ----------        -----------------
-                                       CQUAD4                     5500
-                                       CTRIA3                       80
-                                        FORCE                     3312
-                                         GRID                     4902
+                                       CQUAD4                     7164
+                                       CTRIA3                      160
+                                        FORCE                     3510
+                                         GRID                     6264
                                          MAT1                        2
                                         PARAM                        2
                                        PSHELL                       10
@@ -251,52 +239,97 @@
                              PLACED AFTER THE VALUE METRIC FOR THE TEST.
      A MAXIMUM OF        100 MAX INT. ANGLE (IA)   TOLERANCE LIMIT VIOLATIONS WILL BE IDENTIFIED BY THE FLAG "++++"
                              PLACED AFTER THE VALUE METRIC FOR THE TEST.
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE     6
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE     5
                                                                                                                                     
 0                                                                                                                                   
      TOLERANCE LIMITS ARE:     SKEW  =  10.00, IA(MAX) = 160.00 (++++ = LIMIT VIOLATED)
  ELEMENT TYPE    ID          SKEW ANGLE      MAX INT. ANGLE 
-    TRIA3        3381         2.42 ++++        97.09     
-    TRIA3        3382         2.44 ++++        94.65     
-    TRIA3        3383         2.46 ++++        92.19     
-    TRIA3        3384         2.47 ++++        89.72     
-    TRIA3        3525         2.42 ++++        97.09     
-    TRIA3        3526         2.44 ++++        94.65     
-    TRIA3        3527         2.46 ++++        92.19     
-    TRIA3        3528         2.47 ++++        89.72     
-    TRIA3        3669         2.42 ++++        97.09     
-    TRIA3        3670         2.44 ++++        94.65     
-    TRIA3        3671         2.46 ++++        92.19     
-    TRIA3        3672         2.47 ++++        89.72     
-    TRIA3        3813         2.42 ++++        97.09     
-    TRIA3        3814         2.44 ++++        94.65     
-    TRIA3        3815         2.46 ++++        92.19     
-    TRIA3        3816         2.47 ++++        89.72     
-    TRIA3        3957         2.42 ++++        97.09     
-    TRIA3        3958         2.44 ++++        94.65     
-    TRIA3        3959         2.46 ++++        92.19     
-    TRIA3        3960         2.47 ++++        89.72     
-    TRIA3        4101         2.42 ++++        97.09     
-    TRIA3        4102         2.44 ++++        94.65     
-    TRIA3        4103         2.46 ++++        92.19     
-    TRIA3        4104         2.47 ++++        89.72     
-    TRIA3        4245         2.42 ++++        97.09     
-    TRIA3        4246         2.44 ++++        94.65     
-    TRIA3        4247         2.46 ++++        92.19     
-    TRIA3        4248         2.47 ++++        89.72     
-    TRIA3        4389         2.42 ++++        97.09     
-    TRIA3        4390         2.44 ++++        94.65     
-    TRIA3        4391         2.46 ++++        92.19     
-    TRIA3        4392         2.47 ++++        89.72     
-    TRIA3        4533         2.42 ++++        97.09     
-    TRIA3        4534         2.44 ++++        94.65     
-    TRIA3        4535         2.46 ++++        92.19     
-    TRIA3        4536         2.47 ++++        89.72     
-    TRIA3        4677         2.42 ++++        97.09     
-    TRIA3        4678         2.44 ++++        94.65     
-    TRIA3        4679         2.46 ++++        92.19     
-    TRIA3        4680         2.47 ++++        89.72     
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE     7
+    TRIA3        3597         2.56 ++++        97.60     
+    TRIA3        3598         2.59 ++++        95.01     
+    TRIA3        3599         2.61 ++++        92.40     
+    TRIA3        3600         2.62 ++++        89.77     
+    TRIA3        3777         2.56 ++++        97.60     
+    TRIA3        3778         2.59 ++++        95.01     
+    TRIA3        3779         2.61 ++++        92.40     
+    TRIA3        3780         2.62 ++++        89.77     
+    TRIA3        3957         2.56 ++++        97.60     
+    TRIA3        3958         2.59 ++++        95.01     
+    TRIA3        3959         2.61 ++++        92.40     
+    TRIA3        3960         2.62 ++++        89.77     
+    TRIA3        4137         2.56 ++++        97.60     
+    TRIA3        4138         2.59 ++++        95.01     
+    TRIA3        4139         2.61 ++++        92.40     
+    TRIA3        4140         2.62 ++++        89.77     
+    TRIA3        4317         2.56 ++++        97.60     
+    TRIA3        4318         2.59 ++++        95.01     
+    TRIA3        4319         2.61 ++++        92.40     
+    TRIA3        4320         2.62 ++++        89.77     
+    TRIA3        4497         2.56 ++++        97.60     
+    TRIA3        4498         2.59 ++++        95.01     
+    TRIA3        4499         2.61 ++++        92.40     
+    TRIA3        4500         2.62 ++++        89.77     
+    TRIA3        4677         2.56 ++++        97.60     
+    TRIA3        4678         2.59 ++++        95.01     
+    TRIA3        4679         2.61 ++++        92.40     
+    TRIA3        4680         2.62 ++++        89.77     
+    TRIA3        4857         2.56 ++++        97.60     
+    TRIA3        4858         2.59 ++++        95.01     
+    TRIA3        4859         2.61 ++++        92.40     
+    TRIA3        4860         2.62 ++++        89.78     
+    TRIA3        5037         2.56 ++++        97.60     
+    TRIA3        5038         2.59 ++++        95.01     
+    TRIA3        5039         2.61 ++++        92.40     
+    TRIA3        5040         2.62 ++++        89.78     
+    TRIA3        5217         2.56 ++++        97.60     
+    TRIA3        5218         2.59 ++++        95.01     
+    TRIA3        5219         2.61 ++++        92.40     
+    TRIA3        5220         2.62 ++++        89.78     
+    TRIA3        5397         2.56 ++++        97.60     
+    TRIA3        5398         2.59 ++++        95.01     
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE     6
+                                                                                                                                    
+0                                                                                                                                   
+     TOLERANCE LIMITS ARE:     SKEW  =  10.00, IA(MAX) = 160.00 (++++ = LIMIT VIOLATED)
+ ELEMENT TYPE    ID          SKEW ANGLE      MAX INT. ANGLE 
+    TRIA3        5399         2.61 ++++        92.40     
+    TRIA3        5400         2.62 ++++        89.78     
+    TRIA3        5577         2.56 ++++        97.60     
+    TRIA3        5578         2.59 ++++        95.01     
+    TRIA3        5579         2.61 ++++        92.40     
+    TRIA3        5580         2.62 ++++        89.78     
+    TRIA3        5757         2.56 ++++        97.60     
+    TRIA3        5758         2.59 ++++        95.01     
+    TRIA3        5759         2.61 ++++        92.40     
+    TRIA3        5760         2.62 ++++        89.78     
+    TRIA3        5937         2.56 ++++        97.60     
+    TRIA3        5938         2.59 ++++        95.01     
+    TRIA3        5939         2.61 ++++        92.40     
+    TRIA3        5940         2.62 ++++        89.78     
+    TRIA3        6117         2.56 ++++        97.60     
+    TRIA3        6118         2.59 ++++        95.01     
+    TRIA3        6119         2.61 ++++        92.40     
+    TRIA3        6120         2.62 ++++        89.78     
+    TRIA3        6297         2.56 ++++        97.60     
+    TRIA3        6298         2.59 ++++        95.01     
+    TRIA3        6299         2.61 ++++        92.40     
+    TRIA3        6300         2.62 ++++        89.78     
+    TRIA3        6477         2.56 ++++        97.60     
+    TRIA3        6478         2.59 ++++        95.01     
+    TRIA3        6479         2.61 ++++        92.40     
+    TRIA3        6480         2.62 ++++        89.78     
+    TRIA3        6657         2.56 ++++        97.60     
+    TRIA3        6658         2.59 ++++        95.01     
+    TRIA3        6659         2.61 ++++        92.40     
+    TRIA3        6660         2.62 ++++        89.78     
+    TRIA3        6837         2.56 ++++        97.60     
+    TRIA3        6838         2.59 ++++        95.01     
+    TRIA3        6839         2.61 ++++        92.40     
+    TRIA3        6840         2.62 ++++        89.78     
+    TRIA3        7017         2.56 ++++        97.60     
+    TRIA3        7018         2.59 ++++        95.01     
+    TRIA3        7019         2.61 ++++        92.40     
+    TRIA3        7020         2.62 ++++        89.78     
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE     7
                                                                                                                                     
 0                                                                                                                                   
 
@@ -306,13 +339,13 @@
   ELEMENT        SKEW       ASPECT/     MINIMUM      MAXIMUM    SURFACE/FACE    OFFSET     EDGE POINT   EDGE POINT    JACOBIAN  
     TYPE       ANGLE      TAPER RATIO INTER. ANGLE INTER. ANGLE  WARP FACTOR    RATIO     LENGTH RATIO ANGLE LIMIT  DETERMINANT 
    QUAD4           0            0            0            0            0          N/A          N/A          N/A          N/A        
-   TRIA3          40          N/A          N/A            0          N/A          N/A          N/A          N/A          N/A        
+   TRIA3          80          N/A          N/A            0          N/A          N/A          N/A          N/A          N/A        
 
          N/A IN THE ABOVE TABLE INDICATES TESTS THAT ARE NOT APPLICABLE TO THE ELEMENT TYPE AND WERE NOT PERFORMED.
          FOR ALL ELEMENTS WHERE GEOMETRY TEST RESULTS HAVE EXCEEDED TOLERANCES,
 
-         TRIA3    ELEMENT ID     4533 PRODUCED SMALLEST SKEW ANGLE       OF       2.42 (TOLERANCE =       10.00).
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE     8
+         TRIA3    ELEMENT ID     7017 PRODUCED SMALLEST SKEW ANGLE       OF       2.56 (TOLERANCE =       10.00).
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE     8
                                                                                                                                     
 0                                                                                                                                   
  *** USER INFORMATION MESSAGE 7310 (VECPRN)
@@ -322,38 +355,38 @@
 0                                                  OLOAD    RESULTANT       
   SUBCASE/    LOAD
   DAREA ID    TYPE       T1            T2            T3            R1            R2            R3
-0        1     FX   -8.403378E+03     ----          ----          ----      -1.063024E+05 -2.701565E+03                             
-               FY       ----       4.921590E+05     ----      -7.167126E+06     ----       8.320035E+05                             
+0        1     FX   -7.099684E+03     ----          ----          ----      -7.279902E+04 -2.835253E+03                             
+               FY       ----       5.139004E+05     ----      -7.417686E+06     ----       8.338813E+05                             
                FZ       ----          ----       0.000000E+00  0.000000E+00  0.000000E+00     ----                                  
                MX       ----          ----          ----       0.000000E+00     ----          ----                                  
                MY       ----          ----          ----          ----       0.000000E+00     ----                                  
                MZ       ----          ----          ----          ----          ----       0.000000E+00                             
-             TOTALS -8.403378E+03  4.921590E+05  0.000000E+00 -7.167126E+06 -1.063024E+05  8.293019E+05
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE     9
+             TOTALS -7.099684E+03  5.139004E+05  0.000000E+00 -7.417686E+06 -7.279902E+04  8.310460E+05
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE     9
                                                                                                                                     
 0                                                                                                            SUBCASE 1              
   
  *** SYSTEM INFORMATION MESSAGE 4159 (DFMSA)
-     THE DECOMPOSITION OF KLL      YIELDS A MAXIMUM MATRIX-TO-FACTOR-DIAGONAL RATIO OF    1.329990E+04
+     THE DECOMPOSITION OF KLL      YIELDS A MAXIMUM MATRIX-TO-FACTOR-DIAGONAL RATIO OF    1.487586E+04
  *** USER INFORMATION MESSAGE 5293 (SSG3A)
     FOR DATA BLOCK KLL     
     LOAD SEQ. NO.             EPSILON              EXTERNAL WORK      EPSILONS LARGER THAN 0.001 ARE FLAGGED WITH ASTERISKS
-                1         -3.1594210E-09          1.5546799E+05
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE    10
+                1         -1.6799176E-09          2.3241783E+05
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE    10
                                                                                                                                     
 0                                                                                                                                   
 0                                                  MAXIMUM  DISPLACEMENTS   
   SUBCASE/
   DAREA ID        T1             T2             T3             R1             R2             R3
-0        1   2.8643129E-02  1.7656084E+00  2.8669569E-02  2.4059881E-01  6.7582512E-03  2.6397877E-01
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE    11
+0        1   4.8255452E-02  2.6274379E+00  4.2537740E-02  1.3094756E-01  2.8402556E-03  1.3709541E-01
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE    11
                                                                                                                                     
 0                                                                                                                                   
 0                                                  MAXIMUM  APPLIED LOADS   
   SUBCASE/
   DAREA ID        T1             T2             T3             R1             R2             R3
-0        1   2.9611210E+02  6.4056513E+02  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
-1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  20, 2022  MSC Nastran  5/ 1/20   PAGE    12
+0        1   3.4990835E+02  6.2527922E+02  0.0000000E+00  0.0000000E+00  0.0000000E+00  0.0000000E+00
+1    MSC.NASTRAN JOB FOR SINGLE STRUCTPART                                     JULY  29, 2022  MSC Nastran  5/ 1/20   PAGE    12
                                                                                                                                     
 0                                                                                                                                   
  * * * *  D B D I C T   P R I N T  * * * *      SUBDMAP = PRTSUM  ,  DMAP STATEMENT NO.     71

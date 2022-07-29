@@ -822,7 +822,7 @@ int main(int argc, char *argv[])
 		datpath = argv[1]; //这里的路径必须是反斜杠才可以正确生成输出文件
 		break;
 	case 1:
-		// datpath = "C:\\Users\\yycab\\Desktop\\database\\c++\\CST\\example\\inpSW.cst"; //
+		
 		datpath = exePath + "/input.cst"; //
 		
 		break;
@@ -837,7 +837,8 @@ int main(int argc, char *argv[])
 	cout << "$----------------------------------------$\n";
 	cout << std::flush;
 
-	Aircraft A;
+    Aircraft A;
+    datpath = "C:\\Users\\yycab\\Desktop\\database\\c++\\CST\\example\\inpSW.cst"; //
 	// datpath = "C:\\Users\\yycab\\Desktop\\database\\Isight_cst\\inputSingleWing.cst";
 	A.setEXEworkPath(exePath);
 	int state = A.RunFromFile(datpath);
